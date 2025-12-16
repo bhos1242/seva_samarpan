@@ -6,7 +6,6 @@ import { MapPin } from "lucide-react";
 import React, { useCallback, useEffect, useState } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import PlacesAutocomplete, {
-  geocodeByPlaceId,
   Suggestion,
 } from "react-places-autocomplete";
 import Select from "react-select";
@@ -26,7 +25,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [hasAttemptedAutoDetection, setHasAttemptedAutoDetection] =
     useState(false);
-  const [userDisabledAutoDetection, setUserDisabledAutoDetection] =
+  const [_userDisabledAutoDetection] =
     useState(false);
 
   // Auto-location detection functions
@@ -190,8 +189,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
       // Prevent multiple attempts and infinite loops
       if (
         hasAttemptedAutoDetection ||
-        fieldValueAddress ||
-        userDisabledAutoDetection
+        fieldValueAddress
       ) {
         return;
       }
@@ -230,7 +228,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
             types: [],
           },
         ]);
-      } catch (error) {
+      } catch (_error) {
         // Gracefully handle location detection fallback
         setLocationError("Please enter manually");
       } finally {
@@ -243,7 +241,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
     hasAttemptedAutoDetection,
     fieldValueAddress,
     handleFieldChange1,
-    userDisabledAutoDetection,
+
   ]);
 
   // Simplified: Only handle initial empty state setup
