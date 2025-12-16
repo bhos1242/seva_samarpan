@@ -74,7 +74,7 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Monthly Bookings</CardTitle>
           </CardHeader>
-          <CardContent className="h-[300px]">
+          <CardContent className="h-75">
             <BarChart
               data={bookingsData}
               dataKey="bookings"
@@ -88,7 +88,7 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Revenue Trend</CardTitle>
           </CardHeader>
-          <CardContent className="h-[300px]">
+          <CardContent className="h-75">
             <LineChart
               data={revenueData}
               dataKey="revenue"
