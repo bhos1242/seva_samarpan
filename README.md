@@ -2,119 +2,246 @@
 
 A blazing-fast Next.js 16 starter template optimized for hackathons. Ship fast, win big!
 
-## ⚡ Quick Start
+## ⚡ What's Inside
+
+### 🎨 **Pre-built Dashboard**
+- ✅ Full sidebar layout with navigation
+- ✅ Stats cards with trends and icons
+- ✅ Interactive charts (Bar, Line, Pie, Area)
+- ✅ Data tables with sorting, filtering, pagination
+- ✅ Example pages (Users, Settings, Analytics)
+
+### 🧩 **Reusable Components**
+| Component | Description | Usage |
+|-----------|-------------|-------|
+| `StatsCard` | KPI cards with icons and trends | Dashboard metrics |
+| `DataTable` | Tables with @tanstack/react-table | User lists, bookings |
+| `StatusBadge` | Colored status indicators | Order status, user status |
+| `EmptyState` | No-data placeholders with CTAs | Empty lists |
+| `SearchFilter` | Search + filter dropdowns | Data filtering |
+| `Charts` | Bar, Line, Pie, Area charts | Analytics |
+
+### 🎯 **Pre-installed shadcn/ui**
+Button, Card, Input, Label, Dialog, Form, Textarea, Select, Badge, Avatar, Separator, Dropdown, Skeleton, Sonner, Table, Tabs, Sheet, Progress, Switch, Slider
+
+### 🔐 **Auth Ready**
+- Auth.js v5 with Google & GitHub providers
+- Session management with NextAuth
+- Protected routes ready
+
+### 🗄️ **Database**
+- Prisma ORM with PostgreSQL
+- User, Account, Session models pre-configured
+- Prisma Accelerate ready
+
+### 🌙 **Theme Support**
+- Dark mode with next-themes
+- Theme toggle component
+- Customizable color schemes
+
+---
+
+## 📦 Quick Start
 
 ```bash
-# 1. Clone and install
+# 1. Install dependencies
 pnpm install
 
 # 2. Set up environment
 cp .env.example .env
-# Edit .env with your values
+# Edit .env with your credentials
 
 # 3. Generate Prisma client
 pnpm prisma generate
 
-# 4. Push database schema (or migrate)
+# 4. Push database schema
 pnpm prisma db push
 
-# 5. Start development
+# 5. Start dev server
 pnpm dev
 ```
 
-## 🎁 What's Included
+---
 
-### Core
-- ⚡ **Next.js 16** with App Router & Turbopack
-- 🎨 **Tailwind CSS v4** + **shadcn/ui** (new-york style)
-- 🔐 **Auth.js v5** with Google & GitHub providers
-- 🗄️ **Prisma ORM** with PostgreSQL
-- 📝 **TypeScript** + **Zod** validation
-- 🌙 **Dark mode** with next-themes
-
-### Pre-installed Components
-- Button, Card, Input, Label, Dialog, Form
-- Textarea, Select, Badge, Avatar
-- Separator, Dropdown Menu, Skeleton
-- Sonner (toast notifications)
-
-### App Structure
-- `loading.tsx` - Global loading state
-- `error.tsx` - Error boundary with retry
-- `not-found.tsx` - Custom 404 page
-- `navbar.tsx` - Responsive navbar with auth
-- `footer.tsx` - Simple footer
-- `actions/` - Server actions template
-
-## 🔧 Environment Variables
-
-Copy `.env.example` to `.env` and fill in:
-
-```env
-DATABASE_URL="your-postgres-url"
-AUTH_SECRET="openssl rand -base64 32"
-GOOGLE_CLIENT_ID="from-google-console"
-GOOGLE_CLIENT_SECRET="from-google-console"
-GITHUB_CLIENT_ID="from-github-settings"
-GITHUB_CLIENT_SECRET="from-github-settings"
-```
-
-## 📁 Project Structure
+## 🏗️ Project Structure
 
 ```
 ├── app/
-│   ├── api/auth/[...nextauth]/  # Auth API routes
-│   ├── layout.tsx               # Root layout with providers
-│   ├── page.tsx                 # Landing page
-│   ├── loading.tsx              # Loading UI
-│   ├── error.tsx                # Error UI
-│   └── not-found.tsx            # 404 UI
+│   ├── (auth)/               # Auth pages (sign-in, sign-up)
+│   ├── dashboard/            # Dashboard routes
+│   │   ├── layout.tsx        # Dashboard sidebar layout
+│   │   ├── page.tsx          # Dashboard home
+│   │   ├── users/            # Users management
+│   │   ├── settings/         # Settings page
+│   │   └── analytics/        # Analytics (add your own)
+│   ├── api/auth/             # Auth API routes
+│   ├── layout.tsx            # Root layout
+│   ├── page.tsx              # Landing page
+│   ├── loading.tsx           # Global loading
+│   ├── error.tsx             # Error boundary
+│   └── not-found.tsx         # 404 page
 ├── components/
-│   ├── ui/                      # shadcn/ui components
-│   ├── navbar.tsx               # Navigation
-│   ├── footer.tsx               # Footer
-│   ├── theme-provider.tsx       # Theme context
-│   ├── theme-toggle.tsx         # Dark mode toggle
-│   └── providers.tsx            # Session provider
+│   ├── ui/                   # shadcn/ui components
+│   ├── charts.tsx            # Chart components (recharts)
+│   ├── data-table.tsx        # Generic data table
+│   ├── stats-card.tsx        # KPI card component
+│   ├── status-badge.tsx      # Status indicators
+│   ├── empty-state.tsx       # No-data placeholder
+│   ├── search-filter.tsx     # Search with filters
+│   ├── dashboard-sidebar.tsx # Dashboard navigation
+│   ├── navbar.tsx            # Main navbar
+│   ├── footer.tsx            # Footer
+│   ├── theme-provider.tsx    # Theme context
+│   ├── theme-toggle.tsx      # Dark mode toggle
+│   └── providers.tsx         # Auth provider
 ├── lib/
-│   ├── auth.ts                  # Auth.js config
-│   ├── prisma.ts                # Prisma client
-│   └── utils.ts                 # Utility functions
-├── actions/                     # Server actions
+│   ├── auth.ts               # Auth.js config
+│   ├── prisma.ts             # Prisma client
+│   └── utils.ts              # Utilities
 ├── prisma/
-│   └── schema.prisma            # Database schema
-└── .env.example                 # Environment template
+│   └── schema.prisma         # Database schema
+└── .env.example              # Environment template
 ```
 
-## 🏆 Hackathon Tips
+---
 
-1. **Focus on your unique idea** - Auth, DB, and UI are ready
-2. **Use server actions** - Faster than API routes
-3. **Leverage shadcn/ui** - Add more components with `npx shadcn@latest add [component]`
-4. **Deploy early** - Push to Vercel for live demo
+## 🎨 Component Examples
+
+### Stats Card
+```tsx
+<StatsCard
+  title="Total Users"
+  value="2,543"
+  icon={Users}
+  trend="+12%"
+  trendUp={true}
+/>
+```
+
+### Bar Chart
+```tsx
+<BarChart
+  data={monthlyData}
+  dataKey="sales"
+  xAxisKey="month"
+  barColor="#8884d8"
+/>
+```
+
+### Data Table
+```tsx
+const columns: ColumnDef<User>[] = [
+  { accessorKey: "name", header: "Name" },
+  { accessorKey: "email", header: "Email" },
+];
+
+<DataTable columns={columns} data={users} />
+```
+
+### Status Badge
+```tsx
+<StatusBadge status="confirmed" />
+<StatusBadge status="pending" />
+<StatusBadge status="cancelled" />
+```
+
+---
+
+## 🏆 Perfect For Hackathons
+
+This template includes everything for common hackathon categories:
+
+| Category | Ready-to-use |
+|----------|--------------|
+| **Sports Booking** | Dashboard, user management, booking tables, calendar |
+| **Travel Planning** | User profiles, itinerary builder, charts, multi-user |
+| **Rental System** | Product tables, booking flow, pricing, availability |
+| **SaaS Apps** | Auth, payments ready, admin panel, analytics |
+| **E-commerce** | Product tables, order management, user dashboard |
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router + Turbopack)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS v4
+- **UI**: shadcn/ui (new-york style)
+- **Auth**: Auth.js v5 (NextAuth)
+- **Database**: Prisma ORM + PostgreSQL
+- **Tables**: @tanstack/react-table
+- **Charts**: Recharts
+- **Forms**: react-hook-form + Zod
+- **Icons**: Lucide React
+- **Theme**: next-themes
+
+---
 
 ## 📚 Useful Commands
 
 ```bash
-# Add more shadcn components
+# Add shadcn components
 npx shadcn@latest add [component-name]
 
 # Prisma commands
-pnpm prisma generate     # Generate client
-pnpm prisma db push      # Push schema changes
-pnpm prisma studio       # Open database GUI
+pnpm prisma generate      # Generate client
+pnpm prisma db push       # Push schema changes
+pnpm prisma studio        # Open database GUI
+pnpm prisma migrate dev   # Create migration
 
 # Build for production
 pnpm build
+pnpm start
+
+# Lint
+pnpm lint
 ```
+
+---
+
+## 🔧 Environment Variables
+
+Required variables in `.env`:
+
+```env
+# Database
+DATABASE_URL="postgresql://..."
+
+# Auth
+AUTH_SECRET="run: openssl rand -base64 32"
+
+# Google OAuth (optional)
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# GitHub OAuth (optional)
+GITHUB_CLIENT_ID="your-github-client-id"
+GITHUB_CLIENT_SECRET="your-github-client-secret"
+```
+
+---
+
+## 🎯 Hackathon Tips
+
+1. **Start with the dashboard** - Customize sidebar links and pages
+2. **Use the data table** - Perfect for any list view
+3. **Leverage charts** - Instant analytics/reports
+4. **Copy example pages** - Users and Settings pages are templates
+5. **Focus on your unique idea** - Auth, UI, and DB are done!
+
+---
 
 ## 🚀 Deploy
 
 ```bash
-# Deploy to Vercel
+# Deploy to Vercel (recommended)
 vercel
+
+# Or push to GitHub and connect to Vercel dashboard
 ```
 
 ---
 
 **Good luck with your hackathon! 🎉**
+
+Built with ❤️ for rapid prototyping
