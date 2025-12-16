@@ -150,7 +150,7 @@ export function DashboardSidebar({
   );
 }
 
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -167,6 +167,9 @@ export function MobileSidebar() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 bg-background w-64 border-r">
+         {/* Accessibility: Title is required for DialogContent */}
+        <SheetTitle className="sr-only">Dashboard Menu</SheetTitle>
+        <SheetDescription className="sr-only">Navigation menu for the dashboard</SheetDescription>
         <DashboardSidebar onLinkClick={() => setOpen(false)} className="w-full border-none" />
       </SheetContent>
     </Sheet>
