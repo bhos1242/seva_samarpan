@@ -39,6 +39,35 @@ const InputPassword: FC<Omit<InputFieldProps, "form">> = (props) => {
     setShowPassword(!showPassword);
   };
 
+  // Password strength calculation
+  const calculateStrength = (password: string): number => {
+    let score = 0;
+    if (!password) return 0;
+    if (password.length > 7) score += 1;
+    if (/[A-Z]/.test(password)) score += 1;
+    if (/[0-9]/.test(password)) score += 1;
+    if (/[^A-Za-z0-9]/.test(password)) score += 1;
+    return score;
+  };
+
+  const strength = calculateStrength(form.watch(name));
+
+  const getStrengthColor = (score: number) => {
+    if (score === 0) return "bg-border";
+    if (score <= 1) return "bg-red-500";
+    if (score <= 2) return "bg-yellow-500";
+    if (score <= 3) return "bg-blue-500";
+    return "bg-green-500";
+  };
+
+  const getStrengthLabel = (score: number) => {
+    if (score === 0) return "";
+    if (score <= 1) return "Weak";
+    if (score <= 2) return "Fair";
+    if (score <= 3) return "Good";
+    return "Strong";
+  };
+
   return (
     <FormField
       control={form.control}
@@ -103,6 +132,31 @@ const InputPassword: FC<Omit<InputFieldProps, "form">> = (props) => {
               </button>
             </div>
           </FormControl>
+          
+          {/* Password Strength Indicator */}
+          {field.value && (
+            <div className="mt-2 space-y-1">
+              <div className="flex gap-1 h-1">
+                {[1, 2, 3, 4].map((level) => (
+                  <div
+                    key={level}
+                    className={cn(
+                      "h-full flex-1 rounded-full transition-all duration-300",
+                      strength >= level ? getStrengthColor(strength) : "bg-muted"
+                    )}
+                  />
+                ))}
+              </div>
+              <p className={cn("text-xs font-medium text-right", 
+                strength <= 1 ? "text-red-500" : 
+                strength <= 2 ? "text-yellow-500" : 
+                strength <= 3 ? "text-blue-500" : "text-green-500"
+              )}>
+                {getStrengthLabel(strength)}
+              </p>
+            </div>
+          )}
+
           {description && (
             <p className="text-xs text-muted-foreground mt-1">{description}</p>
           )}
