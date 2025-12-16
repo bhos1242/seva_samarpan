@@ -431,7 +431,6 @@ const InputField = <T extends FieldValues>({
         Icon={ComponentIcon}
         iconClassName={iconClassName}
         required={required}
-        type={type}
         description={description}
         placeholder={placeholder}
       />
@@ -451,7 +450,6 @@ const InputField = <T extends FieldValues>({
         Icon={ComponentIcon}
         iconClassName={iconClassName}
         required={required}
-        type="radio"
         description={description}
         placeholder={placeholder}
       />
