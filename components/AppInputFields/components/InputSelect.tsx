@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import Select from "react-select";
+import Select, { GroupBase, SingleValue, StylesConfig } from "react-select";
 import { InputFieldProps } from "../InputField";
 
 const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
@@ -32,8 +32,14 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     throw new Error("InputSelect must be used within a FormProvider");
   }
 
-  const customStyles = {
-    control: (provided: any, state: any) => ({
+  interface Option {
+    label: string;
+    value: string;
+  }
+
+  const customStyles: StylesConfig<Option, false, GroupBase<Option>> = {
+    // ... same styles ...
+    control: (provided, state) => ({
       ...provided,
       minHeight: "44px",
       border: state.isFocused
@@ -49,21 +55,21 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       },
       paddingLeft: "38px",
     }),
-    valueContainer: (provided: any) => ({
+    valueContainer: (provided) => ({
       ...provided,
       padding: "0 12px",
       paddingLeft: "0",
     }),
-    input: (provided: any) => ({
+    input: (provided) => ({
       ...provided,
       color: "var(--foreground)",
     }),
-    singleValue: (provided: any) => ({
+    singleValue: (provided) => ({
       ...provided,
       color: "var(--foreground)",
       transition: "color 200ms ease",
     }),
-    menu: (provided: any) => ({
+    menu: (provided) => ({
       ...provided,
       backgroundColor: "var(--background)",
       border: "1px solid var(--border)",
@@ -74,7 +80,7 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       overflowX: "hidden",
       zIndex: 9999,
     }),
-    option: (provided: any, state: any) => ({
+    option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
         ? "var(--primary)"
@@ -92,10 +98,10 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       },
       zIndex: 9999,
     }),
-    dropdownIndicator: (provided: any, state: any) => ({
+    dropdownIndicator: (provided, state) => ({
       ...provided,
       transition: "transform 200ms ease",
-      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : undefined,
       color: state.isFocused ? "var(--primary)" : "var(--muted-foreground)",
       "&:hover": {
         color: "var(--primary)",
@@ -110,6 +116,13 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       ? [...options].sort((a, b) => a.label.localeCompare(b.label))
       : options;
   }, [options, props.is_sorted]);
+
+  const mappedOptions: Option[] = React.useMemo(() => {
+    return sortedOptions.map((opt) => ({
+      label: opt.label,
+      value: opt.value ?? "",
+    }));
+  }, [sortedOptions]);
 
   return (
     <FormField
@@ -140,19 +153,16 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
                   <Icon size={20} />
                 </div>
               )}
-              <Select
+              <Select<Option, false, GroupBase<Option>>
                 menuPlacement="auto"
                 {...field}
                 isDisabled={disabled}
-                options={sortedOptions.map((opt) => ({
-                  value: opt.value,
-                  label: opt.label,
-                }))}
+                options={mappedOptions}
                 placeholder={placeholder}
                 className="w-full"
                 styles={customStyles}
-                value={sortedOptions.find((opt) => opt.value === field.value)}
-                onChange={(newValue: any) => field.onChange(newValue?.value)}
+                value={mappedOptions.find((opt) => opt.value === (field.value ?? ""))}
+                onChange={(newValue) => field.onChange(newValue?.value)}
                 components={{
                   IndicatorSeparator: () => null,
                 }}
