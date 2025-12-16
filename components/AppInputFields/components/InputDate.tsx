@@ -110,7 +110,7 @@ const InputDate = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem
           className={cn(
-            "w-full max-w-[400px]",
+            "w-full",
             "group transition-all duration-300 ease-in-out",
             className
           )}
