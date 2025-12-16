@@ -16,8 +16,9 @@ import { BaseInputProps } from "../InputField";
 import React from "react";
 
 // Explicitly define Option interface if not imported
+// Explicitly define Option interface if not imported
 interface Option {
-  value: string | boolean;
+  value: string | boolean | null;
   label: string;
   description?: string;
   icon?: React.ReactNode;
@@ -28,6 +29,8 @@ interface InputRadioProps<T extends FieldValues>
   extends Omit<BaseInputProps<T>, "form" | "type"> {
   options: Option[];
   direction?: "row" | "column";
+  Icon?: LucideIcon | IconType;
+  iconClassName?: string;
 }
 
 const InputRadio = <T extends FieldValues>({
