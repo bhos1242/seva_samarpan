@@ -32,12 +32,7 @@ import {
   Heading1,
   Heading2,
   Heading3,
-  AlignLeft,
-  AlignCenter,
-  AlignRight,
-  Link as LinkIcon,
-  Image as ImageIcon,
-  Type,
+
 } from "lucide-react";
 import { useCallback, useState, useEffect, useRef } from "react";
 import {
@@ -46,7 +41,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Switch } from "@/components/ui/switch";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Bot, Sparkles } from "lucide-react";
 import markdown from "@wcj/markdown-to-html";
