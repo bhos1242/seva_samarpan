@@ -91,7 +91,7 @@ const InputMultipleDates = <T extends FieldValues>({
   const form = useFormContext<T>();
   const [open, setOpen] = React.useState(false);
   const [selectedDay, setSelectedDay] = React.useState<number>(1);
-  const [showSuggestions, setShowSuggestions] = React.useState(false);
+  const [_showSuggestions, _setShowSuggestions] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
   if (!form) {
@@ -236,7 +236,7 @@ const InputMultipleDates = <T extends FieldValues>({
     }
   };
 
-  const getPresetOptions = () => [
+  const _getPresetOptions = () => [
     {
       day: 1,
       label: "1st of every month",
