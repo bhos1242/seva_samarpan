@@ -121,6 +121,13 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
     }),
   };
 
+  const mappedOptions: Option[] = React.useMemo(() => {
+    return options?.map((opt) => ({
+      label: opt.label,
+      value: opt.value ?? "",
+    })) ?? [];
+  }, [options]);
+
   return (
     <FormField
       control={form.control}
@@ -151,20 +158,17 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
                   <Icon size={20} />
                 </div>
               )}
-              <CreatableSelect
+              <CreatableSelect<Option, true, GroupBase<Option>>
                 {...field}
                 className="w-full"
-                value={field.value}
+                value={mappedOptions.filter(opt => (field.value || []).includes(opt.value))}
                 placeholder={placeholder}
                 isMulti
                 name={name}
-                options={options?.map((opt) => ({
-                  value: opt.value ?? "",
-                  label: opt.label,
-                }))}
+                options={mappedOptions}
                 instanceId={`select-${name}`}
-                onChange={(newValue: MultiValue<Option>) => {
-                  field.onChange(newValue);
+                onChange={(newValue) => {
+                  field.onChange(newValue ? newValue.map(v => v.value) : []);
                 }}
                 styles={customStyles}
                 components={{
