@@ -25,7 +25,7 @@ import toast from "react-hot-toast";
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
   password: z.string().min(1, "Password is required"),
-  rememberMe: z.boolean().default(false),
+  rememberMe: z.boolean(),
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
@@ -85,6 +85,7 @@ export default function LoginPage() {
                     name="password"
                     label="Password"
                     placeholder="Enter your password"
+                    type="password"
                   />
                 </div>
 
