@@ -11,6 +11,22 @@ A blazing-fast Next.js 16 starter template optimized for hackathons. Ship fast, 
 - ✅ Data tables with sorting, filtering, pagination
 - ✅ Example pages (Users, Settings, Analytics)
 
+### ✨ **Premium Input System**
+A unified form input system located at `components/AppInputFields/InputField.tsx`. Just one import for everything!
+- **Rich Text Editor**: Notion-style editor with slash commands, AI auto-completion support, and markdown shortcuts.
+- **Smart Inputs**:
+  - `InputPassword`: Built-in strength meter and visibility toggle.
+  - `InputOTP`: Auto-focus and auto-submit functionality.
+  - `InputDate`: Smart presets (Yesterday, Last Week) + manual typing.
+  - `ModernImageInput`: Drag & drop, preview, and **built-in cropping**.
+  - `InputPhone`: International phone number formatting.
+- **AI Integration**: AI-powered text generation blocks ready to connect to your LLM.
+
+### 🔐 **Authentication Ready**
+- **Pre-built Pages**: Beautifully designed `/auth/login` and `/auth/signup` pages.
+- **Form Validation**: Zod schemas and React Hook Form implementation included.
+- **Social Auth**: UI ready for Google & GitHub providers.
+
 ### 🧩 **Reusable Components**
 | Component | Description | Usage |
 |-----------|-------------|-------|
@@ -143,6 +159,29 @@ const columns: ColumnDef<User>[] = [
 <StatusBadge status="confirmed" />
 <StatusBadge status="pending" />
 <StatusBadge status="cancelled" />
+```
+
+### Unified Input Field
+```tsx
+import InputField from "@/components/AppInputFields/InputField";
+
+// Text Input
+<InputField name="email" label="Email" type="email" />
+
+// Rich Text Editor with AI
+<InputField 
+  name="content" 
+  label="Blog Post" 
+  type="editor" 
+  generationPrompt="Write a blog post about..." 
+/>
+
+// Image Upload with Cropping
+<InputField 
+  name="avatar" 
+  label="Profile Picture" 
+  type="modern-image" 
+/>
 ```
 
 ---
