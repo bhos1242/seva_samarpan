@@ -50,11 +50,22 @@ const sidebarItems = [
   },
 ];
 
-export function DashboardSidebar() {
+export function DashboardSidebar({
+  className,
+  onLinkClick,
+}: {
+  className?: string;
+  onLinkClick?: () => void;
+}) {
   const pathname = usePathname();
 
   return (
-    <div className="flex h-full w-64 flex-col border-r bg-background">
+    <div
+      className={cn(
+        "flex h-full w-64 flex-col bg-background",
+        className
+      )}
+    >
       <div className="flex h-16 items-center border-b px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <span className="text-xl">Dashboard</span>
@@ -69,6 +80,7 @@ export function DashboardSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={onLinkClick}
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive
@@ -83,5 +95,28 @@ export function DashboardSidebar() {
         })}
       </nav>
     </div>
+  );
+}
+
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+
+export function MobileSidebar() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle menu</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="p-0 bg-background w-64 border-r">
+        <DashboardSidebar onLinkClick={() => setOpen(false)} className="w-full border-none" />
+      </SheetContent>
+    </Sheet>
   );
 }
