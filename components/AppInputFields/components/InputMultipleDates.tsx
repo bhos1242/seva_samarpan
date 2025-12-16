@@ -76,7 +76,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import * as React from "react";
-import { FieldValues, useFormContext } from "react-hook-form";
+import { FieldValues, useFormContext, PathValue, Path } from "react-hook-form";
 import { BaseInputProps } from "../InputField";
 
 const InputMultipleDates = <T extends FieldValues>({
@@ -146,10 +146,10 @@ const InputMultipleDates = <T extends FieldValues>({
     if (currentDates.includes(monthDay)) {
       // Remove if already selected
       const updatedDates = currentDates.filter((d: string) => d !== monthDay);
-      form.setValue(name, updatedDates as any);
+      form.setValue(name, updatedDates as PathValue<T, Path<T>>);
     } else {
       // Add new date
-      form.setValue(name, [...currentDates, monthDay] as any);
+      form.setValue(name, [...currentDates, monthDay] as PathValue<T, Path<T>>);
     }
   };
 
@@ -185,7 +185,7 @@ const InputMultipleDates = <T extends FieldValues>({
 
       // Add new dates to existing ones
       const updatedDates = [...currentDates, ...newDates];
-      form.setValue(name, updatedDates as any);
+      form.setValue(name, updatedDates as PathValue<T, Path<T>>);
       setIsLoading(false);
 
       // Auto-close dialog after adding dates
@@ -196,11 +196,11 @@ const InputMultipleDates = <T extends FieldValues>({
   const removeDate = (dateToRemove: string) => {
     const currentDates: string[] = form.getValues(name) || [];
     const updatedDates = currentDates.filter((d: string) => d !== dateToRemove);
-    form.setValue(name, updatedDates as any);
+    form.setValue(name, updatedDates as PathValue<T, Path<T>>);
   };
 
   const clearAllDates = () => {
-    form.setValue(name, [] as any);
+    form.setValue(name, [] as unknown as PathValue<T, Path<T>>);
   };
 
   const formatDisplayDate = (dateString: string) => {

@@ -199,7 +199,7 @@ export interface BaseInputProps<T extends FieldValues = DefaultFormValues> {
   disabled?: boolean;
   autoComplete?: string;
   required?: boolean;
-  onComplete?: (data: any) => void;
+  onComplete?: (data: unknown) => void;
 }
 
 export interface InputFieldProps<T extends FieldValues = DefaultFormValues>

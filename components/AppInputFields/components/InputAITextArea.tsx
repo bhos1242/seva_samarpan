@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { InputFieldProps } from "../InputField";
+import { useMutation } from "@tanstack/react-query";
 
 interface InputAITextAreaProps extends Omit<InputFieldProps, "form" | "type"> {
   generationPrompt?: string;
