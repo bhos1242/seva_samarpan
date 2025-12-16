@@ -24,6 +24,11 @@ const sidebarItems = [
     icon: Users,
   },
   {
+    title: "Inputs",
+    href: "/dashboard/inputs",
+    icon: FileText,
+  },
+  {
     title: "Analytics",
     href: "/dashboard/analytics",
     icon: BarChart3,
