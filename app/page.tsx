@@ -47,18 +47,18 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="container flex flex-col items-center justify-center gap-6 pb-8 pt-16 md:pt-24 px-4">
+      <section className="container mx-auto flex flex-col items-center justify-center gap-6 pb-8 pt-16 md:pt-24 px-4">
         <Badge variant="secondary" className="px-4 py-1">
           ⚡ Hackathon Ready
         </Badge>
         <h1 className="text-center text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           Ship Your Idea
           <br />
-          <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             In Record Time
           </span>
         </h1>
-        <p className="max-w-[42rem] text-center text-lg text-muted-foreground sm:text-xl">
+        <p className="max-w-2xl text-center text-lg text-muted-foreground sm:text-xl">
           Everything you need to win your next hackathon. Auth, database, UI
           components, and more – all pre-configured and ready to go.
         </p>
@@ -82,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="container py-16 md:py-24 px-4">
+      <section className="container mx-auto py-16 md:py-24 px-4">
         <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 lg:grid-cols-3">
           {features.map((feature) => (
             <Card key={feature.title} className="relative overflow-hidden">
@@ -99,7 +99,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="container py-16 md:py-24 px-4">
+      <section className="container mx-auto py-16 md:py-24 px-4">
         <Card className="mx-auto max-w-3xl text-center">
           <CardHeader>
             <CardTitle className="text-2xl sm:text-3xl">
