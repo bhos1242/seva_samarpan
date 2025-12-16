@@ -347,7 +347,7 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
       )}
       <div
         className={cn(
-          "relative w-full max-w-sm h-48 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl bg-gray-50/50 hover:bg-gray-50 transition-all duration-300 cursor-pointer group overflow-hidden",
+          "relative w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl bg-gray-50/50 hover:bg-gray-50 transition-all duration-300 cursor-pointer group overflow-hidden",
           isDragActive && "border-blue-500 bg-blue-50",
           errorMessage && "border-red-400 bg-red-50/50",
           imagePreview && "border-solid border-gray-200 bg-white shadow-sm"

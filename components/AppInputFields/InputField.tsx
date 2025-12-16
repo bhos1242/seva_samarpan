@@ -555,7 +555,7 @@ const InputField = <T extends FieldValues>({
         render={({ field }) => (
           <FormItem
             className={cn(
-              "w-full max-w-[400px] relative",
+              "w-full relative",
               "group transition-all duration-300 ease-in-out",
               className
             )}
@@ -702,7 +702,7 @@ const InputField = <T extends FieldValues>({
         name={name}
         disabled={disabled}
         render={({ field }) => (
-          <FormItem className={cn("w-full max-w-[400px]", className)}>
+          <FormItem className={cn("w-full", className)}>
             <FormLabel
               className={cn(
                 "text-sm font-medium",
@@ -739,7 +739,7 @@ const InputField = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem
           className={cn(
-            "w-full max-w-[400px] min-w-0",
+            "w-full min-w-0",
             "group transition-all duration-300 ease-in-out",
             className
           )}
