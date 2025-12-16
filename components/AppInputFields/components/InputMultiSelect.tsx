@@ -34,10 +34,11 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
 
   interface Option {
     label: string;
-    value: string | null;
+    value: string;
   }
 
   const customStyles: StylesConfig<Option, true, GroupBase<Option>> = {
+    // ... same styles ...
     control: (provided, state) => ({
       ...provided,
       minHeight: "44px",
@@ -157,7 +158,10 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
                 placeholder={placeholder}
                 isMulti
                 name={name}
-                options={options}
+                options={options?.map((opt) => ({
+                  value: opt.value ?? "",
+                  label: opt.label,
+                }))}
                 instanceId={`select-${name}`}
                 onChange={(newValue: MultiValue<Option>) => {
                   field.onChange(newValue);
