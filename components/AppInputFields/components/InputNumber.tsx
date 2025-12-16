@@ -73,17 +73,6 @@ const InputNumber = <T extends FieldValues>({
           </FormLabel>
           <FormControl>
             <div className="relative w-full">
-              {Icon && (
-                <Icon
-                  size={10}
-                  className={cn(
-                    "absolute z-0 left-3 top-1/2 h-4 w-4 -translate-y-1/2",
-                    "text-muted-foreground transition-colors duration-200",
-                    "group-hover:text-primary",
-                    iconClassName
-                  )}
-                />
-              )}
               <Input
                 type="number"
                 min={min}
@@ -116,6 +105,17 @@ const InputNumber = <T extends FieldValues>({
                   }
                 }}
               />
+              {Icon && (
+                <Icon
+                  size={16}
+                  className={cn(
+                    "absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4",
+                    "text-muted-foreground pointer-events-none",
+                    "transition-colors duration-200 group-hover:text-primary",
+                    iconClassName
+                  )}
+                />
+              )}
             </div>
           </FormControl>
           {description && (
