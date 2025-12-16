@@ -38,7 +38,7 @@ const InputAITextArea = (props: InputAITextAreaProps) => {
     generationPrompt = "Generate professional content for this field",
     context = "",
     maxLength = 1000,
-    aiButtonText = "Generate with AI",
+
   } = props;
 
   const form = useFormContext();
