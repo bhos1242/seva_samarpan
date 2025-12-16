@@ -283,20 +283,61 @@ const InputDate = <T extends FieldValues>({
                   </div>
 
                   {/* Quick Actions Footer */}
-                  <div className="flex items-center justify-between px-4 py-3 border-t bg-muted/20">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => {
-                        const today = new Date();
-                        field.onChange(format(today, "yyyy-MM-dd"));
-                        setViewDate(today);
-                        setOpen(false);
-                      }}
-                      className="text-xs h-7 px-2 hover:bg-primary/10"
-                    >
-                      Today
-                    </Button>
+                  {/* Quick Actions Footer with Presets */}
+                  <div className="flex flex-col gap-2 px-4 py-3 border-t bg-muted/20">
+                    <div className="flex flex-wrap gap-2 justify-center">
+                       <Button
+                        variant="secondary"
+                        onClick={() => {
+                          const date = new Date();
+                          date.setDate(date.getDate() - 1);
+                          field.onChange(format(date, "yyyy-MM-dd"));
+                          setViewDate(date);
+                          setOpen(false);
+                        }}
+                        className="h-6 px-2 text-[10px]"
+                      >
+                        Yesterday
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          const today = new Date();
+                          field.onChange(format(today, "yyyy-MM-dd"));
+                          setViewDate(today);
+                          setOpen(false);
+                        }}
+                        className="h-6 px-2 text-[10px]"
+                      >
+                        Today
+                      </Button>
+                       <Button
+                        variant="secondary"
+                        onClick={() => {
+                          const date = new Date();
+                          date.setDate(date.getDate() + 1);
+                          field.onChange(format(date, "yyyy-MM-dd"));
+                          setViewDate(date);
+                          setOpen(false);
+                        }}
+                        className="h-6 px-2 text-[10px]"
+                      >
+                        Tomorrow
+                      </Button>
+                       <Button
+                        variant="secondary"
+                        onClick={() => {
+                          const date = new Date();
+                          date.setDate(date.getDate() + 7);
+                          field.onChange(format(date, "yyyy-MM-dd"));
+                          setViewDate(date);
+                          setOpen(false);
+                        }}
+                        className="h-6 px-2 text-[10px]"
+                      >
+                        Next Week
+                      </Button>
+                    </div>
                     {field.value && (
                       <Button
                         variant="ghost"
@@ -305,9 +346,9 @@ const InputDate = <T extends FieldValues>({
                           field.onChange("");
                           setOpen(false);
                         }}
-                        className="text-xs h-7 px-2 text-destructive hover:bg-destructive/10"
+                        className="w-full text-xs h-7 px-2 text-destructive hover:bg-destructive/10"
                       >
-                        Clear
+                        Clear Date
                       </Button>
                     )}
                   </div>
