@@ -4,14 +4,10 @@ import { useFormContext } from "react-hook-form";
 import { InputFieldProps } from "../../InputField";
 import AddressInput from "./components/mini_form";
 
-interface PlaceOption {
-  description: string;
-  placeId: string;
-}
-
 const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
-  const { name, description } = props;
+  const { name } = props;
   const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
   const form = useFormContext();
 
@@ -21,6 +17,18 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
 
   useEffect(() => {
     const scriptId = "google-maps-script";
+
+    // 1. Check if API Key is missing
+    if (!apiKey) {
+      setLoadError("Google Maps API Key is missing. Please add it to your environment variables.");
+      return;
+    }
+
+    // 2. Handle Google Maps Authentication Failure
+    // @ts-ignore
+    window.gm_authFailure = () => {
+      setLoadError("Google Maps API Key is invalid. Please check your console for more details.");
+    };
 
     if (window.google && window.google.maps) {
       setScriptLoaded(true);
@@ -35,6 +43,9 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
       script.async = true;
       script.defer = true;
+      script.onerror = () => {
+        setLoadError("Failed to load Google Maps script. Please check your connection.");
+      };
       document.body.appendChild(script);
     }
 
@@ -46,8 +57,17 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     };
   }, [apiKey]);
 
+  if (loadError) {
+    return (
+      <div className="p-4 border border-red-200 bg-red-50 rounded-md text-sm text-red-600">
+        <p className="font-semibold">Map Error</p>
+        <p>{loadError}</p>
+      </div>
+    );
+  }
+
   if (!scriptLoaded) {
-    return <p>Loading Script...</p>; // or return a loading spinner
+    return <p className="text-sm text-muted-foreground animate-pulse">Loading Map...</p>;
   }
 
   return (
