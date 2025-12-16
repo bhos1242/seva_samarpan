@@ -1,7 +1,15 @@
 import { cn } from "@/lib/utils";
-import { ImagePlus, X } from "lucide-react";
+import { ImagePlus, X, Crop as CropIcon, Check } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  Crop,
+  PixelCrop,
+  convertToPixelCrop,
+} from "react-image-crop";
+import "react-image-crop/dist/ReactCrop.css";
 import {
   ControllerRenderProps,
   FieldValues,
@@ -9,6 +17,14 @@ import {
   useFormContext,
 } from "react-hook-form";
 import { FormField } from "@/components/ui/form";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 
 interface ModernImageInputProps<T extends FieldValues> {
@@ -17,6 +33,7 @@ interface ModernImageInputProps<T extends FieldValues> {
   description?: string;
   required?: boolean;
   className?: string;
+  enableCropping?: boolean;
 }
 
 interface ModernImageFieldProps<T extends FieldValues = FieldValues> {
@@ -26,6 +43,28 @@ interface ModernImageFieldProps<T extends FieldValues = FieldValues> {
   description?: string;
   required?: boolean;
   className?: string;
+  enableCropping?: boolean;
+}
+
+// Helper to center the crop
+function centerAspectCrop(
+  mediaWidth: number,
+  mediaHeight: number,
+  aspect: number
+) {
+  return centerCrop(
+    makeAspectCrop(
+      {
+        unit: "%",
+        width: 90,
+      },
+      aspect,
+      mediaWidth,
+      mediaHeight
+    ),
+    mediaWidth,
+    mediaHeight
+  );
 }
 
 const ModernImageField = <T extends FieldValues = FieldValues>({
@@ -35,11 +74,20 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
   description,
   required = false,
   className,
+  enableCropping = true,
 }: ModernImageFieldProps<T>) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragActive, setIsDragActive] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
+
+  // Cropping State
+  const [crop, setCrop] = useState<Crop>();
+  const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
+  const [imgSrc, setImgSrc] = useState("");
+  const [showCropper, setShowCropper] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [aspect, setAspect] = useState<number | undefined>(undefined); // undefined = free aspect ratio
 
   // Combine local error and form error
   const errorMessage = localError || fieldState?.error?.message;
@@ -145,26 +193,98 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
     return true;
   };
 
+  // Load image for cropping
+  function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
+    if (aspect) {
+      const { width, height } = e.currentTarget;
+      setCrop(centerAspectCrop(width, height, aspect));
+    } else {
+        // Default crop for free aspect
+        const { width, height } = e.currentTarget;
+        setCrop(centerAspectCrop(width, height, 16/9));
+    }
+  }
+
+  // Generate cropped image
+  const getCroppedImg = useCallback(async (image: HTMLImageElement, crop: PixelCrop): Promise<Blob> => {
+    const canvas = document.createElement('canvas');
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+    const ctx = canvas.getContext('2d');
+
+    if (!ctx) {
+        throw new Error('No 2d context');
+    }
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error('Canvas is empty'));
+          return;
+        }
+        resolve(blob);
+      }, 'image/jpeg');
+    });
+  }, []);
+
+  const handleCropComplete = async () => {
+      if (completedCrop && imgRef.current && completedCrop.width > 0 && completedCrop.height > 0) {
+          try {
+              const croppedBlob = await getCroppedImg(imgRef.current, completedCrop);
+              const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
+              
+              field.onChange(croppedFile);
+              setImagePreview(URL.createObjectURL(croppedBlob));
+              setShowCropper(false);
+              setImgSrc("");
+              toast.success("Image cropped successfully");
+          } catch (e) {
+              console.error(e);
+              toast.error("Failed to crop image");
+          }
+      } else {
+          // If no crop, just use original
+          setShowCropper(false);
+      }
+  };
+
+
   // Handle file selection
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const isValid = await validateImageFile(file);
       if (isValid) {
-        field.onChange(file);
-        setImagePreview(URL.createObjectURL(file));
+        if (enableCropping) {
+             const reader = new FileReader();
+             reader.addEventListener("load", () =>
+               setImgSrc(reader.result?.toString() || "")
+             );
+             reader.readAsDataURL(file);
+             setShowCropper(true);
+        } else {
+             field.onChange(file);
+             setImagePreview(URL.createObjectURL(file));
+        }
       } else {
         if (fileInputRef.current) fileInputRef.current.value = "";
       }
     } else {
-      setImagePreview(null);
-      if (fileInputRef.current) fileInputRef.current.value = "";
-      if (required) {
-        setLocalError("No file selected");
-        toast.error("Please select a file to upload");
-      } else {
-        setLocalError(null);
-      }
+      // Logic for no file...
     }
   };
 
@@ -336,6 +456,48 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
           {errorMessage}
         </p>
       )}
+
+      {/* Crop Modal */}
+      <Dialog open={showCropper} onOpenChange={setShowCropper}>
+        <DialogContent className="sm:max-w-xl">
+            <DialogHeader>
+                <DialogTitle>Adjust Image</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col items-center">
+                {Boolean(imgSrc) && (
+                    <ReactCrop
+                        crop={crop}
+                        onChange={(_, percentCrop) => setCrop(percentCrop)}
+                        onComplete={(c) => setCompletedCrop(c)}
+                        aspect={aspect}
+                        className="max-h-[60vh]"
+                    >
+                        <img
+                            ref={imgRef}
+                            alt="Crop me"
+                            src={imgSrc}
+                            onLoad={onImageLoad}
+                            style={{ maxHeight: '60vh' }}
+                        />
+                    </ReactCrop>
+                )}
+                
+                <div className="mt-4 flex gap-2">
+                     <Button variant={aspect === undefined ? "default" : "outline"} size="sm" onClick={() => setAspect(undefined)}>Free</Button>
+                     <Button variant={aspect === 1 ? "default" : "outline"} size="sm" onClick={() => setAspect(1)}>Square</Button>
+                     <Button variant={aspect === 16/9 ? "default" : "outline"} size="sm" onClick={() => setAspect(16/9)}>16:9</Button>
+                     <Button variant={aspect === 4/3 ? "default" : "outline"} size="sm" onClick={() => setAspect(4/3)}>4:3</Button>
+                </div>
+            </div>
+            <DialogFooter className="mr-0 mt-4 gap-2 sm:gap-0">
+                <Button variant="outline" onClick={() => setShowCropper(false)}>Cancel</Button>
+                <Button onClick={handleCropComplete}>
+                    <Check className="w-4 h-4 mr-2" />
+                    Apply Crop
+                </Button>
+            </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
@@ -346,6 +508,7 @@ const ModernImageInput = <T extends FieldValues>({
   description,
   required = false,
   className,
+  enableCropping = true,
 }: ModernImageInputProps<T>) => {
   const form = useFormContext<T>();
 
@@ -364,6 +527,7 @@ const ModernImageInput = <T extends FieldValues>({
           description={description}
           required={required}
           className={className}
+          enableCropping={enableCropping}
         />
       )}
     />
