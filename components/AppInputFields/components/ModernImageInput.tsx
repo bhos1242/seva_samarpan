@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { ImagePlus, X, Crop as CropIcon, Check } from "lucide-react";
+import { ImagePlus, X, Check } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState, useCallback } from "react";
 import ReactCrop, {
@@ -7,7 +7,6 @@ import ReactCrop, {
   makeAspectCrop,
   Crop,
   PixelCrop,
-  convertToPixelCrop,
 } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import {
@@ -182,7 +181,7 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
           return false;
         }
         // Check maximum dimensions
-      } catch (error) {
+      } catch (_error) {
         setLocalError("Invalid image file");
         toast.error("The file appears to be corrupted or invalid.");
         return false;
