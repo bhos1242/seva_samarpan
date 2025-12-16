@@ -50,6 +50,18 @@ const sidebarItems = [
   },
 ];
 
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSession, signOut } from "next-auth/react";
+import { LogOut } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 export function DashboardSidebar({
   className,
   onLinkClick,
@@ -58,11 +70,12 @@ export function DashboardSidebar({
   onLinkClick?: () => void;
 }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
 
   return (
     <div
       className={cn(
-        "flex h-full w-64 flex-col bg-background",
+        "flex h-full w-64 flex-col bg-background border-r", // Added border-r back primarily for desktop, handled in parent for clean layout but safe here too
         className
       )}
     >
@@ -71,7 +84,7 @@ export function DashboardSidebar({
           <span className="text-xl">Dashboard</span>
         </Link>
       </div>
-      <nav className="flex-1 space-y-1 p-4">
+      <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
         {sidebarItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -94,6 +107,45 @@ export function DashboardSidebar({
           );
         })}
       </nav>
+
+      {/* User Profile Footer */}
+      <div className="border-t p-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="w-full justify-start px-2 h-auto py-2">
+              <div className="flex items-center gap-3 text-left">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
+                  <AvatarFallback>{session?.user?.name?.slice(0, 2).toUpperCase() || "U"}</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col flex-1 min-w-0">
+                  <span className="text-sm font-medium truncate">
+                    {session?.user?.name || "User"}
+                  </span>
+                  <span className="text-xs text-muted-foreground truncate">
+                    {session?.user?.email || "viewer@example.com"}
+                  </span>
+                </div>
+              </div>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56" align="end" forceMount>
+            <DropdownMenuLabel className="font-normal">
+              <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">{session?.user?.name || "User"}</p>
+                <p className="text-xs leading-none text-muted-foreground">
+                  {session?.user?.email || "viewer@example.com"}
+                </p>
+              </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => signOut()}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 }
