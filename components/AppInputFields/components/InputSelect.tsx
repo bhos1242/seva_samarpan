@@ -88,7 +88,7 @@ const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       transition: "all 150ms ease",
       "&:hover": {
         backgroundColor: state.isSelected ? "var(--primary)" : "var(--accent)",
-        transform: "translateX(4px)",
+
       },
       zIndex: 9999,
     }),

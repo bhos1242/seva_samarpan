@@ -82,7 +82,7 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
       transition: "all 150ms ease",
       "&:hover": {
         backgroundColor: state.isSelected ? "var(--primary)" : "var(--accent)",
-        transform: "translateX(4px)",
+
       },
       zIndex: 9999,
     }),
