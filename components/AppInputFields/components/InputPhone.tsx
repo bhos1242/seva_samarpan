@@ -35,7 +35,7 @@ const InputPhone = (props: Omit<InputFieldProps, "form">) => {
       render={({ field }) => (
         <FormItem
           className={cn(
-            "w-full max-w-[400px] group transition-all duration-300 ease-in-out",
+            "w-full group transition-all duration-300 ease-in-out",
             className
           )}
         >
