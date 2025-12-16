@@ -532,9 +532,9 @@ const InputEditorV2 = (props: InputEditorV2Props) => {
                     <EditorContent
                       editor={editor}
                       className={cn(
-                        "min-h-[200px] max-h-[500px] overflow-y-auto px-4 py-3",
+                        "min-h-50 max-h-125 overflow-y-auto px-4 py-3",
                         "prose prose-sm max-w-none",
-                        "[&_.ProseMirror]:outline-none [&_.ProseMirror]:min-h-[180px]",
+                        "[&_.ProseMirror]:outline-none [&_.ProseMirror]:min-h-45",
                         // Placeholder styling is now handled in globals.css
                         // Custom TipTap styling
                         "[&_.tiptap-bold]:font-bold",
