@@ -46,7 +46,7 @@ const InputSwitch = <T extends FieldValues>({
       render={({ field }) => (
         <FormItem
           className={cn(
-            "flex flex-row items-center justify-between rounded-lg border p-4 group transition-all duration-300 ease-in-out hover:border-primary",
+            "w-full flex flex-row items-center justify-between rounded-lg border p-4 group transition-all duration-300 ease-in-out hover:border-primary",
             className
           )}
         >
