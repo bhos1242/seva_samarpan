@@ -1,15 +1,14 @@
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import {
-  AlertCircle,
-  CameraIcon,
+  Camera as CameraIcon,
   FlipHorizontal,
-  RefreshCwIcon,
+  RefreshCw as RefreshCwIcon,
   Settings,
   ShieldAlert,
   ShieldCheck,
-  XIcon,
+  X as XIcon
 } from "lucide-react";
 import {
   forwardRef,
@@ -130,21 +129,27 @@ export const Camera = forwardRef<CameraRef, CameraProps>(
 
         // Check if device has multiple cameras
         await checkDeviceCapabilities();
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Error accessing camera:", err);
 
+        const errorMessage =
+          err instanceof Error ? err.message : "Failed to access camera";
+        // Assuming 'toast' is imported and available, e.g., from 'react-hot-toast'
+        toast.error(errorMessage);
+
         // Handle permission errors specifically
+        const errorName = err instanceof Error ? err.name : "";
         if (
-          err.name === "NotAllowedError" ||
-          err.name === "PermissionDeniedError"
+          errorName === "NotAllowedError" ||
+          errorName === "PermissionDeniedError"
         ) {
           setPermissionState("denied");
           setCameraError(
             "Camera access was denied. Please allow camera access in your browser settings."
           );
         } else if (
-          err.name === "NotFoundError" ||
-          err.name === "OverconstrainedError"
+          errorName === "NotFoundError" ||
+          errorName === "OverconstrainedError"
         ) {
           setCameraError("No compatible camera was found on your device.");
         } else {

@@ -8,7 +8,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
-import { useFormContext } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  Path,
+  useFormContext,
+  useController,
+} from "react-hook-form";
 import { InputFieldProps } from "./InputField";
 import StarterKit from "@tiptap/starter-kit";
 import { EditorContent, useEditor } from "@tiptap/react";
@@ -272,13 +278,20 @@ const InputEditorV2 = (props: InputEditorV2Props) => {
     name,
     placeholder,
     className,
-    disabled,
+    disabled = false, // Added default value
     description,
-    required,
+    required = false, // Added default value
     context,
     defaultPrompt,
   } = props;
-  const form = useFormContext();
+  const form = useFormContext(); // Keep form context for now, as useController needs form.control
+  const {
+    field,
+    fieldState: { error },
+  } = useController({
+    name,
+    control: form.control,
+  });
   const [isAiEnabled, setIsAiEnabled] = useState(true);
   const [aiPrompt, setAiPrompt] = useState(defaultPrompt || "");
   const isUpdatingRef = useRef(false);

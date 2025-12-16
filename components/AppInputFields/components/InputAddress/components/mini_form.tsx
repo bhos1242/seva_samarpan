@@ -273,6 +273,12 @@ const AddressInput = ({ field, inputProps }: Props) => {
     return null;
   };
 
+  const handleAutoFill = (address: google.maps.places.PlaceResult) => {
+    // console.log("Auto Filling Address", address);
+
+    const addressComponents = address.address_components;
+  };
+
   return (
     <FormItem
       className={cn(

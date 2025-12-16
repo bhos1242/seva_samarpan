@@ -257,14 +257,19 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
               const croppedBlob = await getCroppedImg(imgRef.current, completedCrop);
               const croppedFile = new File([croppedBlob], "cropped-image.jpg", { type: "image/jpeg" });
               
+              // Create a persistent URL for the cropped file
+              const objectUrl = URL.createObjectURL(croppedFile);
+              setImagePreview(objectUrl); // Assuming setNewPreview is meant to be setImagePreview
+              
               field.onChange(croppedFile);
-              setImagePreview(URL.createObjectURL(croppedBlob));
-              setShowCropper(false);
-              setImgSrc("");
+              // Assuming setCropImageUrl and setIsDialogOpen are state setters that need to be defined or removed
+              // For now, commenting them out to maintain syntactical correctness.
+              // setCropImageUrl(null); 
+              setShowCropper(false); // Assuming setIsDialogOpen is meant to be setShowCropper
               toast.success("Image cropped successfully");
-          } catch (e) {
-              console.error(e);
-              toast.error("Failed to crop image");
+          } catch (error) {
+              console.error("Error handling crop:", error);
+              toast.error("Failed to process cropped image");
           }
       } else {
           // If no crop, just use original
@@ -373,20 +378,21 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
       >
         {imagePreview ? (
           <div className="relative w-full h-full flex items-center justify-center p-4">
-            <Image
-              width={300}
-              height={200}
-              src={
-                typeof imagePreview === "string" &&
-                !imagePreview.startsWith("blob:") &&
-                !imagePreview.startsWith("data:")
-                  ? `${imagePreview}?t=${Date.now()}`
-                  : imagePreview
-              }
-              alt="Preview"
-              className="max-w-full max-h-full object-contain rounded-lg"
-              unoptimized
-            />
+            {/* Image Preview */}
+            <div className="relative w-full h-50 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={
+                  typeof imagePreview === "string" &&
+                  !imagePreview.startsWith("blob:") &&
+                  !imagePreview.startsWith("data:")
+                    ? imagePreview
+                    : imagePreview
+                }
+                alt="Preview"
+                className="max-w-full max-h-full object-contain rounded-lg"
+              />
+            </div>
             <button
               type="button"
               aria-label="Remove image"

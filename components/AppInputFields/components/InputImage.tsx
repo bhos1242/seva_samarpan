@@ -21,13 +21,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ControllerRenderProps,
   FieldValues,
+  Path,
   useFormContext,
 } from "react-hook-form";
 import { BaseInputProps } from "../InputField";
 import { Camera } from "./InputImage/Camera";
 import { ImageCropper } from "./InputImage/ImageCropper";
 
-const isFile = (value: any): value is File => value instanceof File;
+const isFile = (value: unknown): value is File => value instanceof File;
 
 const ImageInput = <T extends FieldValues>({
   label,
@@ -40,24 +41,25 @@ const ImageInput = <T extends FieldValues>({
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"camera" | "gallery">("camera");
   const [cropImageUrl, setCropImageUrl] = useState<string | null>(null);
-  const hiddenInputRef = useRef<HTMLInputElement>(null);
+  const [objectUrl, setObjectUrl] = useState<string | null>(null);
+  const hiddenInputRef = useRef<HTMLInputElement | null>(null);
   const form = useFormContext<T>();
 
-  /* New state for preview URL to avoid createObjectURL in render */
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  if (!form) {
+    throw new Error("ImageInput must be used within a FormProvider");
+  }
 
-  /* Effect to manage preview URL */
+  const value = form.watch(name);
+
+  /* Effect to manage Object URL for files */
   useEffect(() => {
-    const value = form.getValues(name);
     let newUrl: string | null = null;
 
     if (isFile(value)) {
       newUrl = URL.createObjectURL(value);
-      setPreviewUrl(newUrl);
-    } else if (typeof value === "string") {
-      setPreviewUrl(value);
+      setObjectUrl(newUrl);
     } else {
-      setPreviewUrl(null);
+      setObjectUrl(null);
     }
 
     return () => {
@@ -65,7 +67,12 @@ const ImageInput = <T extends FieldValues>({
         URL.revokeObjectURL(newUrl);
       }
     };
-  }, [form.watch(name)]); // Watch the field value
+  }, [value]); // Depend only on value (which changes ref when new file selected)
+
+  // Derived state for preview
+  const previewUrl = isFile(value) 
+    ? objectUrl 
+    : (typeof value === "string" ? value : null);
 
   const handleDialogChange = (open: boolean) => {
     setIsDialogOpen(open);
@@ -96,18 +103,22 @@ const ImageInput = <T extends FieldValues>({
   const handleGalleryFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setCropImageUrl(imageUrl);
+      const reader = new FileReader();
+      reader.onload = () => {
+        setCropImageUrl(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
   };
 
+  /* Handle Crop Completion */
   const handleCropComplete = (
-    croppedFile: File,
-    field: ControllerRenderProps<T, any>
+    file: File,
+    field: ControllerRenderProps<T, Path<T>>
   ) => {
-    handleFileChange(croppedFile, field);
+    field.onChange(file);
     setCropImageUrl(null);
-    setIsDialogOpen(false);
+    // Object URL will be handled by useEffect
   };
 
   const handleCropCancel = () => {

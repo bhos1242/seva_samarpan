@@ -13,29 +13,34 @@ import { LucideIcon } from "lucide-react";
 import { FieldValues, useFormContext } from "react-hook-form";
 import { IconType } from "react-icons";
 import { BaseInputProps } from "../InputField";
+import React from "react";
 
+// Explicitly define Option interface if not imported
 interface Option {
-  value: string | null;
+  value: string | boolean;
   label: string;
+  description?: string;
+  icon?: React.ReactNode;
 }
 
-interface InputRadioProps<T extends FieldValues = any>
-  extends Omit<BaseInputProps<T>, "form"> {
-  options?: Option[];
-  Icon?: LucideIcon | IconType;
-  iconClassName?: string;
-  description?: string;
+// Ensure Props extend BaseInputProps correctly
+interface InputRadioProps<T extends FieldValues>
+  extends Omit<BaseInputProps<T>, "form" | "type"> {
+  options: Option[];
+  direction?: "row" | "column";
 }
 
 const InputRadio = <T extends FieldValues>({
   label,
   name,
-  options = [],
+  options,
+  direction = "column",
   className,
+  disabled,
+  required,
+  description,
   Icon,
   iconClassName,
-  required = false,
-  description,
 }: InputRadioProps<T>) => {
   const form = useFormContext<T>();
 
@@ -43,8 +48,9 @@ const InputRadio = <T extends FieldValues>({
     throw new Error("InputRadio must be used within a FormProvider");
   }
 
-  // Calculate grid columns based on options length
+  // Calculate grid columns based on options length and direction
   const getGridClass = () => {
+    if (direction === "row") return "flex flex-row flex-wrap gap-6";
     if (options.length <= 2) return "grid-cols-2";
     if (options.length <= 4) return "grid-cols-1";
     return "grid-cols-3";
@@ -98,35 +104,34 @@ const InputRadio = <T extends FieldValues>({
             <div className="relative w-full min-h-10 flex items-start py-2">
               <RadioGroup
                 onValueChange={field.onChange}
-                value={field.value}
+                value={String(field.value)} // Ensure value is string for RadioGroup
                 className={cn("grid w-full gap-4", getGridClass())}
+                disabled={disabled}
               >
                 {options.map((option) => (
                   <div
-                    key={option.value ?? "all"}
+                    key={String(option.value)}
                     className={cn("flex items-center space-x-2", "group/radio")}
                   >
                     <RadioGroupItem
-                      value={option.value ?? ""}
-                      id={`${name}-${option.value ?? "all"}`}
+                      value={String(option.value)}
+                      id={`${name}-${String(option.value)}`}
                       className={cn(
                         "h-4 w-4",
                         "border border-input",
                         "data-[state=checked]:border-primary",
                         "data-[state=checked]:text-primary",
                         "transition-colors duration-200",
-                        "focus:ring-2 focus:ring-primary/20"
+                        "focus:ring-2 focus:ring-primary/20",
+                        "cursor-pointer"
                       )}
                     />
                     <Label
-                      htmlFor={`${name}-${option.value ?? "all"}`}
+                      htmlFor={`${name}-${String(option.value)}`}
                       className={cn(
-                        "text-sm font-normal leading-none",
-                        "transition-colors duration-200",
-                        "cursor-pointer",
-                        "group-hover/radio:text-primary",
-                        "peer-disabled:cursor-not-allowed",
-                        "peer-disabled:opacity-70"
+                        "text-sm font-normal cursor-pointer",
+                        "text-muted-foreground group-hover/radio:text-foreground",
+                        "transition-colors duration-200"
                       )}
                     >
                       {option.label}
@@ -143,6 +148,4 @@ const InputRadio = <T extends FieldValues>({
   );
 };
 
-export default InputRadio as <T extends FieldValues>(
-  props: InputRadioProps<T>
-) => React.ReactNode;
+export default InputRadio;

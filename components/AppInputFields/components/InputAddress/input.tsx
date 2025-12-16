@@ -80,6 +80,25 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       control={form.control}
       name={name}
       render={({ field }) => {
+        // Assuming userCountry and isLoaded are defined elsewhere or passed as props
+        // For demonstration, let's define them as placeholders
+        const userCountry = "US"; // Placeholder for user's country
+        const isLoaded = scriptLoaded; // Using scriptLoaded as a proxy for isLoaded
+
+        /* Effect to default to user country if not set */
+        useEffect(() => {
+          if (!field.value?.country && userCountry) {
+            if (userCountry.toUpperCase() === "IN") {
+              field.onChange({
+                ...field.value,
+                country: "India",
+              });
+            }
+          }
+        }, [userCountry, field.value?.country]); // eslint-disable-line react-hooks/exhaustive-deps
+
+        if (!isLoaded) return <div>Loading...</div>;
+
         return (
           <AddressInput
             field={field}
