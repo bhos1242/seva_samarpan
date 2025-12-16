@@ -8,15 +8,17 @@ import { ControllerRenderProps, FieldValues } from "react-hook-form";
 import PlacesAutocomplete, {
   Suggestion,
 } from "react-places-autocomplete";
-import Select from "react-select";
+import Select, { GroupBase, StylesConfig } from "react-select";
 
 type Props = {
   field: ControllerRenderProps<FieldValues, string>;
   inputProps: InputFieldProps;
 };
+// Adapting PlaceOption to be compatible with Suggestion for Select options
 interface PlaceOption {
   description: string;
   placeId: string;
+  formattedSuggestion?: any;
 }
 
 const AddressInput = ({ field, inputProps }: Props) => {
@@ -75,8 +77,8 @@ const AddressInput = ({ field, inputProps }: Props) => {
     }
   };
 
-  const customStyles = {
-    menu: (provided: any) => ({
+  const customStyles: StylesConfig<PlaceOption, false, GroupBase<PlaceOption>> = {
+    menu: (provided) => ({
       ...provided,
       zIndex: 9999,
       position: "absolute",
@@ -84,7 +86,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
       border: "1px solid var(--border)",
       borderRadius: "var(--radius)",
     }),
-    option: (provided: any, state: any) => ({
+    option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
         ? "var(--primary)"
@@ -92,11 +94,11 @@ const AddressInput = ({ field, inputProps }: Props) => {
         ? "var(--accent)"
         : "transparent",
       color: state.isSelected
-        ? "var(--primary-oreground))"
+        ? "var(--primary-foreground)"
         : "var(--foreground)",
       cursor: "pointer",
     }),
-    control: (provided: any) => ({
+    control: (provided) => ({
       ...provided,
       backgroundColor: "transparent",
       border: "1px solid var(--input)",
@@ -106,7 +108,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
       display: "flex",
       alignItems: "center",
     }),
-    valueContainer: (provided: any) => ({
+    valueContainer: (provided) => ({
       ...provided,
       display: "flex",
       alignItems: "center",
@@ -116,16 +118,17 @@ const AddressInput = ({ field, inputProps }: Props) => {
   };
 
   const handleSelect = async (
-    option: PlaceOption,
+    option: PlaceOption | null,
     onChange: (value: any) => void
   ) => {
     console.log(`🚀 ~ address.miniform.tsx:131 ~ option:`, option);
 
     if (!option?.placeId) {
       if (option?.placeId === "") {
+        // Do nothing for empty placeId if needed, or handle clearing
       } else {
         onChange({
-          address: "", // Changed from undefined to empty string
+          address: "", 
           position: {
             lat: 0,
             lng: 0,
@@ -138,7 +141,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
       console.log(`🚀 ~ address.miniform.tsx:143 ~ response:`, response);
 
       onChange({
-        address: option.description, // Added fallback to empty string
+        address: option.description,
         position: {
           lat: response?.location?.latitude,
           lng: response?.location?.longitude,
@@ -155,7 +158,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
 
   // Memoize the field change handler to prevent unnecessary re-renders
   const handleFieldChange1 = useCallback(
-    (newValue: any) => {
+    (newValue: unknown) => {
       fieldOnChange(newValue);
     },
     [fieldOnChange]
@@ -316,7 +319,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
 
                 return (
                   <div className="relative flex items-center">
-                    <Select
+                    <Select<PlaceOption, false, GroupBase<PlaceOption>>
                       menuPlacement="auto"
                       styles={{
                         ...customStyles,
@@ -348,13 +351,13 @@ const AddressInput = ({ field, inputProps }: Props) => {
                       components={{
                         IndicatorSeparator: () => null,
                       }}
-                      value={state[0]}
+                      value={state[0] as unknown as PlaceOption} // Cast state to PlaceOption if needed
                       escapeClearsValue={false}
                       options={suggestions}
-                      getOptionLabel={(option: Suggestion) =>
+                      getOptionLabel={(option: PlaceOption) =>
                         option.description
                       }
-                      getOptionValue={(option: Suggestion) => option.placeId}
+                      getOptionValue={(option: PlaceOption) => option.placeId}
                       onInputChange={(value: string) => {
                         console.log(
                           `🚀 ~ address.miniform.tsx:396 ~ value:`,
@@ -365,13 +368,14 @@ const AddressInput = ({ field, inputProps }: Props) => {
                         if (inputProps.onChange) {
                           inputProps.onChange({
                             target: { value },
-                          } as any);
+                          } as React.ChangeEvent<HTMLInputElement>);
                         }
                       }}
                       filterOption={() => true}
-                      onChange={async (value: any) => {
+                      onChange={async (value) => {
+                         // value is PlaceOption | null
                         if (value) {
-                          setState([value]);
+                          setState([value as any]); // State expects Suggestion[], keeping as any for state compatibility if Suggestion mismatches PlaceOption
                           // Handle selection immediately instead of waiting for useEffect
                           await handleSelect(value, handleFieldChange1);
                         } else {
