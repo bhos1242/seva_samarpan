@@ -24,7 +24,8 @@ const InputOTPController = <T extends FieldValues>({
   required = false,
   description,
   onComplete,
-}: Omit<BaseInputProps<T>, "form">) => {
+  autoSubmit = false,
+}: Omit<BaseInputProps<T>, "form"> & { autoSubmit?: boolean }) => {
   const form = useFormContext<T>();
 
   if (!form) {
@@ -62,6 +63,10 @@ const InputOTPController = <T extends FieldValues>({
                 className="gap-2 w-full"
                 onComplete={(data) => {
                   onComplete?.(data);
+                  if (autoSubmit) {
+                    const formElement = document.querySelector("form");
+                    if (formElement) formElement.requestSubmit();
+                  }
                 }}
               >
                 <InputOTPGroup className="gap-2 w-full">
