@@ -65,7 +65,7 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
       animation: "scaleIn 200ms ease",
       boxShadow:
         "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-      overflow: "hidden",
+      overflowX: "hidden",
       zIndex: 9999,
     }),
     option: (provided: any, state: any) => ({
