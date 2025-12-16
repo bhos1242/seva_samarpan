@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
 import { Copy, Loader2, RefreshCw, Sparkles } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -42,27 +41,16 @@ const InputAITextArea = (props: InputAITextAreaProps) => {
   } = props;
 
   const form = useFormContext();
-  const [shouldGenerate, setShouldGenerate] = useState(false);
+
   const [generatedText, setGeneratedText] = useState("");
 
   if (!form) {
     throw new Error("InputAITextArea must be used within a FormProvider");
   }
 
-  // Use useQuery for AI generation instead of manual state management
-  const {
-    data: aiResponse,
-    isLoading: isGenerating,
-    error,
-  } = useQuery({
-    queryKey: [
-      "ai-generate",
-      generationPrompt,
-      context,
-      maxLength,
-      shouldGenerate,
-    ],
-    queryFn: async () => {
+  // Use useMutation for AI generation
+  const generateMutation = useMutation({
+    mutationFn: async () => {
       const response = await fetch("/api/ai/generate-text", {
         method: "POST",
         headers: {
@@ -81,31 +69,21 @@ const InputAITextArea = (props: InputAITextAreaProps) => {
 
       return response.json();
     },
-    enabled: shouldGenerate,
-    retry: 1,
-    staleTime: 0, // Always fresh
-  });
-
-  // Handle successful generation and errors with useEffect
-  useEffect(() => {
-    if (aiResponse && !isGenerating && shouldGenerate) {
-      if (aiResponse.text && aiResponse.text !== generatedText) {
-        setGeneratedText(aiResponse.text);
+    onSuccess: (data: { text: string }) => {
+      if (data.text) {
+        setGeneratedText(data.text);
         toast.success("Content generated successfully!");
       }
-      setShouldGenerate(false);
-    }
-  }, [aiResponse, isGenerating, shouldGenerate, generatedText]);
-
-  useEffect(() => {
-    if (error && shouldGenerate) {
+    },
+    onError: () => {
       toast.error("Failed to generate content. Please try again.");
-      setShouldGenerate(false);
-    }
-  }, [error, shouldGenerate]);
+    },
+  });
+
+  const isGenerating = generateMutation.isPending;
 
   const generateAIContent = () => {
-    setShouldGenerate(true);
+    generateMutation.mutate();
   };
 
   const applyGeneratedText = () => {
