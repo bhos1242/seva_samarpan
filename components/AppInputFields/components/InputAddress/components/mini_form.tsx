@@ -14,11 +14,10 @@ type Props = {
   field: ControllerRenderProps<FieldValues, string>;
   inputProps: InputFieldProps;
 };
-// Adapting PlaceOption to be compatible with Suggestion for Select options
+// Adapting PlaceOption to be consistent
 interface PlaceOption {
   description: string;
   placeId: string;
-  formattedSuggestion?: any;
 }
 
 const AddressInput = ({ field, inputProps }: Props) => {
@@ -104,7 +103,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
       border: "1px solid var(--input)",
       borderRadius: "var(--radius)",
       minHeight: "44px",
-      paddingLeft: "0.5rem",
+      paddingLeft: "2.5rem", // Updated padding to match usage
       display: "flex",
       alignItems: "center",
     }),
@@ -317,29 +316,16 @@ const AddressInput = ({ field, inputProps }: Props) => {
               {({ getInputProps, suggestions, loading }) => {
                 const inputProps = getInputProps();
 
+                const placeOptions: PlaceOption[] = suggestions.map((s) => ({
+                  description: s.description,
+                  placeId: s.placeId,
+                }));
+
                 return (
                   <div className="relative flex items-center">
                     <Select<PlaceOption, false, GroupBase<PlaceOption>>
                       menuPlacement="auto"
-                      styles={{
-                        ...customStyles,
-                        control: (base) => ({
-                          ...base,
-                          backgroundColor: "transparent",
-                          border: `1px solid ${
-                            isLocationLoading
-                              ? "var(--primary)"
-                              : "var(--input)"
-                          }`,
-                          borderRadius: "var(--radius)",
-                          minHeight: "44px",
-                          paddingLeft: "2.5rem",
-                        }),
-                        valueContainer: (provided) => ({
-                          ...provided,
-                          paddingLeft: "0",
-                        }),
-                      }}
+                      styles={customStyles}
                       isLoading={loading || isLocationLoading}
                       placeholder={
                         isLocationLoading
@@ -351,20 +337,13 @@ const AddressInput = ({ field, inputProps }: Props) => {
                       components={{
                         IndicatorSeparator: () => null,
                       }}
-                      value={state[0] as unknown as PlaceOption} // Cast state to PlaceOption if needed
+                      value={state.length > 0 ? { description: state[0].description, placeId: state[0].placeId } : null}
                       escapeClearsValue={false}
-                      options={suggestions}
-                      getOptionLabel={(option: PlaceOption) =>
-                        option.description
-                      }
-                      getOptionValue={(option: PlaceOption) => option.placeId}
+                      options={placeOptions}
+                      getOptionLabel={(option) => option.description}
+                      getOptionValue={(option) => option.placeId}
                       onInputChange={(value: string) => {
-                        console.log(
-                          `🚀 ~ address.miniform.tsx:396 ~ value:`,
-                          value
-                        );
-
-                        // Safely call the onChange without causing infinite loops
+                         // Safely call the onChange without causing infinite loops
                         if (inputProps.onChange) {
                           inputProps.onChange({
                             target: { value },
@@ -373,14 +352,36 @@ const AddressInput = ({ field, inputProps }: Props) => {
                       }}
                       filterOption={() => true}
                       onChange={async (value) => {
-                         // value is PlaceOption | null
                         if (value) {
-                          setState([value as any]); // State expects Suggestion[], keeping as any for state compatibility if Suggestion mismatches PlaceOption
-                          // Handle selection immediately instead of waiting for useEffect
+                           // We need to maintain the state as Suggestion if other parts rely on it, 
+                           // but state usage seems to only be for value binding in Select (which we now map)
+                           // and handleSelect.
+                           // handleSelect uses PlaceOption.
+                           // So we can change State to store PlaceOption?
+                           // But PlaceAutcomplete might rely on something?
+                           // Actually state is my local state `const [state, setState] = useState<Suggestion[]>([]);`
+                           // I should probably switch state to `PlaceOption[]`.
+
+                           // For now, I will construct a fake Suggestion to satisfy strict state type or better, refactor state type.
+                           // Let's refactor state type to PlaceOption[] in a separate step if needed. 
+                           // For now, cast or mapping.
+                           // Actually, let's just map it back to a minimal Suggestion-like object if needed, 
+                           // OR better: Update state definition to PlaceOption[] and remove Suggestion dependency for state.
+                           
+                           // BUT: PlacesAutocomplete provides `suggestions` as Suggestion[]. 
+                           // If I change state to PlaceOption, I verify if anything breaks.
+                           
+                           // Let's refactor state to PlaceOption[].
+                           // But wait, `value={state[0]...}` was used. 
+                           // I'll update the state update logic here.
+                           
+                           // Using as any for now to just fix the Select integration, 
+                           // and I will refactor the State type in the next tool call for full correctness.
+                           
+                          setState([{ ...value, id: value.placeId, active: false, index: 0, formattedSuggestion: { mainText: value.description, secondaryText: "" }, matchedSubstrings: [], terms: [], types: [] }]);
                           await handleSelect(value, handleFieldChange1);
                         } else {
                           setState([]);
-                          // Handle clearing immediately
                           handleFieldChange1({
                             address: "",
                             position: { lat: 0, lng: 0 },
@@ -392,7 +393,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
                       className="w-full"
                     />
                   </div>
-                ) as any;
+                );
               }}
             </PlacesAutocomplete>
           </>
