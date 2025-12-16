@@ -1,36 +1,120 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Hackathon Starter Template
 
-## Getting Started
+A blazing-fast Next.js 16 starter template optimized for hackathons. Ship fast, win big!
 
-First, run the development server:
+## ⚡ Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 1. Clone and install
+pnpm install
+
+# 2. Set up environment
+cp .env.example .env
+# Edit .env with your values
+
+# 3. Generate Prisma client
+pnpm prisma generate
+
+# 4. Push database schema (or migrate)
+pnpm prisma db push
+
+# 5. Start development
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎁 What's Included
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Core
+- ⚡ **Next.js 16** with App Router & Turbopack
+- 🎨 **Tailwind CSS v4** + **shadcn/ui** (new-york style)
+- 🔐 **Auth.js v5** with Google & GitHub providers
+- 🗄️ **Prisma ORM** with PostgreSQL
+- 📝 **TypeScript** + **Zod** validation
+- 🌙 **Dark mode** with next-themes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Pre-installed Components
+- Button, Card, Input, Label, Dialog, Form
+- Textarea, Select, Badge, Avatar
+- Separator, Dropdown Menu, Skeleton
+- Sonner (toast notifications)
 
-## Learn More
+### App Structure
+- `loading.tsx` - Global loading state
+- `error.tsx` - Error boundary with retry
+- `not-found.tsx` - Custom 404 page
+- `navbar.tsx` - Responsive navbar with auth
+- `footer.tsx` - Simple footer
+- `actions/` - Server actions template
 
-To learn more about Next.js, take a look at the following resources:
+## 🔧 Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Copy `.env.example` to `.env` and fill in:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+DATABASE_URL="your-postgres-url"
+AUTH_SECRET="openssl rand -base64 32"
+GOOGLE_CLIENT_ID="from-google-console"
+GOOGLE_CLIENT_SECRET="from-google-console"
+GITHUB_CLIENT_ID="from-github-settings"
+GITHUB_CLIENT_SECRET="from-github-settings"
+```
 
-## Deploy on Vercel
+## 📁 Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+├── app/
+│   ├── api/auth/[...nextauth]/  # Auth API routes
+│   ├── layout.tsx               # Root layout with providers
+│   ├── page.tsx                 # Landing page
+│   ├── loading.tsx              # Loading UI
+│   ├── error.tsx                # Error UI
+│   └── not-found.tsx            # 404 UI
+├── components/
+│   ├── ui/                      # shadcn/ui components
+│   ├── navbar.tsx               # Navigation
+│   ├── footer.tsx               # Footer
+│   ├── theme-provider.tsx       # Theme context
+│   ├── theme-toggle.tsx         # Dark mode toggle
+│   └── providers.tsx            # Session provider
+├── lib/
+│   ├── auth.ts                  # Auth.js config
+│   ├── prisma.ts                # Prisma client
+│   └── utils.ts                 # Utility functions
+├── actions/                     # Server actions
+├── prisma/
+│   └── schema.prisma            # Database schema
+└── .env.example                 # Environment template
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🏆 Hackathon Tips
+
+1. **Focus on your unique idea** - Auth, DB, and UI are ready
+2. **Use server actions** - Faster than API routes
+3. **Leverage shadcn/ui** - Add more components with `npx shadcn@latest add [component]`
+4. **Deploy early** - Push to Vercel for live demo
+
+## 📚 Useful Commands
+
+```bash
+# Add more shadcn components
+npx shadcn@latest add [component-name]
+
+# Prisma commands
+pnpm prisma generate     # Generate client
+pnpm prisma db push      # Push schema changes
+pnpm prisma studio       # Open database GUI
+
+# Build for production
+pnpm build
+```
+
+## 🚀 Deploy
+
+```bash
+# Deploy to Vercel
+vercel
+```
+
+---
+
+**Good luck with your hackathon! 🎉**
