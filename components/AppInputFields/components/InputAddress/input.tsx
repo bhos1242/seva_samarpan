@@ -15,14 +15,18 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     throw new Error("InputAddress must be used within a FormProvider");
   }
 
+  // 1. Check if API Key is missing and return early
+  if (!apiKey) {
+    return (
+      <div className="p-4 border border-red-200 bg-red-50 rounded-md text-sm text-red-600">
+        <p className="font-semibold">Configuration Error</p>
+        <p>Google Maps API Key is missing. Please add it to your environment variables.</p>
+      </div>
+    );
+  }
+
   useEffect(() => {
     const scriptId = "google-maps-script";
-
-    // 1. Check if API Key is missing
-    if (!apiKey) {
-      setLoadError("Google Maps API Key is missing. Please add it to your environment variables.");
-      return;
-    }
 
     // 2. Handle Google Maps Authentication Failure
     // @ts-ignore
