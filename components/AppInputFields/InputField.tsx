@@ -87,7 +87,7 @@ const EditorLoadingSkeleton = () => {
         </div>
 
         {/* Editor Content Skeleton - Matches px-4 py-3 and min-h-[200px] */}
-        <div className="px-4 py-3 min-h-[200px] space-y-3">
+        <div className="px-4 py-3 min-h-50 space-y-3">
           <Skeleton className="h-4 w-3/4" />
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-5/6" />
