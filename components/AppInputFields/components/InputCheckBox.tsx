@@ -58,30 +58,21 @@ const InputCheckbox = <T extends FieldValues>({
                 )}
               />
             </FormControl>
-            <FormLabel
-              className={cn(
-                "truncate flex justify-start !mt-0 w-full text-left",
-                "text-sm font-medium transition-colors cursor-pointer",
-                "group-hover:text-primary",
-                required &&
-                  "after:content-['*'] after:ml-0.5 after:text-red-500"
+            <div className="space-y-1 leading-none">
+              <FormLabel
+                className={cn(
+                  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer",
+                  // Fix standard form label margin top issue
+                  "mt-0!" 
+                )}
+              >
+                {label}
+              </FormLabel>
+              {description && (
+                <p className="text-xs text-muted-foreground">{description}</p>
               )}
-            >
-              {label}
-            </FormLabel>
-            <div
-              className={cn(
-                "absolute left-0 w-5 h-5 rounded-md",
-                "border-2 border-transparent",
-                "transition-all duration-500",
-                "group-hover:border-primary/20",
-                "group-hover:scale-150 group-hover:opacity-0"
-              )}
-            />
+            </div>
           </div>
-          {description && (
-            <p className="text-xs text-muted-foreground mt-1">{description}</p>
-          )}
           <FormMessage className="text-xs font-medium text-destructive mt-1 animate-in fade-in-50" />
         </FormItem>
       )}

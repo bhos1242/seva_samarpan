@@ -326,7 +326,7 @@ const InputMultipleDates = <T extends FieldValues>({
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                  <div className="flex flex-wrap gap-1.5 max-h-[120px] overflow-y-auto p-2 bg-linear-to-r from-muted/30 to-muted/20 rounded-lg border border-border/50">
+                  <div className="flex flex-wrap gap-1.5 max-h-30 overflow-y-auto p-2 bg-linear-to-r from-muted/30 to-muted/20 rounded-lg border border-border/50">
                     {sortedDates.map((date: string) => (
                       <Badge
                         key={date}
@@ -397,7 +397,7 @@ const InputMultipleDates = <T extends FieldValues>({
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent
-                  className="w-[320px] h-[450px] p-0 z-[60] date-picker-popover"
+                  className="w-80 h-112.5 p-0 z-60 date-picker-popover"
                   align="start"
                 >
                   <style jsx global>

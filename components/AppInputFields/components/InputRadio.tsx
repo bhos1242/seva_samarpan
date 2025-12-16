@@ -74,17 +74,19 @@ const InputRadio = <T extends FieldValues>({
                   )}
                 />
               )}
-              <Label
-                className={cn(
-                  "text-sm font-medium",
-                  "transition-colors duration-200",
-                  "group-hover:text-primary",
-                  required &&
-                    "after:content-['*'] after:ml-0.5 after:text-red-500"
-                )}
-              >
-                {label}
-              </Label>
+              {label && (
+                <Label
+                  className={cn(
+                    "text-sm font-medium",
+                    "transition-colors duration-200",
+                    "group-hover:text-primary",
+                    required &&
+                      "after:content-['*'] after:ml-0.5 after:text-red-500"
+                  )}
+                >
+                  {label}
+                </Label>
+              )}
             </div>
             {description && (
               <p className="text-xs text-muted-foreground pl-6">
@@ -93,7 +95,7 @@ const InputRadio = <T extends FieldValues>({
             )}
           </div>
           <FormControl>
-            <div className="relative w-full min-h-[40px] flex items-start py-2">
+            <div className="relative w-full min-h-10 flex items-start py-2">
               <RadioGroup
                 onValueChange={field.onChange}
                 value={field.value}

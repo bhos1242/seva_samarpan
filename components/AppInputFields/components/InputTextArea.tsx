@@ -69,13 +69,16 @@ const InputTextArea = (props: Omit<InputFieldProps, "form">) => {
 
                 <Textarea
                   className={cn(
-                    "w-full min-h-[80px]",
+                    "w-full",
+                    "resize-none",
+                    "min-h-20",
                     "transition-all duration-200",
                     "border-2 focus:border-primary",
                     "hover:border-primary/50",
                     "rounded-md shadow-sm",
                     "placeholder:text-muted-foreground/50",
                     "focus:ring-2 focus:ring-primary/20",
+                    "focus-visible:ring-primary",
                     Icon ? "pl-10" : "pl-3"
                   )}
                   placeholder={placeholder}

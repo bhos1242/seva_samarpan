@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { CameraIcon, ImageIcon, UploadIcon } from "lucide-react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ControllerRenderProps,
   FieldValues,
@@ -42,6 +42,30 @@ const ImageInput = <T extends FieldValues>({
   const [cropImageUrl, setCropImageUrl] = useState<string | null>(null);
   const hiddenInputRef = useRef<HTMLInputElement>(null);
   const form = useFormContext<T>();
+
+  /* New state for preview URL to avoid createObjectURL in render */
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  /* Effect to manage preview URL */
+  useEffect(() => {
+    const value = form.getValues(name);
+    let newUrl: string | null = null;
+
+    if (isFile(value)) {
+      newUrl = URL.createObjectURL(value);
+      setPreviewUrl(newUrl);
+    } else if (typeof value === "string") {
+      setPreviewUrl(value);
+    } else {
+      setPreviewUrl(null);
+    }
+
+    return () => {
+      if (newUrl) {
+        URL.revokeObjectURL(newUrl);
+      }
+    };
+  }, [form.watch(name)]); // Watch the field value
 
   const handleDialogChange = (open: boolean) => {
     setIsDialogOpen(open);
@@ -120,7 +144,7 @@ const ImageInput = <T extends FieldValues>({
                   <div
                     className={cn(
                       "flex px-2 border-2 border-dashed border-gray-200",
-                      "bg-[#f8f8ff59] py-[6px] flex-col items-center",
+                      "bg-[#f8f8ff59] py-1.5 flex-col items-center",
                       "h-48 w-48 rounded-full justify-center",
                       "hover:border-primary hover:bg-primary/5",
                       "cursor-pointer transition-all duration-300",
@@ -128,12 +152,8 @@ const ImageInput = <T extends FieldValues>({
                       className
                     )}
                     style={{
-                      backgroundImage: field?.value
-                        ? `linear-gradient(45deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${
-                            isFile(field?.value)
-                              ? URL.createObjectURL(field?.value)
-                              : field?.value
-                          })`
+                      backgroundImage: previewUrl
+                        ? `linear-gradient(45deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${previewUrl})`
                         : undefined,
                       backgroundSize: "cover",
                       backgroundPosition: "center",
@@ -193,7 +213,7 @@ const ImageInput = <T extends FieldValues>({
                       </div>
                     )}
 
-                    <div className="min-h-[300px] flex items-center justify-center">
+                    <div className="min-h-75 flex items-center justify-center">
                       {cropImageUrl ? (
                         <ImageCropper
                           imageUrl={cropImageUrl}

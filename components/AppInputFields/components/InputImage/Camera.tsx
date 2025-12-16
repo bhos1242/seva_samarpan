@@ -400,21 +400,24 @@ export const Camera = forwardRef<CameraRef, CameraProps>(
 
     if (cameraError) {
       return (
-        <Alert variant="destructive" className="animate-in fade-in-50">
-          <AlertCircle className="h-4 w-4" />
-          <AlertTitle>Camera Error</AlertTitle>
-          <AlertDescription>{cameraError}</AlertDescription>
-          <Button
-            onClick={startCamera}
-            variant="outline"
-            className="mt-4 w-full"
-          >
-            <RefreshCwIcon className="h-4 w-4 mr-2" />
-            Try Again
-          </Button>
-        </Alert>
-      );
-    }
+        <div className="mt-4 text-center space-y-2">
+        <p className="font-semibold text-lg text-foreground">
+          Camera Access Required
+        </p>
+        <p className="text-sm text-muted-foreground max-w-75 mx-auto">
+          Please allow camera access in your browser settings to take photos.
+        </p>
+        <Button
+          onClick={() => window.location.reload()}
+          variant="outline"
+          size="sm"
+          className="mt-2"
+        >
+          Reload Page
+        </Button>
+      </div>
+    );
+  }
 
     return (
       <div className="space-y-4 w-full h-full" ref={cameraContainerRef}>

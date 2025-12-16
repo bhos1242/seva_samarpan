@@ -216,7 +216,7 @@ const InputDate = <T extends FieldValues>({
                         <SelectTrigger className="h-8 text-sm font-medium border-0 bg-transparent hover:bg-primary/10 focus:bg-primary/10">
                           <SelectValue>{viewDate.getFullYear()}</SelectValue>
                         </SelectTrigger>
-                        <SelectContent className="max-h-[200px]">
+                        <SelectContent className="max-h-50">
                           {years.map((year) => (
                             <SelectItem key={year} value={year.toString()}>
                               {year}

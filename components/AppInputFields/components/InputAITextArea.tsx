@@ -174,7 +174,7 @@ const InputAITextArea = (props: InputAITextAreaProps) => {
 
                   <Textarea
                     className={cn(
-                      "w-full min-h-[120px] pr-12",
+                      "w-full min-h-30 pr-12",
                       "transition-all duration-200",
                       "border-2 focus:border-primary",
                       "hover:border-primary/50",

@@ -94,13 +94,24 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
   // Show default image if present
   useEffect(() => {
     const value = field.value;
+    let newPreview: string | null = null;
+
     if (typeof value === "string" && value) {
-      setImagePreview(value);
+      newPreview = value;
+      setImagePreview(newPreview);
     } else if ((value as any) instanceof File) {
-      setImagePreview(URL.createObjectURL(value as File));
+      newPreview = URL.createObjectURL(value as File);
+      setImagePreview(newPreview);
     } else {
       setImagePreview(null);
     }
+
+    // Cleanup function to revoke ObjectURL if it was created
+    return () => {
+      if (newPreview && (value as any) instanceof File) {
+        URL.revokeObjectURL(newPreview);
+      }
+    };
   }, [field.value]);
 
   // Validate image file
@@ -367,12 +378,14 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
               height={200}
               src={
                 typeof imagePreview === "string" &&
-                !imagePreview.startsWith("blob:")
+                !imagePreview.startsWith("blob:") &&
+                !imagePreview.startsWith("data:")
                   ? `${imagePreview}?t=${Date.now()}`
                   : imagePreview
               }
               alt="Preview"
               className="max-w-full max-h-full object-contain rounded-lg"
+              unoptimized
             />
             <button
               type="button"
