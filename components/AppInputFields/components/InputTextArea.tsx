@@ -38,7 +38,7 @@ const InputTextArea = (props: Omit<InputFieldProps, "form">) => {
         return (
           <FormItem
             className={cn(
-              "w-full max-w-[400px]",
+              "w-full",
               "group transition-all duration-300 ease-in-out",
               className
             )}
