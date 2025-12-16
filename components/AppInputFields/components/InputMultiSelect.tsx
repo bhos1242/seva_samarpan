@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
+import { GroupBase, MultiValue, StylesConfig } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { InputFieldProps } from "../InputField";
 
@@ -31,8 +32,13 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
     throw new Error("InputMultiSelect must be used within a FormProvider");
   }
 
-  const customStyles = {
-    control: (provided: any, state: any) => ({
+  interface Option {
+    label: string;
+    value: string | null;
+  }
+
+  const customStyles: StylesConfig<Option, true, GroupBase<Option>> = {
+    control: (provided, state) => ({
       ...provided,
       minHeight: "44px",
       border: state.isFocused
@@ -48,16 +54,16 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
       },
       paddingLeft: "38px",
     }),
-    valueContainer: (provided: any) => ({
+    valueContainer: (provided) => ({
       ...provided,
       padding: "0 12px",
       paddingLeft: "0",
     }),
-    input: (provided: any) => ({
+    input: (provided) => ({
       ...provided,
       color: "var(--foreground)",
     }),
-    menu: (provided: any) => ({
+    menu: (provided) => ({
       ...provided,
       backgroundColor: "var(--background)",
       border: "1px solid var(--border)",
@@ -68,7 +74,7 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
       overflowX: "hidden",
       zIndex: 9999,
     }),
-    option: (provided: any, state: any) => ({
+    option: (provided, state) => ({
       ...provided,
       backgroundColor: state.isSelected
         ? "var(--primary)"
@@ -86,16 +92,16 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
       },
       zIndex: 9999,
     }),
-    multiValue: (provided: any) => ({
+    multiValue: (provided) => ({
       ...provided,
       backgroundColor: "var(--accent)",
       borderRadius: "var(--radius)",
     }),
-    multiValueLabel: (provided: any) => ({
+    multiValueLabel: (provided) => ({
       ...provided,
       color: "var(--accent-foreground)",
     }),
-    multiValueRemove: (provided: any) => ({
+    multiValueRemove: (provided) => ({
       ...provided,
       color: "var(--accent-foreground)",
       "&:hover": {
@@ -103,10 +109,10 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
         color: "var(--destructive-foreground)",
       },
     }),
-    dropdownIndicator: (provided: any, state: any) => ({
+    dropdownIndicator: (provided, state) => ({
       ...provided,
       transition: "transform 200ms ease",
-      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : null,
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : undefined,
       color: state.isFocused ? "var(--primary)" : "var(--muted-foreground)",
       "&:hover": {
         color: "var(--primary)",
@@ -153,7 +159,7 @@ const InputMultiSelect: React.FC<InputFieldProps> = (props) => {
                 name={name}
                 options={options}
                 instanceId={`select-${name}`}
-                onChange={(newValue: any) => {
+                onChange={(newValue: MultiValue<Option>) => {
                   field.onChange(newValue);
                 }}
                 styles={customStyles}
