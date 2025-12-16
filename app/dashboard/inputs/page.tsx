@@ -39,6 +39,15 @@ const formSchema = z.object({
   // Other
   colorInput: z.string().optional(),
   ratingInput: z.number().optional(),
+
+  // Special
+  editorInput: z.string().optional(),
+  aiTextAreaInput: z.string().optional(),
+  otpInput: z.string().optional(),
+  avatarInput: z.any().optional(),
+  modernImageInput: z.any().optional(),
+  multiImageInput: z.any().optional(),
+  locationInput: z.any().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -80,11 +89,12 @@ export default function InputsPage() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <Tabs defaultValue="basic" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="basic">Basic</TabsTrigger>
               <TabsTrigger value="selection">Selection</TabsTrigger>
               <TabsTrigger value="boolean">Boolean</TabsTrigger>
               <TabsTrigger value="advanced">Advanced</TabsTrigger>
+              <TabsTrigger value="special">Special</TabsTrigger>
             </TabsList>
 
             {/* Basic Inputs */}
@@ -227,14 +237,13 @@ export default function InputsPage() {
                     placeholder="Select date and time..."
                   />
                   
-                  <div className="md:col-span-2">
-                    <InputField
-                      name="textAreaInput"
-                      label="Text Area Input"
-                      type="text-area"
-                      placeholder="Enter long text..."
-                    />
-                  </div>
+                  <InputField
+                    name="textAreaInput"
+                    label="Text Area Input"
+                    type="text-area"
+                    placeholder="Enter long text..."
+                    className="col-span-2"
+                  />
                   
                   <InputField
                     name="colorInput"
@@ -249,6 +258,73 @@ export default function InputsPage() {
                     type="rating"
                     description="Rate from 1 to 5"
                   />
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Special Inputs */}
+            <TabsContent value="special" className="space-y-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Special Input Fields</CardTitle>
+                  <CardDescription>Rich Editor, AI Text Area, OTP, File Uploads</CardDescription>
+                </CardHeader>
+                <CardContent className="grid gap-6 md:grid-cols-2">
+                  <div className="md:col-span-2">
+                    <InputField
+                      name="editorInput"
+                      label="Rich Text Editor"
+                      type="editor"
+                      placeholder="Write something amazing..."
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <InputField
+                      name="aiTextAreaInput"
+                      label="AI Text Area"
+                      type="ai-text-area"
+                      placeholder="Ask AI to help you write..."
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                     <InputField
+                      name="otpInput"
+                      label="One-Time Password (OTP)"
+                      type="OTP"
+                      description="Enter the 6-digit code"
+                    />
+                  </div>
+
+                  <InputField
+                    name="avatarInput"
+                    label="Avatar Upload"
+                    type="avatar"
+                  />
+
+                  <InputField
+                    name="modernImageInput"
+                    label="Modern Image Upload"
+                    type="modern-image"
+                  />
+                  
+                  <div className="md:col-span-2">
+                    <InputField
+                      name="multiImageInput"
+                      label="Multi-Image Upload"
+                      type="multiSelect_images"
+                    />
+                  </div>
+                   
+                  <div className="md:col-span-2">
+                    <InputField
+                      name="locationInput"
+                      label="Location Search"
+                      type="places_autocomplete"
+                      placeholder="Search for a place..."
+                    />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
