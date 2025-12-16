@@ -56,11 +56,61 @@ import ModernImageInput from "./components/ModernImageInput";
 import MultiImageInput from "./components/multiImageInput";
 import dynamic from "next/dynamic";
 import { Skeleton } from "../ui/skeleton";
+// Detailed skeleton for the editor to match the actual UI
+const EditorLoadingSkeleton = () => {
+  return (
+    <div className="w-full space-y-2">
+      {/* Label Skeleton */}
+      <Skeleton className="h-4 w-24" />
+      
+      <div className="border rounded-md overflow-hidden bg-background">
+        {/* Toolbar Skeleton */}
+        <div className="border-b border-gray-200 p-2 bg-gray-50/50 flex flex-wrap items-center gap-1">
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <div className="h-6 w-px bg-gray-200 mx-1" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <div className="h-6 w-px bg-gray-200 mx-1" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <div className="flex-1" />
+          <Skeleton className="h-8 w-8 rounded-full" />
+        </div>
+
+        {/* Editor Content Skeleton */}
+        <div className="p-4 space-y-3 min-h-[200px]">
+          <Skeleton className="h-4 w-3/4" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-5/6" />
+          <Skeleton className="h-4 w-1/2" />
+        </div>
+      </div>
+
+      {/* AI Section Skeleton */}
+      <div className="mt-3 p-3 bg-muted/50 border border-border rounded-md">
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-2">
+             <Skeleton className="h-4 w-4 rounded-full" />
+             <Skeleton className="h-4 w-32" />
+          </div>
+        </div>
+        <Skeleton className="h-20 w-full rounded-md" />
+        <div className="flex justify-end mt-2">
+          <Skeleton className="h-8 w-20 rounded-md" />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const DynamicInputEditorV2 = dynamic(() => import("./InputEditorJS"), {
   ssr: false,
-  loading: () => {
-    return <Skeleton className="h-40 w-full rounded-md" />;
-  },
+  loading: () => <EditorLoadingSkeleton />,
 });
 
 // Base type for form values
