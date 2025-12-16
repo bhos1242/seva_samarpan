@@ -173,43 +173,7 @@ export const Camera = forwardRef<CameraRef, CameraProps>(
     const isPermissionsSupported =
       typeof navigator !== "undefined" && "permissions" in navigator;
 
-    // Check camera permission status
-    const checkPermission = useCallback(async () => {
-      try {
-        if (!isPermissionsSupported) {
-          // Skip permission check on browsers that don't support it
-          return;
-        }
 
-        const result = await navigator.permissions.query({
-          name: "camera" as PermissionName,
-        });
-
-        if (result.state === "granted") {
-          setPermissionState("granted");
-        } else if (result.state === "denied") {
-          setPermissionState("denied");
-        } else {
-          setPermissionState("prompt");
-        }
-
-        // Listen for permission changes
-        result.addEventListener("change", () => {
-          if (result.state === "granted") {
-            setPermissionState("granted");
-            startCamera();
-          } else if (result.state === "denied") {
-            setPermissionState("denied");
-            cleanupCamera();
-          }
-        });
-      } catch (error) {
-        console.error("Error checking camera permission:", error);
-        // Some browsers don't support the camera permission query
-        // In this case, we'll just try to start the camera directly
-        setPermissionState("not-supported");
-      }
-    }, [isPermissionsSupported, cleanupCamera, startCamera]);
 
     // Update container size on mount and window resize
     useEffect(() => {
@@ -237,28 +201,76 @@ export const Camera = forwardRef<CameraRef, CameraProps>(
     }));
 
     useEffect(() => {
-      // First check permission status
-      checkPermission();
+      let mounted = true;
 
-      // If permissions API is not supported or permission is already granted, try to start the camera
-      if (
-        !isPermissionsSupported ||
-        permissionState === "granted" ||
-        permissionState === "not-supported"
-      ) {
-        startCamera();
-      }
+      const initCamera = async () => {
+        // First check permission status
+        if (!isPermissionsSupported) {
+          if (mounted) {
+             // If not supported, we assume we can try to start it or it's handled elsewhere
+            startCamera();
+          }
+          return;
+        }
+
+        try {
+          const result = await navigator.permissions.query({
+            name: "camera" as PermissionName,
+          });
+
+          if (!mounted) return;
+
+          if (result.state === "granted") {
+            setPermissionState("granted");
+            startCamera();
+          } else if (result.state === "denied") {
+            setPermissionState("denied");
+          } else {
+            setPermissionState("prompt");
+             // If prompt, we might want to try starting to trigger the prompt
+             // But usually we wait for user interaction. 
+             // However, original logic tried to start if 'granted' or 'not-supported'.
+             // If 'prompt', we probably shouldn't auto-start unless we want to trigger the browser prompt immediately.
+             // Original logic:
+             /*
+               if (
+                !isPermissionsSupported ||
+                permissionState === "granted" ||
+                permissionState === "not-supported"
+              ) {
+                startCamera();
+              }
+             */
+             
+             // If we are in 'prompt' state, we haven't started yet.
+          }
+
+          result.addEventListener("change", () => {
+            if (!mounted) return;
+            if (result.state === "granted") {
+              setPermissionState("granted");
+              startCamera();
+            } else if (result.state === "denied") {
+              setPermissionState("denied");
+              cleanupCamera();
+            }
+          });
+        } catch (error) {
+          console.error("Error checking camera permission:", error);
+          if (mounted) {
+             setPermissionState("not-supported");
+             startCamera();
+          }
+        }
+      };
+
+      initCamera();
 
       return () => {
+        mounted = false;
         cleanupCamera();
       };
-    }, [
-      startCamera,
-      cleanupCamera,
-      checkPermission,
-      isPermissionsSupported,
-      permissionState,
-    ]);
+    }, [isPermissionsSupported, startCamera, cleanupCamera]);
 
     const takeSelfie = () => {
       if (!videoRef.current || !canvasRef.current) return;
