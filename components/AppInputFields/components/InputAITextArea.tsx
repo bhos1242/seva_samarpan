@@ -137,7 +137,7 @@ const InputAITextArea = (props: InputAITextAreaProps) => {
         return (
           <FormItem
             className={cn(
-              "w-full max-w-[600px]",
+              "w-full",
               "group transition-all duration-300 ease-in-out",
               className
             )}

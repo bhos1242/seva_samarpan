@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { Select } from "@/components/ui/select";
 import { useFormContext } from "react-hook-form";
+import { cn } from "@/lib/utils";
 import AsyncSelect from "react-select/async";
 import { InputFieldProps } from "../InputField";
 
@@ -27,7 +28,7 @@ const AsyncInputSelect: React.FC<InputFieldProps> = (props) => {
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className={`min-w-[300px] max-w-[300px] ${className}`}>
+        <FormItem className={cn("w-full", className)}>
           <FormLabel>{label}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
