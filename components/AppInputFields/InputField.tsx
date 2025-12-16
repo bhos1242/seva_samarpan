@@ -64,10 +64,14 @@ const EditorLoadingSkeleton = () => {
       <Skeleton className="h-4 w-24" />
       
       <div className="border rounded-md overflow-hidden bg-background">
-        {/* Toolbar Skeleton */}
+        {/* Toolbar Skeleton - Matches p-2 and h-8 buttons */}
         <div className="border-b border-gray-200 p-2 bg-gray-50/50 flex flex-wrap items-center gap-1">
           <Skeleton className="h-8 w-8 rounded-md" />
           <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <Skeleton className="h-8 w-8 rounded-md" />
+          <div className="h-6 w-px bg-gray-200 mx-1" />
           <Skeleton className="h-8 w-8 rounded-md" />
           <Skeleton className="h-8 w-8 rounded-md" />
           <Skeleton className="h-8 w-8 rounded-md" />
@@ -82,8 +86,8 @@ const EditorLoadingSkeleton = () => {
           <Skeleton className="h-8 w-8 rounded-full" />
         </div>
 
-        {/* Editor Content Skeleton */}
-        <div className="p-4 space-y-3 min-h-[200px]">
+        {/* Editor Content Skeleton - Matches px-4 py-3 and min-h-[200px] */}
+        <div className="px-4 py-3 min-h-[200px] space-y-3">
           <Skeleton className="h-4 w-3/4" />
           <Skeleton className="h-4 w-full" />
           <Skeleton className="h-4 w-5/6" />
@@ -91,7 +95,7 @@ const EditorLoadingSkeleton = () => {
         </div>
       </div>
 
-      {/* AI Section Skeleton */}
+      {/* AI Section Skeleton - Matches mt-3 p-3 and inner elements */}
       <div className="mt-3 p-3 bg-muted/50 border border-border rounded-md">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
@@ -99,11 +103,20 @@ const EditorLoadingSkeleton = () => {
              <Skeleton className="h-4 w-32" />
           </div>
         </div>
+        {/* Matches min-h-20 (80px) for textarea */}
         <Skeleton className="h-20 w-full rounded-md" />
         <div className="flex justify-end mt-2">
+          {/* Matches button size */}
           <Skeleton className="h-8 w-20 rounded-md" />
         </div>
+        {/* Matches help text */}
+        <div className="mt-2">
+           <Skeleton className="h-3 w-48" />
+        </div>
       </div>
+      
+      {/* Description Skeleton */}
+      <Skeleton className="h-3 w-64 mt-1" />
     </div>
   );
 };
