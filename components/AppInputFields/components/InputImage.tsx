@@ -57,7 +57,8 @@ const ImageInput = <T extends FieldValues>({
 
     if (isFile(value)) {
       newUrl = URL.createObjectURL(value);
-      setObjectUrl(newUrl);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      setObjectUrl(newUrl); // Suppress warning as we need to sync object URL for preview
     } else {
       setObjectUrl(null);
     }
@@ -92,7 +93,7 @@ const ImageInput = <T extends FieldValues>({
   }
 
   const handleFileChange = useCallback(
-    (file: File, field: ControllerRenderProps<T, any>) => {
+    (file: File, field: ControllerRenderProps<T, Path<T>>) => {
       if (file) {
         field.onChange(file);
       }

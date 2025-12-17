@@ -15,16 +15,6 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     throw new Error("InputAddress must be used within a FormProvider");
   }
 
-  // 1. Check if API Key is missing and return early
-  if (!apiKey) {
-    return (
-      <div className="p-4 border border-red-200 bg-red-50 rounded-md text-sm text-red-600">
-        <p className="font-semibold">Configuration Error</p>
-        <p>Google Maps API Key is missing. Please add it to your environment variables.</p>
-      </div>
-    );
-  }
-
   // Watch for country changes to set default
   const countryValue = form.watch(`${name}.country`);
   
@@ -41,6 +31,8 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
   }, [countryValue, userCountry, form, name]);
 
   useEffect(() => {
+    if (!apiKey) return; // Handle missing API key inside effect or just let it fail/handle in render
+    
     const scriptId = "google-maps-script";
 
     // 2. Handle Google Maps Authentication Failure
@@ -75,6 +67,16 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
       script.removeEventListener("load", onScriptLoad);
     };
   }, [apiKey]);
+
+  // 1. Check if API Key is missing and return early
+  if (!apiKey) {
+    return (
+      <div className="p-4 border border-red-200 bg-red-50 rounded-md text-sm text-red-600">
+        <p className="font-semibold">Configuration Error</p>
+        <p>Google Maps API Key is missing. Please add it to your environment variables.</p>
+      </div>
+    );
+  }
 
   if (loadError) {
     return (

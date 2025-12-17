@@ -106,7 +106,7 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
 
     if (isFile(value)) {
       const newUrl = URL.createObjectURL(value);
-      setImagePreview(newUrl);
+      setImagePreview(newUrl); // eslint-disable-line react-hooks/exhaustive-deps
       
       // Cleanup function
       return () => {
@@ -490,6 +490,7 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
                         aspect={aspect}
                         className="max-h-[60vh]"
                     >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                             ref={imgRef}
                             alt="Crop me"

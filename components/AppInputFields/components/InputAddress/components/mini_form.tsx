@@ -20,6 +20,14 @@ interface PlaceOption {
   placeId: string;
 }
 
+interface AddressValue {
+  address: string;
+  position: {
+    lat: number;
+    lng: number;
+  };
+}
+
 const AddressInput = ({ field, inputProps }: Props) => {
   const { label, placeholder, className, required = false } = inputProps;
   const [isLocationLoading, setIsLocationLoading] = useState(false);
@@ -116,9 +124,10 @@ const AddressInput = ({ field, inputProps }: Props) => {
     }),
   };
 
+
   const handleSelect = async (
     option: PlaceOption | null,
-    onChange: (value: any) => void
+    onChange: (value: AddressValue) => void
   ) => {
     console.log(`🚀 ~ address.miniform.tsx:131 ~ option:`, option);
 
