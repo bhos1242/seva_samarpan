@@ -94,6 +94,7 @@ export default function LoginPage() {
                     <Checkbox 
                       id="remember" 
                       onCheckedChange={(checked) => methods.setValue("rememberMe", checked as boolean)}
+                      // eslint-disable-next-line react-hooks/incompatible-library -- Known React Hook Form limitation
                       checked={methods.watch("rememberMe")}
                     />
                     <label

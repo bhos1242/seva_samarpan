@@ -36,13 +36,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ControllerRenderProps,
   FieldValues,
+  Path,
   useFormContext,
 } from "react-hook-form";
 import { BaseInputProps } from "../../InputField";
 import { Camera as CameraComponent, CameraRef } from "./Camera";
 import { ImageCropper } from "./ImageCropper";
 
-const isFile = (value: any): value is File => value instanceof File;
+const isFile = (value: unknown): value is File => value instanceof File;
 
 const ImageInput = <T extends FieldValues>({
   label,
@@ -137,7 +138,7 @@ const ImageInput = <T extends FieldValues>({
   }
 
   const handleFileChange = useCallback(
-    async (file: File, field: ControllerRenderProps<T, any>) => {
+    async (file: File, field: ControllerRenderProps<T, Path<T>>) => {
       if (file) {
         setIsUploading(true);
         try {
@@ -198,7 +199,7 @@ const ImageInput = <T extends FieldValues>({
 
   const handleCropComplete = (
     croppedFile: File,
-    field: ControllerRenderProps<T, any>
+    field: ControllerRenderProps<T, Path<T>>
   ) => {
     handleFileChange(croppedFile, field);
     setCropImageUrl(null);

@@ -57,8 +57,8 @@ const ImageInput = <T extends FieldValues>({
 
     if (isFile(value)) {
       newUrl = URL.createObjectURL(value);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      setObjectUrl(newUrl); // Suppress warning as we need to sync object URL for preview
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing object URL for preview
+      setObjectUrl(newUrl);
     } else {
       setObjectUrl(null);
     }

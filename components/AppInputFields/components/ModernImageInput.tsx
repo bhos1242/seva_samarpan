@@ -106,7 +106,8 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
 
     if (isFile(value)) {
       const newUrl = URL.createObjectURL(value);
-      setImagePreview(newUrl); // eslint-disable-line react-hooks/exhaustive-deps
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Syncing object URL for preview
+      setImagePreview(newUrl);
       
       // Cleanup function
       return () => {
@@ -197,7 +198,8 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
           return false;
         }
         // Check maximum dimensions
-      } catch (_error) {
+      } catch (error) {
+        console.error("Error validating image dimensions:", error);
         setLocalError("Invalid image file");
         toast.error("The file appears to be corrupted or invalid.");
         return false;

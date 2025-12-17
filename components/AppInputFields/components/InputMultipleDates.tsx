@@ -4,7 +4,45 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { format, getDaysInMonth } from "date-fns";
+import {
+  Calendar as CalendarIcon,
+  CheckCircle2,
+  ChevronDown,
+  Clock,
+  Info,
+  Plus,
+  Repeat,
+  Sparkles,
+  Target,
+  Trash2,
+  X,
+} from "lucide-react";
+import * as React from "react";
+import { FieldValues, Path, PathValue, useFormContext } from "react-hook-form";
+import { BaseInputProps } from "../InputField";
 
 // Styles for scrollable popover
 const styles = `
@@ -39,45 +77,6 @@ const styles = `
     backdrop-filter: blur(8px);
   }
 `;
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { cn } from "@/lib/utils";
-import { format, getDaysInMonth } from "date-fns";
-import {
-  Calendar as CalendarIcon,
-  X,
-  Repeat,
-  Trash2,
-  Clock,
-  Target,
-  Plus,
-  ChevronDown,
-  Sparkles,
-  Info,
-  CheckCircle2,
-} from "lucide-react";
-import * as React from "react";
-import { FieldValues, useFormContext, PathValue, Path } from "react-hook-form";
-import { BaseInputProps } from "../InputField";
 
 const InputMultipleDates = <T extends FieldValues>({
   label,
@@ -91,7 +90,6 @@ const InputMultipleDates = <T extends FieldValues>({
   const form = useFormContext<T>();
   const [open, setOpen] = React.useState(false);
   const [selectedDay, setSelectedDay] = React.useState<number>(1);
-  const [_showSuggestions, _setShowSuggestions] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
 
   if (!form) {
@@ -222,41 +220,8 @@ const InputMultipleDates = <T extends FieldValues>({
     return `${monthNames[parseInt(month) - 1]} ${parseInt(day)}`;
   };
 
-  const getOrdinalSuffix = (day: number) => {
-    if (day >= 11 && day <= 13) return "th";
-    switch (day % 10) {
-      case 1:
-        return "st";
-      case 2:
-        return "nd";
-      case 3:
-        return "rd";
-      default:
-        return "th";
-    }
-  };
 
-  const _getPresetOptions = () => [
-    {
-      day: 1,
-      label: "1st of every month",
-      icon: Target,
-      color: "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100",
-    },
-    {
-      day: 15,
-      label: "15th of every month",
-      icon: Clock,
-      color: "bg-green-50 border-green-200 text-green-700 hover:bg-green-100",
-    },
-    {
-      day: selectedDay,
-      label: `${selectedDay}${getOrdinalSuffix(selectedDay)} of every month`,
-      icon: Sparkles,
-      color:
-        "bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100",
-    },
-  ];
+
 
   // Sort dates by month then day for better display
   const sortedDates = [...selectedDates].sort((a, b) => {

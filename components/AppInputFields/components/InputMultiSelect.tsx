@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import { GroupBase, MultiValue, StylesConfig } from "react-select";
+import { GroupBase, StylesConfig } from "react-select";
 import CreatableSelect from "react-select/creatable";
 import { InputFieldProps } from "../InputField";
 

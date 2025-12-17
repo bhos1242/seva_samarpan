@@ -10,7 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import * as React from "react";
 import { useFormContext } from "react-hook-form";
-import Select, { GroupBase, SingleValue, StylesConfig } from "react-select";
+import Select, { GroupBase, StylesConfig } from "react-select";
 import { InputFieldProps } from "../InputField";
 
 const InputSelect: React.FC<Omit<InputFieldProps, "form">> = (props) => {

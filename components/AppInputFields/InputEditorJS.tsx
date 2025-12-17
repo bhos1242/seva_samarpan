@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   FormControl,
   FormField,
@@ -7,55 +8,51 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { cn } from "@/lib/utils";
-import {
-  ControllerRenderProps,
-  FieldValues,
-  Path,
-  useFormContext,
-  useController,
-} from "react-hook-form";
-import { InputFieldProps } from "./InputField";
-import StarterKit from "@tiptap/starter-kit";
-import { EditorContent, useEditor, Editor } from "@tiptap/react";
-import { Underline } from "@tiptap/extension-underline";
-import { TextAlign } from "@tiptap/extension-text-align";
-import { Placeholder } from "@tiptap/extension-placeholder";
-import { CharacterCount } from "@tiptap/extension-character-count";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { CharacterCount } from "@tiptap/extension-character-count";
+import { Placeholder } from "@tiptap/extension-placeholder";
+import { TextAlign } from "@tiptap/extension-text-align";
+import { Underline } from "@tiptap/extension-underline";
+import { Editor, EditorContent, useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
 import {
-  LucideIcon,
   Bold,
-  Italic,
-  Underline as UnderlineIcon,
-  Strikethrough,
   Code,
-  List,
-  ListOrdered,
-  Quote,
-  Redo,
-  Undo,
   Heading1,
   Heading2,
   Heading3,
+  Italic,
+  List,
+  ListOrdered,
+  LucideIcon,
+  Quote,
+  Redo,
+  Strikethrough,
+  Underline as UnderlineIcon,
+  Undo,
 } from "lucide-react";
+import {
+  useController,
+  useFormContext
+} from "react-hook-form";
 import { IconType } from "react-icons";
+import { InputFieldProps } from "./InputField";
 
-import { useCallback, useState, useEffect, useRef } from "react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { Textarea } from "@/components/ui/textarea";
-import { Bot, Sparkles } from "lucide-react";
-import markdown from "@wcj/markdown-to-html";
-import { generateEditorContent } from "./actions/editor.action";
-import { toast } from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
+import markdown from "@wcj/markdown-to-html";
+import { Bot, Sparkles } from "lucide-react";
+import { toast } from "react-hot-toast";
+import { generateEditorContent } from "./actions/editor.action";
 
 const markdownRegex =
   /(^#{1,6}\s)|(^\s*[\-\*]\s)|(\[.+\]\(.+\))|([\*_]{1,2}.+[\*_]{1,2})/;

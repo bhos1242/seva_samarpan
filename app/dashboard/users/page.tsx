@@ -34,7 +34,7 @@ const columns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => (
+    cell: () => (
       <Button variant="ghost" size="icon">
         <MoreHorizontal className="h-4 w-4" />
       </Button>

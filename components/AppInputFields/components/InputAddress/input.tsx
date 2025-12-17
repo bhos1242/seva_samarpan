@@ -42,6 +42,7 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     };
 
     if (window.google && window.google.maps) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- Script is loaded, just syncing state
       setScriptLoaded(true);
       return;
     }
