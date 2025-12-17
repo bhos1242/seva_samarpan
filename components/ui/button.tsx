@@ -46,10 +46,23 @@ const Button = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"
     isLoading?: boolean
   }>(
   ({ className, variant = "default", size = "default", asChild = false, isLoading = false, children, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+    if (asChild && React.isValidElement(children)) {
+      return (
+        <Slot
+          data-slot="button"
+          data-variant={variant}
+          data-size={size}
+          className={cn(buttonVariants({ variant, size, className }))}
+          ref={ref}
+          {...props}
+        >
+          {children}
+        </Slot>
+      )
+    }
 
     return (
-      <Comp
+      <button
         data-slot="button"
         data-variant={variant}
         data-size={size}
@@ -60,7 +73,7 @@ const Button = React.forwardRef<HTMLButtonElement, React.ComponentProps<"button"
       >
         {isLoading && <Loader2 className="animate-spin" />}
         {children}
-      </Comp>
+      </button>
     )
   }
 )
