@@ -21,54 +21,10 @@ import {
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#8884d8"];
 
 interface ChartProps {
-  data: any[];
+  data: Record<string, unknown>[];
   className?: string;
 }
-
-interface BarChartProps extends ChartProps {
-  dataKey: string;
-  xAxisKey: string;
-  barColor?: string;
-}
-
-interface LineChartProps extends ChartProps {
-  dataKey: string;
-  xAxisKey: string;
-  lineColor?: string;
-}
-
-interface PieChartProps extends ChartProps {
-  dataKey: string;
-  nameKey: string;
-}
-
-interface AreaChartProps extends ChartProps {
-  dataKey: string;
-  xAxisKey: string;
-  areaColor?: string;
-}
-
-export function BarChart({
-  data,
-  dataKey,
-  xAxisKey,
-  barColor = "#8884d8",
-  className,
-}: BarChartProps) {
-  return (
-    <ResponsiveContainer width="100%" height="100%" className={className}>
-      <RechartsBarChart data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey={xAxisKey} />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey={dataKey} fill={barColor} />
-      </RechartsBarChart>
-    </ResponsiveContainer>
-  );
-}
-
+// ...
 export const ChartComponent = ({
   title,
   data,
@@ -77,10 +33,10 @@ export const ChartComponent = ({
   config,
 }: {
   title: string;
-  data: any[]; // Data shape is flexible
+  data: Record<string, unknown>[]; // Data shape is flexible
   type?: "bar" | "line" | "pie";
   description?: string;
-  config?: any; // Config shape depends on recharts
+  config?: Record<string, unknown>; // Config shape depends on recharts
 }) => {
   // This component's implementation would go here.
   // The original instruction had a syntax error in this block,
