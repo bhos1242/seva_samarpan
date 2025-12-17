@@ -24,25 +24,52 @@ interface ChartProps {
   data: Record<string, unknown>[];
   className?: string;
 }
-// ...
-export const ChartComponent = ({
-  title,
+interface BarChartProps extends ChartProps {
+  dataKey: string;
+  xAxisKey: string;
+  barColor?: string;
+}
+
+interface LineChartProps extends ChartProps {
+  dataKey: string;
+  xAxisKey: string;
+  lineColor?: string;
+}
+
+interface PieChartProps extends ChartProps {
+  dataKey: string;
+  nameKey: string;
+}
+
+interface AreaChartProps extends ChartProps {
+  dataKey: string;
+  xAxisKey: string;
+  areaColor?: string;
+}
+
+export function BarChart({
   data,
-  type = "bar",
-  description,
-  config,
-}: {
-  title: string;
-  data: Record<string, unknown>[]; // Data shape is flexible
-  type?: "bar" | "line" | "pie";
-  description?: string;
-  config?: Record<string, unknown>; // Config shape depends on recharts
-}) => {
-  // This component's implementation would go here.
-  // The original instruction had a syntax error in this block,
-  // which has been corrected to make the code syntactically valid.
-  return null; // Placeholder for the actual component logic
-};
+  dataKey,
+  xAxisKey,
+  barColor = "#8884d8",
+  className,
+}: BarChartProps) {
+  return (
+    <ResponsiveContainer width="100%" height="100%" className={className}>
+      <RechartsBarChart data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey={xAxisKey} />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey={dataKey} fill={barColor} />
+      </RechartsBarChart>
+    </ResponsiveContainer>
+  );
+}
+
+// ChartComponent was a placeholder, correcting types in exports below instead
+
 
 export function LineChart({
   data,
@@ -83,8 +110,8 @@ export function PieChart({
           outerRadius={80}
           label
         >
-          {data.map((entry, index) => (
-            <Cell key={`cell -${index}`} fill={COLORS[index % COLORS.length]} />
+          {data.map((entry: Record<string, unknown>, index: number) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
         <Tooltip />
