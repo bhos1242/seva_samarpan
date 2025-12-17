@@ -502,7 +502,7 @@ const InputEditorV2 = (props: InputEditorV2Props) => {
         control={form.control}
         name={name}
         disabled={disabled}
-        render={({ field: _field }) => {
+        render={() => {
           // Remove the setOptions calls that cause cursor jumping
           // The onUpdate is already handled in the editor initialization
           return (
