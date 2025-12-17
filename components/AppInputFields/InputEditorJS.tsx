@@ -33,7 +33,6 @@ import {
   Undo,
 } from "lucide-react";
 import {
-  useController,
   useFormContext
 } from "react-hook-form";
 import { IconType } from "react-icons";
@@ -284,13 +283,7 @@ const InputEditorV2 = (props: InputEditorV2Props) => {
     defaultPrompt,
   } = props;
   const form = useFormContext(); // Keep form context for now, as useController needs form.control
-  const {
-    field: _field,
-    fieldState: { error: _error },
-  } = useController({
-    name,
-    control: form.control,
-  });
+
   const [isAiEnabled, setIsAiEnabled] = useState(true);
   const [aiPrompt, setAiPrompt] = useState(defaultPrompt || "");
   const isUpdatingRef = useRef(false);
