@@ -91,27 +91,32 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
   // Combine local error and form error
   const errorMessage = localError || fieldState?.error?.message;
 
-  // Show default image if present
+  // Derive preview for string values
+  const stringPreview = typeof field.value === "string" ? field.value : null;
+  const activePreview = imagePreview || stringPreview;
+
+  // Handle File objects for preview
   useEffect(() => {
     const value = field.value;
-    let newPreview: string | null = null;
+    
+    // Check if value is a File object safely
+    const isFile = (val: unknown): val is File => {
+      return val instanceof File;
+    };
 
-    if (typeof value === "string" && value) {
-      newPreview = value;
-      setImagePreview(newPreview);
-    } else if ((value as any) instanceof File) {
-      newPreview = URL.createObjectURL(value as File);
-      setImagePreview(newPreview);
+    if (isFile(value)) {
+      const newUrl = URL.createObjectURL(value);
+      setImagePreview(newUrl);
+      
+      // Cleanup function
+      return () => {
+        URL.revokeObjectURL(newUrl);
+        setImagePreview(null); // Clear preview when unmounting/changing
+      };
     } else {
+      // If not a file (e.g. became string or null), clear object url state
       setImagePreview(null);
     }
-
-    // Cleanup function to revoke ObjectURL if it was created
-    return () => {
-      if (newPreview && (value as any) instanceof File) {
-        URL.revokeObjectURL(newPreview);
-      }
-    };
   }, [field.value]);
 
   // Validate image file
@@ -342,7 +347,7 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
   // Remove/clear image
   const handleRemoveImage = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setImagePreview(null);
+    setImagePreview(null); // Clear object url state
     if (fileInputRef.current) fileInputRef.current.value = "";
     field.onChange("");
     if (required) {
@@ -365,7 +370,7 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
           "relative w-full h-48 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl bg-gray-50/50 hover:bg-gray-50 transition-all duration-300 cursor-pointer group overflow-hidden",
           isDragActive && "border-blue-500 bg-blue-50",
           errorMessage && "border-red-400 bg-red-50/50",
-          imagePreview && "border-solid border-gray-200 bg-white shadow-sm"
+          activePreview && "border-solid border-gray-200 bg-white shadow-sm"
         )}
         onClick={() => fileInputRef.current?.click()}
         onDrop={handleDrop}
@@ -376,21 +381,16 @@ const ModernImageField = <T extends FieldValues = FieldValues>({
         role="button"
         aria-label={label || "Upload image"}
       >
-        {imagePreview ? (
+        {activePreview ? (
           <div className="relative w-full h-full flex items-center justify-center p-4">
             {/* Image Preview */}
             <div className="relative w-full h-50 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200 flex items-center justify-center overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={
-                  typeof imagePreview === "string" &&
-                  !imagePreview.startsWith("blob:") &&
-                  !imagePreview.startsWith("data:")
-                    ? imagePreview
-                    : imagePreview
-                }
+              <Image
+                src={activePreview}
                 alt="Preview"
-                className="max-w-full max-h-full object-contain rounded-lg"
+                fill
+                className="object-contain rounded-lg"
+                unoptimized
               />
             </div>
             <button

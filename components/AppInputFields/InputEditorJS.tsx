@@ -17,7 +17,7 @@ import {
 } from "react-hook-form";
 import { InputFieldProps } from "./InputField";
 import StarterKit from "@tiptap/starter-kit";
-import { EditorContent, useEditor } from "@tiptap/react";
+import { EditorContent, useEditor, Editor } from "@tiptap/react";
 import { Underline } from "@tiptap/extension-underline";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Placeholder } from "@tiptap/extension-placeholder";
@@ -25,6 +25,7 @@ import { CharacterCount } from "@tiptap/extension-character-count";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
+  LucideIcon,
   Bold,
   Italic,
   Underline as UnderlineIcon,
@@ -38,8 +39,9 @@ import {
   Heading1,
   Heading2,
   Heading3,
-
 } from "lucide-react";
+import { IconType } from "react-icons";
+
 import { useCallback, useState, useEffect, useRef } from "react";
 import {
   Tooltip,
@@ -70,7 +72,7 @@ const EditorToolbar = ({
   isAiEnabled,
   onAiToggle,
 }: {
-  editor: any;
+  editor: Editor | null;
   isAiEnabled: boolean;
   onAiToggle: () => void;
 }) => {
@@ -87,7 +89,7 @@ const EditorToolbar = ({
     onClick: () => void;
     isActive?: boolean;
     disabled?: boolean;
-    icon: any;
+    icon: LucideIcon | IconType;
     tooltip: string;
     isAiButton?: boolean;
   }) => {

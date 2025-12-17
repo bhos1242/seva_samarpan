@@ -25,11 +25,26 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     );
   }
 
+  // Watch for country changes to set default
+  const countryValue = form.watch(`${name}.country`);
+  
+  // Assuming userCountry is defined elsewhere or passed as props
+  // For demonstration, let's define them as placeholders
+  const userCountry = "US"; 
+  
+  useEffect(() => {
+    if (!countryValue && userCountry) {
+      if (userCountry.toUpperCase() === "IN") {
+        form.setValue(`${name}.country`, "India", { shouldValidate: true });
+      }
+    }
+  }, [countryValue, userCountry, form, name]);
+
   useEffect(() => {
     const scriptId = "google-maps-script";
 
     // 2. Handle Google Maps Authentication Failure
-    // @ts-ignore
+    // @ts-expect-error - Google Maps API might not be loaded yet
     window.gm_authFailure = () => {
       setLoadError("Google Maps API Key is invalid. Please check your console for more details.");
     };
@@ -74,41 +89,24 @@ const InputAddress: React.FC<Omit<InputFieldProps, "form">> = (props) => {
     return <p className="text-sm text-muted-foreground animate-pulse">Loading Map...</p>;
   }
 
+  // Use scriptLoaded as a proxy for isLoaded in this context
+  const isLoaded = scriptLoaded;
+  if (!isLoaded) return <div>Loading...</div>;
+
   return (
     <FormField
       disabled={props.disabled}
       control={form.control}
       name={name}
-      render={({ field }) => {
-        // Assuming userCountry and isLoaded are defined elsewhere or passed as props
-        // For demonstration, let's define them as placeholders
-        const userCountry = "US"; // Placeholder for user's country
-        const isLoaded = scriptLoaded; // Using scriptLoaded as a proxy for isLoaded
-
-        /* Effect to default to user country if not set */
-        useEffect(() => {
-          if (!field.value?.country && userCountry) {
-            if (userCountry.toUpperCase() === "IN") {
-              field.onChange({
-                ...field.value,
-                country: "India",
-              });
-            }
-          }
-        }, [userCountry, field.value?.country]); // eslint-disable-line react-hooks/exhaustive-deps
-
-        if (!isLoaded) return <div>Loading...</div>;
-
-        return (
-          <AddressInput
-            field={field}
-            inputProps={{
-              ...props,
-              Icon: props.Icon,
-            }}
-          />
-        );
-      }}
+      render={({ field }) => (
+        <AddressInput
+          field={field}
+          inputProps={{
+            ...props,
+            Icon: props.Icon,
+          }}
+        />
+      )}
     />
   );
 };
