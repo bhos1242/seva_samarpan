@@ -11,7 +11,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Copy, Loader2, RefreshCw, Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { InputFieldProps } from "../InputField";

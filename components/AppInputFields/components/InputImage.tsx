@@ -92,15 +92,6 @@ const ImageInput = <T extends FieldValues>({
     throw new Error("ImageInput must be used within a FormProvider");
   }
 
-  const handleFileChange = useCallback(
-    (file: File, field: ControllerRenderProps<T, Path<T>>) => {
-      if (file) {
-        field.onChange(file);
-      }
-    },
-    []
-  );
-
   const handleGalleryFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {

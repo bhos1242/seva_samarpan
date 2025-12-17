@@ -18,7 +18,7 @@ const InputCheckbox = <T extends FieldValues>({
   name,
   className,
   disabled,
-  required = false,
+  required: _required = false,
   description,
 }: Omit<InputFieldProps<T>, "form">) => {
   const form = useFormContext<T>();

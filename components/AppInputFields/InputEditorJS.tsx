@@ -285,8 +285,8 @@ const InputEditorV2 = (props: InputEditorV2Props) => {
   } = props;
   const form = useFormContext(); // Keep form context for now, as useController needs form.control
   const {
-    field,
-    fieldState: { error },
+    field: _field,
+    fieldState: { error: _error },
   } = useController({
     name,
     control: form.control,
@@ -502,7 +502,7 @@ const InputEditorV2 = (props: InputEditorV2Props) => {
         control={form.control}
         name={name}
         disabled={disabled}
-        render={({ field }) => {
+        render={({ field: _field }) => {
           // Remove the setOptions calls that cause cursor jumping
           // The onUpdate is already handled in the editor initialization
           return (

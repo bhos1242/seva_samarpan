@@ -34,8 +34,6 @@ const AddressInput = ({ field, inputProps }: Props) => {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [hasAttemptedAutoDetection, setHasAttemptedAutoDetection] =
     useState(false);
-  const [_userDisabledAutoDetection] =
-    useState(false);
 
   // Auto-location detection functions
   const getCurrentLocation = (): Promise<{ lat: number; lng: number }> => {
@@ -240,6 +238,7 @@ const AddressInput = ({ field, inputProps }: Props) => {
           },
         ]);
       } catch (_error) {
+        console.error("Error detecting location:", _error);
         // Gracefully handle location detection fallback
         setLocationError("Please enter manually");
       } finally {
@@ -280,12 +279,6 @@ const AddressInput = ({ field, inputProps }: Props) => {
       console.error("Error fetching address:", error);
     }
     return null;
-  };
-
-  const handleAutoFill = (address: google.maps.places.PlaceResult) => {
-    // console.log("Auto Filling Address", address);
-
-    const addressComponents = address.address_components;
   };
 
   return (
