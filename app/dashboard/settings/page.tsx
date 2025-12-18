@@ -401,7 +401,10 @@ export default function SettingsPage() {
 
                       <Button
                         type="submit"
-                        disabled={updateProfile.isPending}
+                        disabled={
+                          updateProfile.isPending ||
+                          !passwordForm.formState.isDirty
+                        }
                         className="w-full sm:w-auto"
                       >
                         {updateProfile.isPending ? (
