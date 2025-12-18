@@ -23,9 +23,14 @@ A unified form input system located at `components/AppInputFields/InputField.tsx
 - **AI Integration**: AI-powered text generation blocks ready to connect to your LLM.
 
 ### 🔐 **Authentication Ready**
-- **Pre-built Pages**: Beautifully designed `/auth/login` and `/auth/signup` pages.
-- **Form Validation**: Zod schemas and React Hook Form implementation included.
-- **Social Auth**: UI ready for Google & GitHub providers.
+- **Multi-Provider Auth**: Email/Password, Google OAuth, GitHub OAuth
+- **OTP Email Verification**: 6-digit OTP with 10-minute expiry
+- **Password Reset**: Secure token-based forgot password flow
+- **Pre-built Pages**: Login, Signup, OTP Verification, Forgot Password, Reset Password
+- **Form Validation**: Zod schemas with password complexity rules (8+ chars, uppercase, number, special char)
+- **Rate Limiting**: 60s OTP resend cooldown, 3 forgot-password attempts/hour
+- **Avatar Upload**: S3 integration with server-side upload
+- **Auto-verification**: OAuth users automatically verified
 
 ### 🧩 **Reusable Components**
 | Component | Description | Usage |
@@ -244,18 +249,58 @@ Required variables in `.env`:
 
 ```env
 # Database
-DATABASE_URL="postgresql://..."
+DATABASE_URL="postgresql://user:password@host:port/database"
 
-# Auth
+# NextAuth
 AUTH_SECRET="run: openssl rand -base64 32"
+NEXTAUTH_URL="http://localhost:3000"  # Your app URL (for password reset links)
 
-# Google OAuth (optional)
+# Google OAuth
 GOOGLE_CLIENT_ID="your-google-client-id"
 GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
-# GitHub OAuth (optional)
+# GitHub OAuth
 GITHUB_CLIENT_ID="your-github-client-id"
 GITHUB_CLIENT_SECRET="your-github-client-secret"
+
+# SMTP Configuration (for OTP and Password Reset emails)
+# Gmail SMTP setup (requires App Password with 2FA enabled)
+SMTP_HOST="smtp.gmail.com"
+SMTP_PORT="587"
+SMTP_USER="pixelperfectsshope@gmail.com"  # Your Gmail address
+SMTP_PASSWORD="your-gmail-app-password"    # Gmail App Password (NOT regular password)
+
+# AWS S3 (for avatar uploads)
+AWS_REGION="us-east-1"                     # Your S3 bucket region
+AWS_ACCESS_KEY_ID="your-aws-access-key"
+AWS_SECRET_ACCESS_KEY="your-aws-secret-key"
+S3_BUCKET_NAME="your-bucket-name"          # S3 bucket with public read access
+```
+
+### 📧 Gmail SMTP Setup
+1. Enable 2-Factor Authentication on your Google Account
+2. Go to Google Account > Security > App Passwords
+3. Generate an App Password for "Mail"
+4. Use this 16-character password as `SMTP_PASSWORD`
+
+### 🪣 AWS S3 Setup
+1. Create an S3 bucket with public read access
+2. Create IAM user with S3 write permissions
+3. Generate access keys for the IAM user
+4. Add bucket policy for public read:
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::your-bucket-name/*"
+    }
+  ]
+}
 ```
 
 ---
