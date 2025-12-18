@@ -106,12 +106,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
         token.isVerified = user.isVerified;
       }
+      
+      // Fetch fresh user data from DB to get updated isVerified status
+      if (token.id) {
+        const dbUser = await prisma_db.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true, isVerified: true },
+        });
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.isVerified = dbUser.isVerified;
+        }
+      }
+      
       return token;
     },
     async session({ session, token }) {
