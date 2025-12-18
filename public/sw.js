@@ -1,4 +1,4 @@
-// Service Worker v1.0.3
+// Service Worker v1.0.4
 self.addEventListener("install", function (event) {
   console.log("Service Worker installing...");
   self.skipWaiting();

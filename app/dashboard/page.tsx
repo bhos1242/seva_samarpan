@@ -84,12 +84,13 @@ export default async function DashboardPage() {
           <CardHeader>
             <CardTitle>Monthly Bookings</CardTitle>
           </CardHeader>
-          <CardContent className="h-80">
+          <CardContent className="h-80 flex items-center justify-center">
             <BarChart
               data={bookingsData}
               dataKey="bookings"
               xAxisKey="month"
               barColor="#8884d8"
+              className="w-full h-full"
             />
           </CardContent>
         </Card>
@@ -98,12 +99,13 @@ export default async function DashboardPage() {
           <CardHeader>
             <CardTitle>Revenue Trend</CardTitle>
           </CardHeader>
-          <CardContent className="h-80">
+          <CardContent className="h-80 flex items-center justify-center">
             <LineChart
               data={revenueData}
               dataKey="revenue"
               xAxisKey="month"
               lineColor="#82ca9d"
+              className="w-full h-full"
             />
           </CardContent>
         </Card>
