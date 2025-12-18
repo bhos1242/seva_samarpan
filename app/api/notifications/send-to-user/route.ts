@@ -151,7 +151,11 @@ export async function POST(req: NextRequest) {
 /**
  * GET /api/notifications/send-to-user?userId=user_123
  * 
- * Get user's notification status and subscription count
+ * Send a test notification (convenience for quick testing via browser URL)
+ * 
+ * Examples:
+ * - Basic: ?userId=user_123
+ * - Custom: ?userId=user_123&title=Hello&body=World&url=/page
  */
 export async function GET(req: NextRequest) {
     try {
@@ -169,15 +173,7 @@ export async function GET(req: NextRequest) {
         const user = await prisma_db.user.findUnique({
             where: { id: userId },
             include: {
-                pushSubscriptions: {
-                    select: {
-                        id: true,
-                        endpoint: true,
-                        userAgent: true,
-                        createdAt: true,
-                        updatedAt: true,
-                    },
-                },
+                pushSubscriptions: true,
             },
         });
 
@@ -188,28 +184,97 @@ export async function GET(req: NextRequest) {
             );
         }
 
+        if (user.pushSubscriptions.length === 0) {
+            return NextResponse.json(
+                {
+                    error: 'User has no active push subscriptions',
+                    message: 'Please enable notifications in your browser first',
+                    user: {
+                        id: user.id,
+                        name: user.name,
+                        email: user.email,
+                    },
+                },
+                { status: 404 }
+            );
+        }
+
+        // Get custom parameters or use defaults
+        const title = searchParams.get('title') || '🔔 Test Notification';
+        const body = searchParams.get('body') || 'This is a test notification sent via GET request!';
+        const url = searchParams.get('url') || '/dashboard';
+
+        const payload = {
+            title,
+            body,
+            url,
+            icon: '/icon.svg',
+            badge: '/icon.svg',
+            data: { test: true, method: 'GET', timestamp: new Date().toISOString() },
+        };
+
+        // Send to all user's devices
+        const results = await Promise.allSettled(
+            user.pushSubscriptions.map(async (subscription) => {
+                try {
+                    const result = await sendPushNotification(subscription, payload);
+
+                    // Remove expired/invalid subscriptions
+                    if (result.expired || !result.success) {
+                        await prisma_db.pushSubscription.delete({
+                            where: { id: subscription.id },
+                        }).catch(console.error);
+                    }
+
+                    return {
+                        endpoint: subscription.endpoint.substring(0, 50) + '...',
+                        userAgent: subscription.userAgent,
+                        success: result.success,
+                    };
+                } catch (error) {
+                    return {
+                        endpoint: subscription.endpoint.substring(0, 50) + '...',
+                        success: false,
+                        error: error instanceof Error ? error.message : 'Unknown error',
+                    };
+                }
+            })
+        );
+
+        const deviceResults = results.map(r =>
+            r.status === 'fulfilled' ? r.value : { success: false, error: 'Promise rejected' }
+        );
+
+        const successCount = deviceResults.filter(r => r.success).length;
+        const failedCount = deviceResults.filter(r => !r.success).length;
+
         return NextResponse.json({
+            success: true,
+            message: `✅ Test notification sent to ${successCount} of ${user.pushSubscriptions.length} device(s)!`,
             user: {
                 id: user.id,
                 name: user.name,
                 email: user.email,
             },
-            notificationsEnabled: user.pushSubscriptions.length > 0,
-            deviceCount: user.pushSubscriptions.length,
-            devices: user.pushSubscriptions.map(sub => ({
-                id: sub.id,
-                endpoint: sub.endpoint.substring(0, 50) + '...',
-                userAgent: sub.userAgent,
-                createdAt: sub.createdAt,
-                lastUpdated: sub.updatedAt,
-            })),
+            notification: {
+                title,
+                body,
+                url,
+            },
+            summary: {
+                totalDevices: user.pushSubscriptions.length,
+                successful: successCount,
+                failed: failedCount,
+            },
+            devices: deviceResults,
+            tip: 'Customize with: ?userId=xxx&title=Hello&body=World&url=/page',
         });
 
     } catch (error) {
-        console.error('Get user notification status error:', error);
+        console.error('Send test notification error:', error);
         return NextResponse.json(
             {
-                error: 'Failed to get notification status',
+                error: 'Failed to send notification',
                 message: error instanceof Error ? error.message : 'Unknown error'
             },
             { status: 500 }
