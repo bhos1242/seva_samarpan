@@ -28,6 +28,25 @@ function VerifyOTPContent() {
   const verifyMutation = useVerifyOtp();
   const resendMutation = useResendOtp();
 
+  // Send OTP on initial page load
+  useEffect(() => {
+    if (email) {
+      const sendInitialOtp = async () => {
+        try {
+          const result = await resendMutation.mutateAsync({ email });
+          toast.success(result.message);
+          setCooldown(60);
+        } catch (error: any) {
+          const errorMessage =
+            error.response?.data?.error || "Failed to send OTP";
+          toast.error(errorMessage);
+        }
+      };
+      sendInitialOtp();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Only run once on mount
+
   // Cooldown timer
   useEffect(() => {
     if (cooldown > 0) {
@@ -139,7 +158,7 @@ function VerifyOTPContent() {
           <Button
             className="w-full"
             onClick={handleVerify}
-            disabled={otp.length !== 6 || verifyMutation.isPending}
+            disabled={otp.length !== 4 || verifyMutation.isPending}
           >
             {verifyMutation.isPending ? "Verifying..." : "Verify OTP"}
           </Button>
