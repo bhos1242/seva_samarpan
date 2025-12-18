@@ -1,0 +1,81 @@
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+
+interface User {
+    id: string;
+    name: string | null;
+    email: string | null;
+    image: string | null;
+    role: string;
+    isVerified: boolean;
+    createdAt: string;
+    isOAuthUser?: boolean;
+}
+
+interface ProfileResponse {
+    user: User;
+}
+
+interface UpdateProfileData {
+    name?: string;
+    email?: string;
+    currentPassword?: string;
+    newPassword?: string;
+    avatar?: File;
+}
+
+// Fetch user profile
+export const useProfile = () => {
+    return useQuery<ProfileResponse>({
+        queryKey: ['user-profile'],
+        queryFn: async () => {
+            const { data } = await axios.get('/api/user/profile');
+            return data;
+        },
+        staleTime: 5 * 60 * 1000, // 5 minutes
+    });
+};
+
+// Update user profile
+export const useUpdateProfile = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (updateData: UpdateProfileData) => {
+            const formData = new FormData();
+
+            if (updateData.name) formData.append('name', updateData.name);
+            if (updateData.email) formData.append('email', updateData.email);
+            if (updateData.currentPassword) formData.append('currentPassword', updateData.currentPassword);
+            if (updateData.newPassword) formData.append('newPassword', updateData.newPassword);
+            if (updateData.avatar) formData.append('avatar', updateData.avatar);
+
+            const { data } = await axios.patch('/api/user/profile', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            return data;
+        },
+        onSuccess: (data) => {
+            // Invalidate and refetch profile
+            queryClient.invalidateQueries({ queryKey: ['user-profile'] });
+
+            // Show success message
+            toast.success(data.message || 'Profile updated successfully');
+
+            // If email verification required, show additional info
+            if (data.requiresEmailVerification) {
+                toast.success('Please check your email to verify your new address', {
+                    duration: 6000,
+                });
+            }
+        },
+        onError: (error: any) => {
+            const errorMessage = error.response?.data?.error || 'Failed to update profile';
+            toast.error(errorMessage);
+        },
+    });
+};
