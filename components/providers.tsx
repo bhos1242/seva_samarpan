@@ -11,26 +11,18 @@ export function Providers({ children }: { children: ReactNode }) {
 
   // Register service worker
   useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      // Unregister all existing service workers first
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        Promise.all(registrations.map((reg) => reg.unregister())).then(() => {
-          // Small delay to ensure cleanup completes
-          setTimeout(() => {
-            navigator.serviceWorker
-              .register("/sw.js")
-              .then((registration) => {
-                console.log(
-                  "✅ Service Worker registered:",
-                  registration.scope
-                );
-              })
-              .catch((error) => {
-                console.error("❌ Service Worker registration failed:", error);
-              });
-          }, 200);
+    if ("serviceWorker" in navigator && "PushManager" in window) {
+      navigator.serviceWorker
+        .register("/sw.js", {
+          scope: "/",
+          updateViaCache: "none",
+        })
+        .then((registration) => {
+          console.log("✅ Service Worker registered:", registration.scope);
+        })
+        .catch((error) => {
+          console.error("❌ Service Worker registration failed:", error);
         });
-      });
     }
   }, []);
 
