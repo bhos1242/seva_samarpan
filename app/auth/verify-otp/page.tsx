@@ -37,8 +37,8 @@ function VerifyOTPContent() {
   }, [cooldown]);
 
   const handleVerify = async () => {
-    if (otp.length !== 6) {
-      toast.error("Please enter a 6-digit OTP");
+    if (otp.length !== 4) {
+      toast.error("Please enter a 4-digit OTP");
       return;
     }
 
@@ -111,14 +111,14 @@ function VerifyOTPContent() {
             Verify Your Email
           </CardTitle>
           <CardDescription className="text-center">
-            We've sent a 6-digit OTP to{" "}
+            We've sent a 4-digit OTP to{" "}
             <span className="font-semibold text-foreground">{email}</span>
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="flex flex-col items-center space-y-4">
             <InputOTP
-              maxLength={6}
+              maxLength={4}
               value={otp}
               onChange={setOtp}
               onComplete={handleVerify}
@@ -128,8 +128,6 @@ function VerifyOTPContent() {
                 <InputOTPSlot index={1} />
                 <InputOTPSlot index={2} />
                 <InputOTPSlot index={3} />
-                <InputOTPSlot index={4} />
-                <InputOTPSlot index={5} />
               </InputOTPGroup>
             </InputOTP>
 
