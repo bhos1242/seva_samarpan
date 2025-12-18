@@ -1,9 +1,16 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Bell } from "lucide-react";
+import { Bell, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function TestNotificationButton() {
   const { data: session } = useSession();
@@ -75,14 +82,55 @@ export function TestNotificationButton() {
     }
   };
 
+  const handleReset = async () => {
+    try {
+      // Unregister all service workers
+      if ("serviceWorker" in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const registration of registrations) {
+          await registration.unregister();
+          console.log("Unregistered service worker:", registration.scope);
+        }
+      }
+
+      // Clear session storage
+      sessionStorage.removeItem("notification-prompted");
+
+      toast.success("🔄 Notifications reset! Refreshing...");
+
+      // Reload page to re-register SW
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } catch (error) {
+      console.error("Reset error:", error);
+      toast.error("Failed to reset notifications");
+    }
+  };
+
   if (!session?.user) {
     return null;
   }
 
   return (
-    <Button onClick={handleTest} variant="outline" size="sm">
-      <Bell className="h-4 w-4 mr-2" />
-      Test Notification
-    </Button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm">
+          <Bell className="h-4 w-4 mr-2" />
+          Test Notification
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={handleTest}>
+          <Bell className="h-4 w-4 mr-2" />
+          Send Test Notification
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleReset} className="text-orange-600">
+          <RotateCcw className="h-4 w-4 mr-2" />
+          Reset Notifications
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
