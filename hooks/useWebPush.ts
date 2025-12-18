@@ -65,6 +65,15 @@ export function useWebPush() {
         retry: 1,
     });
 
+    // Check browser subscription state (client-side only)
+    const { data: browserSubData } = useQuery({
+        queryKey: ['browser-push-subscription'],
+        queryFn: getBrowserSubscription,
+        enabled: typeof window !== 'undefined',
+        refetchInterval: 3000, // Check every 3 seconds to detect SW changes
+        refetchOnWindowFocus: true,
+    });
+
     // Auto-heal: Check browser vs server subscription state
     useEffect(() => {
         const autoHeal = async () => {
@@ -76,7 +85,7 @@ export function useWebPush() {
 
             // Case 1: Browser has subscription but server doesn't have it
             if (browserSub && !serverEndpoints.includes(browserSub.endpoint)) {
-                console.log('Auto-healing: Syncing browser subscription to server');
+                console.log('🔄 Auto-healing: Syncing browser subscription to server');
                 try {
                     const p256dh = arrayBufferToBase64(browserSub.getKey('p256dh')!);
                     const auth = arrayBufferToBase64(browserSub.getKey('auth')!);
@@ -94,10 +103,16 @@ export function useWebPush() {
                     console.error('Auto-heal failed:', error);
                 }
             }
+
+            // Case 2: Server has subscription but browser doesn't (SW unregistered)
+            if (!browserSub && serverHasSub) {
+                console.log('⚠️ Browser subscription missing but server has it');
+                console.log('💡 User needs to re-enable notifications on this device');
+            }
         };
 
         autoHeal();
-    }, [statusData, statusLoading, queryClient]);
+    }, [statusData, statusLoading, queryClient, browserSubData]);
 
     // Subscribe to push notifications
     const subscribe = useMutation({
@@ -201,8 +216,13 @@ export function useWebPush() {
         },
     });
 
+    // Only consider truly subscribed if BOTH browser and server agree
+    const hasBrowserSubscription = browserSubData !== null;
+    const hasServerSubscription = statusData?.subscribed ?? false;
+    const isFullySubscribed = hasBrowserSubscription && hasServerSubscription;
+
     return {
-        isSubscribed: statusData?.subscribed ?? false,
+        isSubscribed: isFullySubscribed,
         subscriptions: statusData?.subscriptions ?? [],
         isLoading: statusLoading,
         subscribe,
