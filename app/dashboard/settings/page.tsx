@@ -9,11 +9,41 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { useWebPush } from "@/hooks/useWebPush";
-import { Bell, BellOff, Loader2, Send } from "lucide-react";
+import { Bell, BellOff, Loader2, Send, Save } from "lucide-react";
+import { useProfile, useUpdateProfile } from "@/hooks/user/useProfile";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { InputField } from "@/components/AppInputFields/InputField";
+import { useEffect, useState } from "react";
+import { Form } from "@/components/ui/form";
+
+// Profile form schema
+const profileSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email address"),
+  avatar: z.any().optional(),
+});
+
+// Password form schema
+const passwordSchema = z.object({
+  currentPassword: z.string().min(1, "Current password is required"),
+  newPassword: z.string()
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+    .regex(/[0-9]/, "Password must contain at least one number")
+    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
+  confirmPassword: z.string(),
+}).refine((data) => data.newPassword === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
+type ProfileFormData = z.infer<typeof profileSchema>;
+type PasswordFormData = z.infer<typeof passwordSchema>;
 
 export default function SettingsPage() {
   const {
@@ -24,6 +54,60 @@ export default function SettingsPage() {
     unsubscribe,
     sendTest,
   } = useWebPush();
+
+  const { data: profileData, isLoading: isProfileLoading } = useProfile();
+  const updateProfile = useUpdateProfile();
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
+
+  // Profile form
+  const profileForm = useForm<ProfileFormData>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+    },
+  });
+
+  // Password form
+  const passwordForm = useForm<PasswordFormData>({
+    resolver: zodResolver(passwordSchema),
+    defaultValues: {
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    },
+  });
+
+  // Load user data into form
+  useEffect(() => {
+    if (profileData?.user) {
+      profileForm.reset({
+        name: profileData.user.name || "",
+        email: profileData.user.email || "",
+      });
+    }
+  }, [profileData, profileForm]);
+
+  // Handle profile update
+  const onProfileSubmit = async (data: ProfileFormData) => {
+    await updateProfile.mutateAsync({
+      name: data.name,
+      email: data.email,
+      avatar: avatarFile || undefined,
+    });
+    setAvatarFile(null);
+  };
+
+  // Handle password update
+  const onPasswordSubmit = async (data: PasswordFormData) => {
+    await updateProfile.mutateAsync({
+      currentPassword: data.currentPassword,
+      newPassword: data.newPassword,
+    });
+    passwordForm.reset();
+  };
+
+  const isOAuthUser = profileData?.user?.isOAuthUser || false;
 
   return (
     <div className="space-y-6">
@@ -50,15 +134,82 @@ export default function SettingsPage() {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input id="name" placeholder="Your name" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="your@email.com" />
-              </div>
-              <Button>Save Changes</Button>
+              {isProfileLoading ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="h-6 w-6 animate-spin" />
+                </div>
+              ) : (
+                <FormProvider {...profileForm}>
+                  <Form {...profileForm}>
+                    <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-4">
+                      {/* Avatar Upload */}
+                      <InputField
+                        name="avatar"
+                        label="Profile Picture"
+                        type="avatar"
+                        description="Upload a profile picture (JPG, PNG, or GIF)"
+                        onChange={(file) => {
+                          if (file instanceof File) {
+                            setAvatarFile(file);
+                          }
+                        }}
+                      />
+
+                      {/* Current avatar preview if exists */}
+                      {profileData?.user?.image && !avatarFile && (
+                        <div className="flex items-center gap-4">
+                          <img
+                            src={profileData.user.image}
+                            alt="Current avatar"
+                            className="h-20 w-20 rounded-full object-cover"
+                          />
+                          <p className="text-sm text-muted-foreground">Current avatar</p>
+                        </div>
+                      )}
+
+                      {/* Name Field */}
+                      <InputField
+                        name="name"
+                        label="Name"
+                        type="text"
+                        placeholder="Your full name"
+                        description="This is how your name will be displayed"
+                      />
+
+                      {/* Email Field */}
+                      <InputField
+                        name="email"
+                        label="Email"
+                        type="email"
+                        placeholder="your@email.com"
+                        description={
+                          profileData?.user?.email !== profileForm.watch("email")
+                            ? "⚠️ Changing email will require verification via OTP"
+                            : "Your email address for notifications and login"
+                        }
+                      />
+
+                      <Button 
+                        type="submit" 
+                        disabled={updateProfile.isPending}
+                        className="w-full sm:w-auto"
+                      >
+                        {updateProfile.isPending ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Saving...
+                          </>
+                        ) : (
+                          <>
+                            <Save className="mr-2 h-4 w-4" />
+                            Save Changes
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
+                </FormProvider>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
@@ -198,29 +349,83 @@ export default function SettingsPage() {
         </TabsContent>
 
         <TabsContent value="security" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Change Password</CardTitle>
-              <CardDescription>
-                Update your password to keep your account secure.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="current">Current Password</Label>
-                <Input id="current" type="password" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="new">New Password</Label>
-                <Input id="new" type="password" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirm">Confirm Password</Label>
-                <Input id="confirm" type="password" />
-              </div>
-              <Button>Update Password</Button>
-            </CardContent>
-          </Card>
+          {isOAuthUser ? (
+            <Card>
+              <CardHeader>
+                <CardTitle>OAuth Account</CardTitle>
+                <CardDescription>
+                  You signed in with an external provider.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground">
+                  Your account is managed by {profileData?.user?.accounts?.[0]?.provider || "an external provider"}. 
+                  Password changes are not available for OAuth accounts.
+                </p>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card>
+              <CardHeader>
+                <CardTitle>Change Password</CardTitle>
+                <CardDescription>
+                  Update your password to keep your account secure.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <FormProvider {...passwordForm}>
+                  <Form {...passwordForm}>
+                    <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-4">
+                      {/* Current Password */}
+                      <InputField
+                        name="currentPassword"
+                        label="Current Password"
+                        type="password"
+                        placeholder="Enter your current password"
+                        description="Required to verify your identity"
+                      />
+
+                      {/* New Password */}
+                      <InputField
+                        name="newPassword"
+                        label="New Password"
+                        type="password"
+                        placeholder="Enter your new password"
+                        description="At least 8 characters with uppercase, number, and special character"
+                      />
+
+                      {/* Confirm Password */}
+                      <InputField
+                        name="confirmPassword"
+                        label="Confirm New Password"
+                        type="password"
+                        placeholder="Confirm your new password"
+                        description="Re-enter your new password"
+                      />
+
+                      <Button 
+                        type="submit" 
+                        disabled={updateProfile.isPending}
+                        className="w-full sm:w-auto"
+                      >
+                        {updateProfile.isPending ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Updating...
+                          </>
+                        ) : (
+                          <>
+                            <Save className="mr-2 h-4 w-4" />
+                            Update Password
+                          </>
+                        )}
+                      </Button>
+                    </form>
+                  </Form>
+                </FormProvider>
+              </CardContent>
+            </Card>
+          )}
         </TabsContent>
       </Tabs>
     </div>
