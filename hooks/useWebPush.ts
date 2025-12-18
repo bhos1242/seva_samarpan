@@ -108,7 +108,7 @@ export function useWebPush() {
             // Auto-cleanup stale server subscriptions for THIS device
             if (!browserSub && serverHasSub && statusData.subscriptions.length > 0) {
                 console.log('🧹 Auto-cleanup: Browser has no subscription, cleaning server...');
-                
+
                 // Try to identify and remove this device's subscription
                 // We'll remove subscriptions that match this user agent or look stale
                 try {
@@ -119,7 +119,7 @@ export function useWebPush() {
 
                     if (thisDeviceSubs.length > 0) {
                         console.log(`Found ${thisDeviceSubs.length} subscription(s) for this device`);
-                        
+
                         // Unsubscribe from each matching endpoint
                         for (const sub of thisDeviceSubs) {
                             try {
