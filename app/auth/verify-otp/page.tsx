@@ -12,6 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import toast from "react-hot-toast";
 import { useVerifyOtp } from "@/hooks/auth/useVerifyOtp";
 import { useResendOtp } from "@/hooks/auth/useResendOtp";
@@ -22,7 +23,7 @@ import { z } from "zod";
 import InputField from "@/components/AppInputFields/InputField";
 
 const otpSchema = z.object({
-  otp: z.string().length(4, "OTP must be 4 digits"),
+  otp: z.string().min(4, "OTP must be 4 digits").max(4, "OTP must be 4 digits"),
 });
 
 type OTPFormData = z.infer<typeof otpSchema>;
@@ -45,7 +46,12 @@ function VerifyOTPContent() {
   const [cooldown, setCooldown] = React.useState(0);
   
   // Auto-send OTP when page loads using useQuery
-  const { data: autoSendData, isError: autoSendError, error: autoSendErrorData } = useAutoSendOtp(email, !!email);
+  const { 
+    data: autoSendData, 
+    isError: autoSendError, 
+    error: autoSendErrorData,
+    isFetching: isSendingOtp 
+  } = useAutoSendOtp(email, !!email);
 
   // Show toast when auto-send completes
   useEffect(() => {
@@ -65,7 +71,13 @@ function VerifyOTPContent() {
 
   // Cooldown timer
   useEffect(() => {
-    if (cooldown > 0) {data: OTPFormData) => {
+    if (cooldown > 0) {
+      const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [cooldown]);
+
+  const handleVerify = async (data: OTPFormData) => {
     try {
       const result = await verifyMutation.mutateAsync({ email, otp: data.otp });
       toast.success(result.message);
@@ -74,13 +86,7 @@ function VerifyOTPContent() {
       const errorMessage =
         error.response?.data?.error || "Invalid or expired OTP";
       toast.error(errorMessage);
-      form.reset(cess(result.message);
-      router.push("/auth/login");
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Invalid or expired OTP";
-      toast.error(errorMessage);
-      setOtp("");
+      form.reset();
     }
   };
 
@@ -94,12 +100,12 @@ function VerifyOTPContent() {
       const result = await resendMutation.mutateAsync({ email });
       toast.success(result.message);
       setCooldown(60); // 60 second cooldown
-      setOtp("");
+      form.reset();
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.error || "Failed to resend OTP";
       toast.error(errorMessage);
-form.reset(
+
       // Handle rate limit
       if (error.response?.status === 429) {
         const retryAfter = error.response?.data?.retryAfter;
@@ -133,6 +139,41 @@ form.reset(
     );
   }
 
+  // Show loading state while sending initial OTP
+  if (isSendingOtp) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gray-50/50 p-4 dark:bg-gray-950">
+        <Card className="w-full max-w-md shadow-lg">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold tracking-tight text-center">
+              Sending OTP
+            </CardTitle>
+            <CardDescription className="text-center">
+              Please wait while we send a verification code to{" "}
+              <span className="font-semibold text-foreground">{email}</span>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="flex gap-2">
+                <Skeleton className="h-14 w-14 rounded-md" />
+                <Skeleton className="h-14 w-14 rounded-md" />
+                <Skeleton className="h-14 w-14 rounded-md" />
+                <Skeleton className="h-14 w-14 rounded-md" />
+              </div>
+              <Skeleton className="h-4 w-48" />
+            </div>
+            <Skeleton className="h-11 w-full rounded-md" />
+            <div className="text-center space-y-2">
+              <Skeleton className="h-4 w-32 mx-auto" />
+              <Skeleton className="h-11 w-full rounded-md" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50/50 p-4 dark:bg-gray-950">
       <Card className="w-full max-w-md shadow-lg">
@@ -145,12 +186,7 @@ form.reset(
             <span className="font-semibold text-foreground">{email}</span>
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="flex flex-col items-center space-y-4">
-            <InputOTP
-              maxLength={4}
-              value={otp}
-         FormProvider {...form}>
+        <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(handleVerify)}>
             <CardContent className="space-y-6">
               <div className="flex flex-col items-center space-y-4">
@@ -196,7 +232,12 @@ form.reset(
               </div>
             </CardContent>
           </form>
-        </FormProviderme="text-primary hover:underline font-medium"
+        </FormProvider>
+        <CardFooter className="flex flex-col space-y-2">
+          <div className="text-sm text-muted-foreground text-center">
+            <Link
+              href="/auth/signup"
+              className="text-primary hover:underline font-medium"
             >
               Back to Signup
             </Link>
