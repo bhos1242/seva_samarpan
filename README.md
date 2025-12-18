@@ -253,7 +253,7 @@ DATABASE_URL="postgresql://user:password@host:port/database"
 
 # NextAuth
 AUTH_SECRET="run: openssl rand -base64 32"
-NEXTAUTH_URL="http://localhost:3000"  # Your app URL (for password reset links)
+NEXTAUTH_URL="http://localhost:2222"  # Your app URL (for password reset links)
 
 # Google OAuth
 GOOGLE_CLIENT_ID="your-google-client-id"
