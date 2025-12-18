@@ -50,7 +50,7 @@ export async function POST() {
             })
         );
 
-        const successCount = results.filter((r) => r.success).length;
+        const successCount = results.filter((r: any) => r.success).length;
 
         return NextResponse.json({
             message: `Test notification sent to ${successCount} device(s)`,
