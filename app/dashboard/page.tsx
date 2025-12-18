@@ -25,14 +25,14 @@ const revenueData = [
 
 export default async function DashboardPage() {
   const session = await auth();
-  
+
   // Log session data
   console.log("Dashboard Session:", {
     user: session?.user,
     provider: session?.user?.provider,
     isVerified: session?.user?.isVerified,
   });
-  
+
   return (
     <div className="space-y-6">
       <div>
