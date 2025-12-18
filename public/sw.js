@@ -1,4 +1,4 @@
-// Service Worker v1.0.2
+// Service Worker v1.0.3
 self.addEventListener("install", function (event) {
   console.log("Service Worker installing...");
   self.skipWaiting();
@@ -46,7 +46,6 @@ self.addEventListener("push", function (event) {
 
 self.addEventListener("notificationclick", function (event) {
   console.log("Notification clicked:", event);
-
   event.notification.close();
 
   var urlToOpen =
@@ -56,15 +55,12 @@ self.addEventListener("notificationclick", function (event) {
     self.clients
       .matchAll({ type: "window", includeUncontrolled: true })
       .then(function (clientList) {
-        // Check if there's already a window open with this URL
         for (var i = 0; i < clientList.length; i++) {
           var client = clientList[i];
           if (client.url === urlToOpen && "focus" in client) {
             return client.focus();
           }
         }
-
-        // If no window is open, open a new one
         if (self.clients.openWindow) {
           return self.clients.openWindow(urlToOpen);
         }

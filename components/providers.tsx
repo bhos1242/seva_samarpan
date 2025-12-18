@@ -12,23 +12,23 @@ export function Providers({ children }: { children: ReactNode }) {
   // Register service worker
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      // First, unregister all existing service workers
+      // Unregister all existing service workers first
       navigator.serviceWorker.getRegistrations().then((registrations) => {
-        Promise.all(
-          registrations.map((registration) => registration.unregister())
-        ).then(() => {
-          // Wait a bit for unregistration to complete
+        Promise.all(registrations.map((reg) => reg.unregister())).then(() => {
+          // Small delay to ensure cleanup completes
           setTimeout(() => {
-            // Now register the new service worker with cache busting
             navigator.serviceWorker
-              .register("/sw.js?v=" + Date.now())
+              .register("/sw.js")
               .then((registration) => {
-                console.log("Service Worker registered:", registration.scope);
+                console.log(
+                  "✅ Service Worker registered:",
+                  registration.scope
+                );
               })
               .catch((error) => {
-                console.error("Service Worker registration failed:", error);
+                console.error("❌ Service Worker registration failed:", error);
               });
-          }, 100);
+          }, 200);
         });
       });
     }
