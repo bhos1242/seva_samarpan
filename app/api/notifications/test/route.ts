@@ -15,7 +15,7 @@ export async function POST() {
         }
 
         // Get all subscriptions for current user
-        const subscriptions = await prisma_db.pushSubscription.findMany({
+        const subscriptions = await (prisma_db as any).pushSubscription.findMany({
             where: { userId: session.user.id },
         });
 
@@ -36,12 +36,12 @@ export async function POST() {
 
         // Send to all devices
         const results = await Promise.all(
-            subscriptions.map(async (sub) => {
+            subscriptions.map(async (sub: any) => {
                 const result = await sendPushNotification(sub, payload);
 
                 // Remove expired subscriptions
                 if (result.expired) {
-                    await prisma_db.pushSubscription.delete({
+                    await (prisma_db as any).pushSubscription.delete({
                         where: { id: sub.id },
                     });
                 }

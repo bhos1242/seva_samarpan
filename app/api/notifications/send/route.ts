@@ -50,12 +50,12 @@ export async function POST(req: NextRequest) {
 
         // Send notification to all user's devices
         const results = await Promise.all(
-            subscriptions.map(async (sub) => {
+            subscriptions.map(async (sub: any) => {
                 const result = await sendPushNotification(sub, payload);
 
                 // Remove expired subscriptions
                 if (result.expired) {
-                    await prisma_db.pushSubscription.delete({
+                    await (prisma_db as any).pushSubscription.delete({
                         where: { id: sub.id },
                     });
                 }

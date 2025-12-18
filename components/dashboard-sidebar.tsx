@@ -171,7 +171,6 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export function MobileSidebar() {
