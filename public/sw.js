@@ -1,5 +1,5 @@
 /* console-ninja:disable */
-// Service Worker v1.0.6
+// Service Worker v1.0.7
 self.addEventListener("install", function (event) {
   console.log("Service Worker installing...");
   self.skipWaiting();

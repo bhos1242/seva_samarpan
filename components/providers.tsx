@@ -12,8 +12,10 @@ export function Providers({ children }: { children: ReactNode }) {
   // Register service worker
   useEffect(() => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
+      // Force cache bust with timestamp
+      const swUrl = `/sw.js?v=${Date.now()}`;
       navigator.serviceWorker
-        .register("/sw.js", {
+        .register(swUrl, {
           scope: "/",
           updateViaCache: "none",
         })
