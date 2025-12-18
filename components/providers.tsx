@@ -12,15 +12,18 @@ export function Providers({ children }: { children: ReactNode }) {
   // Register service worker
   useEffect(() => {
     if ("serviceWorker" in navigator && "PushManager" in window) {
-      // Force cache bust with timestamp
-      const swUrl = `/sw.js?v=${Date.now()}`;
       navigator.serviceWorker
-        .register(swUrl, {
+        .register("/sw.js", {
           scope: "/",
           updateViaCache: "none",
         })
         .then((registration) => {
           console.log("✅ Service Worker registered:", registration.scope);
+
+          // Check for updates periodically
+          setInterval(() => {
+            registration.update();
+          }, 60000); // Check every minute
         })
         .catch((error) => {
           console.error("❌ Service Worker registration failed:", error);
