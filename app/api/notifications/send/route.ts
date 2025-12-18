@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
         const { userId, title, body: messageBody, url, icon, badge, data } = sendSchema.parse(body);
 
         // Get all subscriptions for the target user
-        const subscriptions = await (prisma_db as any).pushSubscription.findMany({
+        const subscriptions = await prisma_db.pushSubscription.findMany({
+            where: { userId },
         });
 
         if (subscriptions.length === 0) {
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
 
                 // Remove expired subscriptions
                 if (result.expired) {
-                    await (prisma_db as any).pushSubscription.delete({
+                    await prisma_db.pushSubscription.delete({
                         where: { id: sub.id },
                     });
                 }

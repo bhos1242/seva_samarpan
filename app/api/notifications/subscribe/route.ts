@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
         const data = subscribeSchema.parse(body);
 
         // Check if subscription already exists
-        const existing = await (prisma_db as any).pushSubscription.findFirst({
+        const existing = await prisma_db.pushSubscription.findFirst({
             where: {
                 userId: session.user.id,
                 endpoint: data.endpoint,
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
 
         if (existing) {
             // Update existing subscription
-            const updated = await (prisma_db as any).pushSubscription.update({
+            const updated = await prisma_db.pushSubscription.update({
                 where: { id: existing.id },
                 data: {
                     p256dh: data.p256dh,
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
         }
 
         // Create new subscription
-        const subscription = await (prisma_db as any).pushSubscription.create({
+        const subscription = await prisma_db.pushSubscription.create({
             data: {
                 userId: session.user.id,
                 endpoint: data.endpoint,
