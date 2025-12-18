@@ -34,8 +34,10 @@ self.addEventListener("push", function (e) {
       badge: data.badge || "/icon.svg",
       data: data.data || { url: data.url || "/" },
       vibrate: [200, 100, 200],
-      tag: data.tag || "default",
-      requireInteraction: false,
+      tag: data.tag || "notification-" + Date.now(), // Unique tag to always show
+      requireInteraction: true, // Force user to interact - notification won't auto-dismiss
+      renotify: true, // Play sound/vibration even if replacing
+      silent: false, // Play sound
     };
 
     e.waitUntil(
