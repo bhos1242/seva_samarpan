@@ -12,8 +12,14 @@ export function Providers({ children }: { children: ReactNode }) {
   // Register service worker
   useEffect(() => {
     if ("serviceWorker" in navigator) {
+      // Unregister any existing service workers first to clear cache
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => registration.unregister());
+      });
+
+      // Register with cache busting
       navigator.serviceWorker
-        .register("/sw.js")
+        .register("/sw.js?v=" + Date.now())
         .then((registration) => {
           console.log("Service Worker registered:", registration.scope);
         })
