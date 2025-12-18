@@ -54,7 +54,7 @@ export default function Home() {
         <h1 className="text-center text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
           Ship Your Idea
           <br />
-          <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
             In Record Time
           </span>
         </h1>
