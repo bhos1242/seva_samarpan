@@ -29,18 +29,24 @@ const profileSchema = z.object({
 });
 
 // Password form schema
-const passwordSchema = z.object({
-  currentPassword: z.string().min(1, "Current password is required"),
-  newPassword: z.string()
-    .min(8, "Password must be at least 8 characters")
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[^A-Za-z0-9]/, "Password must contain at least one special character"),
-  confirmPassword: z.string(),
-}).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-});
+const passwordSchema = z
+  .object({
+    currentPassword: z.string().min(1, "Current password is required"),
+    newPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .regex(/[0-9]/, "Password must contain at least one number")
+      .regex(
+        /[^A-Za-z0-9]/,
+        "Password must contain at least one special character"
+      ),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
 
 type ProfileFormData = z.infer<typeof profileSchema>;
 type PasswordFormData = z.infer<typeof passwordSchema>;
@@ -141,7 +147,10 @@ export default function SettingsPage() {
               ) : (
                 <FormProvider {...profileForm}>
                   <Form {...profileForm}>
-                    <form onSubmit={profileForm.handleSubmit(onProfileSubmit)} className="space-y-4">
+                    <form
+                      onSubmit={profileForm.handleSubmit(onProfileSubmit)}
+                      className="space-y-4"
+                    >
                       {/* Avatar Upload */}
                       <InputField
                         name="avatar"
@@ -163,7 +172,9 @@ export default function SettingsPage() {
                             alt="Current avatar"
                             className="h-20 w-20 rounded-full object-cover"
                           />
-                          <p className="text-sm text-muted-foreground">Current avatar</p>
+                          <p className="text-sm text-muted-foreground">
+                            Current avatar
+                          </p>
                         </div>
                       )}
 
@@ -183,14 +194,15 @@ export default function SettingsPage() {
                         type="email"
                         placeholder="your@email.com"
                         description={
-                          profileData?.user?.email !== profileForm.watch("email")
+                          profileData?.user?.email !==
+                          profileForm.watch("email")
                             ? "⚠️ Changing email will require verification via OTP"
                             : "Your email address for notifications and login"
                         }
                       />
 
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         disabled={updateProfile.isPending}
                         className="w-full sm:w-auto"
                       >
@@ -359,8 +371,10 @@ export default function SettingsPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-muted-foreground">
-                  Your account is managed by {profileData?.user?.accounts?.[0]?.provider || "an external provider"}. 
-                  Password changes are not available for OAuth accounts.
+                  Your account is managed by{" "}
+                  {profileData?.user?.accounts?.[0]?.provider ||
+                    "an external provider"}
+                  . Password changes are not available for OAuth accounts.
                 </p>
               </CardContent>
             </Card>
@@ -375,7 +389,10 @@ export default function SettingsPage() {
               <CardContent className="space-y-4">
                 <FormProvider {...passwordForm}>
                   <Form {...passwordForm}>
-                    <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-4">
+                    <form
+                      onSubmit={passwordForm.handleSubmit(onPasswordSubmit)}
+                      className="space-y-4"
+                    >
                       {/* Current Password */}
                       <InputField
                         name="currentPassword"
@@ -403,8 +420,8 @@ export default function SettingsPage() {
                         description="Re-enter your new password"
                       />
 
-                      <Button 
-                        type="submit" 
+                      <Button
+                        type="submit"
                         disabled={updateProfile.isPending}
                         className="w-full sm:w-auto"
                       >
