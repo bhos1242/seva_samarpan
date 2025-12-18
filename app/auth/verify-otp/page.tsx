@@ -16,6 +16,7 @@ import {
 import toast from "react-hot-toast";
 import { useVerifyOtp } from "@/hooks/auth/useVerifyOtp";
 import { useResendOtp } from "@/hooks/auth/useResendOtp";
+import { useAutoSendOtp } from "@/hooks/auth/useAutoSendOtp";
 
 function VerifyOTPContent() {
   const router = useRouter();
@@ -27,25 +28,25 @@ function VerifyOTPContent() {
 
   const verifyMutation = useVerifyOtp();
   const resendMutation = useResendOtp();
+  
+  // Auto-send OTP when page loads using useQuery
+  const { data: autoSendData, isError: autoSendError, error: autoSendErrorData } = useAutoSendOtp(email, !!email);
 
-  // Send OTP on initial page load
+  // Show toast when auto-send completes
   useEffect(() => {
-    if (email) {
-      const sendInitialOtp = async () => {
-        try {
-          const result = await resendMutation.mutateAsync({ email });
-          toast.success(result.message);
-          setCooldown(60);
-        } catch (error: any) {
-          const errorMessage =
-            error.response?.data?.error || "Failed to send OTP";
-          toast.error(errorMessage);
-        }
-      };
-      sendInitialOtp();
+    if (autoSendData) {
+      toast.success(autoSendData.message);
+      setCooldown(60);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount
+  }, [autoSendData]);
+
+  // Show error toast if auto-send fails
+  useEffect(() => {
+    if (autoSendError) {
+      const errorMessage = (autoSendErrorData as any)?.response?.data?.error || "Failed to send OTP";
+      toast.error(errorMessage);
+    }
+  }, [autoSendError, autoSendErrorData]);
 
   // Cooldown timer
   useEffect(() => {
