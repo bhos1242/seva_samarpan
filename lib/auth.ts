@@ -101,13 +101,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Auto-verify OAuth users (Google, GitHub, etc.)
       if (account?.provider && account.provider !== "credentials" && user.email) {
         console.log("Verifying OAuth user:", user.email);
-        
+
         // Check if a user with this email already exists
         const existingUser = await prisma_db.user.findUnique({
           where: { email: user.email },
           include: { accounts: true }
         });
-        
+
         // If user exists but doesn't have this OAuth account linked, link it
         if (existingUser && !existingUser.accounts.find(acc => acc.provider === account.provider)) {
           console.log("Linking OAuth account to existing user");
@@ -127,16 +127,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // Update user.id to the existing user's id for JWT callback
           user.id = existingUser.id;
         }
-        
-        // Download and upload OAuth profile picture to S3
+
+        // Download and upload OAuth profile picture to S3 (only for new users)
         let s3ImageUrl: string | null = null;
-        if (user.image) {
+        if (user.image && !existingUser) {
+          // Only upload avatar for NEW OAuth users, don't overwrite existing user's custom avatar
           try {
             console.log("Downloading OAuth profile picture:", user.image);
             const response = await fetch(user.image);
             const arrayBuffer = await response.arrayBuffer();
             const buffer = Buffer.from(arrayBuffer);
-            
+
             // Import uploadToS3 dynamically to avoid circular deps
             const { uploadToS3 } = await import("./s3");
             s3ImageUrl = await uploadToS3(buffer, "profile.jpg");
@@ -147,17 +148,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             s3ImageUrl = user.image;
           }
         }
-        
-        await prisma_db.user.updateMany({
-          where: { email: user.email },
-          data: { 
-            isVerified: true,
-            ...(s3ImageUrl && { image: s3ImageUrl })
-          },
-        });
+
+        // Only update isVerified and image for NEW users
+        // Don't overwrite existing user's data on re-login
+        if (!existingUser) {
+          await prisma_db.user.updateMany({
+            where: { email: user.email },
+            data: {
+              isVerified: true,
+              ...(s3ImageUrl && { image: s3ImageUrl })
+            },
+          });
+        } else {
+          // Just mark as verified, don't touch other fields
+          await prisma_db.user.updateMany({
+            where: { email: user.email },
+            data: {
+              isVerified: true,
+            },
+          });
+        }
+
         // Mark user as verified immediately in the user object
         user.isVerified = true;
-        if (s3ImageUrl) {
+        if (s3ImageUrl && !existingUser) {
           user.image = s3ImageUrl;
         }
       }
@@ -168,7 +182,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.id = user.id;
         token.role = user.role;
         token.isVerified = user.isVerified;
-        
+
         // Store provider info to differentiate OAuth vs credentials
         if (account?.provider) {
           token.provider = account.provider;
@@ -178,7 +192,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           }
         }
       }
-      
+
       // For credentials users, fetch fresh data from DB
       // For OAuth users, trust the token since they're auto-verified
       if (token.id && token.provider === "credentials") {
@@ -191,7 +205,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           token.isVerified = dbUser.isVerified;
         }
       }
-      
+
       return token;
     },
     async session({ session, token }) {
