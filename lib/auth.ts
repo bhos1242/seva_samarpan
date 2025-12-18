@@ -95,10 +95,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async signIn({ user, account }) {
       console.log("SignIn callback:", { user, account });
-      // Auto-verify OAuth users (use updateMany since user might not exist yet on first login)
-      if (account?.provider !== "credentials") {
+      // Auto-verify OAuth users by email (not ID, since they might not exist yet)
+      if (account?.provider !== "credentials" && user.email) {
         await prisma_db.user.updateMany({
-          where: { id: user.id },
+          where: { email: user.email },
           data: { isVerified: true },
         });
       }
