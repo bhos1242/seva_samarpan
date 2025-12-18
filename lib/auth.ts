@@ -2,9 +2,9 @@ import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import GitHub from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
+import { prisma_db } from "./prisma";
 
 // Extend session type
 declare module "next-auth" {
@@ -51,7 +51,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const { email, password } = loginSchema.parse(credentials);
 
           // Find user by email
-          const user = await prisma.user.findUnique({
+          const user = await prisma_db.user.findUnique({
             where: { email },
           });
 
@@ -94,9 +94,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
+      console.log("SignIn callback:", { user, account });
       // Auto-verify OAuth users
       if (account?.provider !== "credentials") {
-        await prisma.user.update({
+        await prisma_db.user.update({
           where: { id: user.id },
           data: { isVerified: true },
         });

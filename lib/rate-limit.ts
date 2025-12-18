@@ -1,4 +1,4 @@
-import { prisma } from "./prisma";
+import { prisma_db } from "./prisma";
 
 export type RateLimitAction = "resend-otp" | "forgot-password";
 
@@ -33,7 +33,7 @@ export async function checkRateLimit(
 
   try {
     // Find existing rate limit record
-    const record = await prisma.rateLimit.findUnique({
+    const record = await prisma_db.rateLimit.findUnique({
       where: {
         identifier_action: {
           identifier,
@@ -45,7 +45,7 @@ export async function checkRateLimit(
     // No existing record - allow and create new
     if (!record) {
       const resetAt = new Date(now.getTime() + config.windowMinutes * 60 * 1000);
-      await prisma.rateLimit.create({
+      await prisma_db.rateLimit.create({
         data: {
           identifier,
           action,
@@ -60,7 +60,7 @@ export async function checkRateLimit(
     if (now >= record.resetAt) {
       // Reset the counter
       const resetAt = new Date(now.getTime() + config.windowMinutes * 60 * 1000);
-      await prisma.rateLimit.update({
+      await prisma_db.rateLimit.update({
         where: { id: record.id },
         data: {
           count: 1,
@@ -80,7 +80,7 @@ export async function checkRateLimit(
     }
 
     // Increment counter
-    await prisma.rateLimit.update({
+    await prisma_db.rateLimit.update({
       where: { id: record.id },
       data: {
         count: record.count + 1,
@@ -106,7 +106,7 @@ export async function resetRateLimit(
   action: RateLimitAction
 ): Promise<void> {
   try {
-    await prisma.rateLimit.delete({
+    await prisma_db.rateLimit.delete({
       where: {
         identifier_action: {
           identifier,
@@ -125,7 +125,7 @@ export async function resetRateLimit(
  */
 export async function cleanupExpiredRateLimits(): Promise<void> {
   try {
-    await prisma.rateLimit.deleteMany({
+    await prisma_db.rateLimit.deleteMany({
       where: {
         resetAt: {
           lt: new Date(),

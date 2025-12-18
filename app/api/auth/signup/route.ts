@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
+import { prisma_db } from "@/lib/prisma";
 import { uploadAvatar } from "@/lib/s3";
 import { sendOTPEmail } from "@/lib/email";
 
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const validatedData = signupSchema.parse({ name, email, password });
 
     // Check if user already exists
-    const existingUser = await prisma.user.findUnique({
+    const existingUser = await prisma_db.user.findUnique({
       where: { email: validatedData.email },
     });
 
@@ -57,7 +57,7 @@ export async function POST(req: NextRequest) {
     const hashedPassword = await bcrypt.hash(validatedData.password, 10);
 
     // Create user
-    const user = await prisma.user.create({
+    const user = await prisma_db.user.create({
       data: {
         name: validatedData.name,
         email: validatedData.email,
@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
     // Save OTP to database
-    await prisma.oTP.create({
+    await prisma_db.oTP.create({
       data: {
         email: user.email!,
         code: otp,
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
     
     if (!emailResult.success) {
       // If email fails, delete the user and return error
-      await prisma.user.delete({ where: { id: user.id } });
+      await prisma_db.user.delete({ where: { id: user.id } });
       return NextResponse.json(
         { error: "Failed to send verification email. Please try again." },
         { status: 500 }

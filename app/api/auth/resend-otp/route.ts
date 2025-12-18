@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
+import { prisma_db } from "@/lib/prisma";
 import { sendOTPEmail } from "@/lib/email";
 import { checkRateLimit } from "@/lib/rate-limit";
 
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if user exists
-    const user = await prisma.user.findUnique({
+    const user = await prisma_db.user.findUnique({
       where: { email },
     });
 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Delete old OTPs for this email
-    await prisma.oTP.deleteMany({
+    await prisma_db.oTP.deleteMany({
       where: { email },
     });
 
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
     // Save new OTP to database
-    await prisma.oTP.create({
+    await prisma_db.oTP.create({
       data: {
         email,
         code: otp,

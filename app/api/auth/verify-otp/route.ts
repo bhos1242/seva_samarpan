@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
+import { prisma_db } from "@/lib/prisma";
 
 const verifyOTPSchema = z.object({
   email: z.string().email(),
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     const { email, otp } = verifyOTPSchema.parse(body);
 
     // Find the most recent OTP for this email
-    const otpRecord = await prisma.oTP.findFirst({
+    const otpRecord = await prisma_db.oTP.findFirst({
       where: {
         email,
         code: otp,
@@ -40,19 +40,19 @@ export async function POST(req: NextRequest) {
     }
 
     // Mark OTP as verified
-    await prisma.oTP.update({
+    await prisma_db.oTP.update({
       where: { id: otpRecord.id },
       data: { verified: true },
     });
 
     // Update user verification status
-    await prisma.user.update({
+    await prisma_db.user.update({
       where: { email },
       data: { isVerified: true },
     });
 
     // Delete all OTPs for this email (cleanup)
-    await prisma.oTP.deleteMany({
+    await prisma_db.oTP.deleteMany({
       where: { email },
     });
 

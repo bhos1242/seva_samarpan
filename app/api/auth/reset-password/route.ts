@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
-import { prisma } from "@/lib/prisma";
+import { prisma_db } from "@/lib/prisma";
 
 const resetPasswordSchema = z.object({
   token: z.string().min(1, "Token is required"),
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     const { token, password } = resetPasswordSchema.parse(body);
 
     // Find reset token
-    const resetToken = await prisma.passwordResetToken.findUnique({
+    const resetToken = await prisma_db.passwordResetToken.findUnique({
       where: { token },
     });
 
@@ -53,19 +53,19 @@ export async function POST(req: NextRequest) {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Update user password
-    await prisma.user.update({
+    await prisma_db.user.update({
       where: { email: resetToken.email },
       data: { password: hashedPassword },
     });
 
     // Mark token as used
-    await prisma.passwordResetToken.update({
+    await prisma_db.passwordResetToken.update({
       where: { id: resetToken.id },
       data: { used: true },
     });
 
     // Delete all reset tokens for this email (cleanup)
-    await prisma.passwordResetToken.deleteMany({
+    await prisma_db.passwordResetToken.deleteMany({
       where: { email: resetToken.email },
     });
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import crypto from "crypto";
-import {prisma} from "@/lib/prisma";
+import {prisma_db} from "@/lib/prisma";
 import { sendPasswordResetEmail } from "@/lib/email";
 import { checkRateLimit } from "@/lib/rate-limit";
 
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Check if user exists
-    const user = await prisma.user.findUnique({
+    const user = await prisma_db.user.findUnique({
       where: { email },
     });
 
@@ -52,12 +52,12 @@ export async function POST(req: NextRequest) {
     const expiresAt = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
 
     // Delete old reset tokens for this email
-    await prisma.passwordResetToken.deleteMany({
+    await prisma_db.passwordResetToken.deleteMany({
       where: { email },
     });
 
     // Save reset token to database
-    await prisma.passwordResetToken.create({
+    await prisma_db.passwordResetToken.create({
       data: {
         email,
         token: resetToken,
