@@ -2,6 +2,7 @@ import { StatsCard } from "@/components/stats-card";
 import { BarChart, LineChart } from "@/components/charts";
 import { Users, Calendar, DollarSign, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { auth } from "@/lib/auth";
 
 // Sample data - replace with your actual data
 const bookingsData = [
@@ -22,7 +23,16 @@ const revenueData = [
   { month: "Jun", revenue: 7200 },
 ];
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const session = await auth();
+  
+  // Log session data
+  console.log("Dashboard Session:", {
+    user: session?.user,
+    provider: session?.user?.provider,
+    isVerified: session?.user?.isVerified,
+  });
+  
   return (
     <div className="space-y-6">
       <div>
