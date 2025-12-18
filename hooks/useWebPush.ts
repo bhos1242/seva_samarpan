@@ -104,10 +104,40 @@ export function useWebPush() {
                 }
             }
 
-            // Case 2: Server has subscription but browser doesn't (SW unregistered)
-            if (!browserSub && serverHasSub) {
-                console.log('⚠️ Browser subscription missing but server has it');
-                console.log('💡 User needs to re-enable notifications on this device');
+            // Case 2: Server has subscriptions but browser doesn't (SW unregistered/cleared)
+            // Auto-cleanup stale server subscriptions for THIS device
+            if (!browserSub && serverHasSub && statusData.subscriptions.length > 0) {
+                console.log('🧹 Auto-cleanup: Browser has no subscription, cleaning server...');
+                
+                // Try to identify and remove this device's subscription
+                // We'll remove subscriptions that match this user agent or look stale
+                try {
+                    const currentUA = navigator.userAgent;
+                    const thisDeviceSubs = statusData.subscriptions.filter(
+                        sub => sub.userAgent === currentUA
+                    );
+
+                    if (thisDeviceSubs.length > 0) {
+                        console.log(`Found ${thisDeviceSubs.length} subscription(s) for this device`);
+                        
+                        // Unsubscribe from each matching endpoint
+                        for (const sub of thisDeviceSubs) {
+                            try {
+                                await axios.post('/api/notifications/unsubscribe', {
+                                    endpoint: sub.endpoint,
+                                });
+                                console.log('✅ Cleaned up stale subscription:', sub.id);
+                            } catch (error) {
+                                console.error('Failed to cleanup subscription:', error);
+                            }
+                        }
+
+                        queryClient.invalidateQueries({ queryKey: ['push-notification-status'] });
+                        console.log('✅ Database cleaned up for this device');
+                    }
+                } catch (error) {
+                    console.error('Auto-cleanup failed:', error);
+                }
             }
         };
 
