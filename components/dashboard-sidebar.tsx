@@ -61,6 +61,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { NotificationBellButton } from "@/components/notification-bell-button";
+import { Button } from "@/components/ui/button";
 
 export function DashboardSidebar({
   className,
@@ -79,10 +81,11 @@ export function DashboardSidebar({
         className
       )}
     >
-      <div className="flex h-16 items-center border-b px-6">
+      <div className="flex h-16 items-center justify-between border-b px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <span className="text-xl">Dashboard</span>
         </Link>
+        <NotificationBellButton />
       </div>
       <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
         {sidebarItems.map((item) => {
@@ -112,11 +115,19 @@ export function DashboardSidebar({
       <div className="border-t p-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="w-full justify-start px-2 h-auto py-2">
+            <Button
+              variant="ghost"
+              className="w-full justify-start px-2 h-auto py-2"
+            >
               <div className="flex items-center gap-3 text-left">
                 <Avatar className="h-8 w-8">
-                  <AvatarImage src={session?.user?.image || ""} alt={session?.user?.name || ""} />
-                  <AvatarFallback>{session?.user?.name?.slice(0, 2).toUpperCase() || "U"}</AvatarFallback>
+                  <AvatarImage
+                    src={session?.user?.image || ""}
+                    alt={session?.user?.name || ""}
+                  />
+                  <AvatarFallback>
+                    {session?.user?.name?.slice(0, 2).toUpperCase() || "U"}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col flex-1 min-w-0">
                   <span className="text-sm font-medium truncate">
@@ -132,7 +143,9 @@ export function DashboardSidebar({
           <DropdownMenuContent className="w-56" align="end" forceMount>
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none">{session?.user?.name || "User"}</p>
+                <p className="text-sm font-medium leading-none">
+                  {session?.user?.name || "User"}
+                </p>
                 <p className="text-xs leading-none text-muted-foreground">
                   {session?.user?.email || "viewer@example.com"}
                 </p>
@@ -150,7 +163,13 @@ export function DashboardSidebar({
   );
 }
 
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetTitle,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -167,10 +186,15 @@ export function MobileSidebar() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="p-0 bg-background w-64 border-r">
-         {/* Accessibility: Title is required for DialogContent */}
+        {/* Accessibility: Title is required for DialogContent */}
         <SheetTitle className="sr-only">Dashboard Menu</SheetTitle>
-        <SheetDescription className="sr-only">Navigation menu for the dashboard</SheetDescription>
-        <DashboardSidebar onLinkClick={() => setOpen(false)} className="w-full border-none" />
+        <SheetDescription className="sr-only">
+          Navigation menu for the dashboard
+        </SheetDescription>
+        <DashboardSidebar
+          onLinkClick={() => setOpen(false)}
+          className="w-full border-none"
+        />
       </SheetContent>
     </Sheet>
   );
