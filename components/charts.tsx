@@ -103,7 +103,12 @@ export function LineChart({
 
 export function PieChart({ data, dataKey, nameKey, className }: PieChartProps) {
   return (
-    <ResponsiveContainer width="100%" height="100%" className={className}>
+    <ResponsiveContainer
+      width="100%"
+      height="100%"
+      minHeight={0}
+      className={className}
+    >
       <RechartsPieChart>
         <Pie
           data={data}
@@ -133,7 +138,12 @@ export function AreaChart({
   className,
 }: AreaChartProps) {
   return (
-    <ResponsiveContainer width="100%" height="100%" className={className}>
+    <ResponsiveContainer
+      width="100%"
+      height="100%"
+      minHeight={0}
+      className={className}
+    >
       <RechartsAreaChart data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey={xAxisKey} />

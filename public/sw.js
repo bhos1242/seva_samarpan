@@ -47,10 +47,8 @@ self.addEventListener("push", function (event) {
 self.addEventListener("notificationclick", function (event) {
   console.log("Notification clicked:", event);
   event.notification.close();
-
   var urlToOpen =
     (event.notification.data && event.notification.data.url) || "/";
-
   event.waitUntil(
     self.clients
       .matchAll({ type: "window", includeUncontrolled: true })
