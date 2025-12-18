@@ -76,6 +76,12 @@ export const useUpdateProfile = () => {
                 await updateSession();
             }
 
+            // Force a hard refresh of the page to ensure all components update
+            // This is needed because NextAuth session might cache aggressively
+            setTimeout(() => {
+                window.location.reload();
+            }, 500);
+
             // Show success message
             toast.success(data.message || 'Profile updated successfully');
 

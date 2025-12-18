@@ -194,7 +194,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       // Handle session updates (triggered by updateSession)
-      if (trigger === "update" && session) {
+      if (trigger === "update") {
         // Fetch fresh user data from DB when session is updated
         const dbUser = await prisma_db.user.findUnique({
           where: { id: token.id as string },
@@ -210,7 +210,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (dbUser) {
           token.name = dbUser.name;
           token.email = dbUser.email;
-          token.picture = dbUser.image;
+          // Add cache-busting timestamp to image URL
+          token.picture = dbUser.image ? `${dbUser.image}?t=${Date.now()}` : dbUser.image;
           token.role = dbUser.role;
           token.isVerified = dbUser.isVerified;
         }
