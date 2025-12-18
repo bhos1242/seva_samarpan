@@ -266,8 +266,8 @@ GITHUB_CLIENT_SECRET="your-github-client-secret"
 # SMTP Configuration (for OTP and Password Reset emails)
 # Gmail SMTP setup (requires App Password with 2FA enabled)
 SMTP_HOST="smtp.gmail.com"
-SMTP_PORT="587"
-SMTP_USER="pixelperfectsshope@gmail.com"  # Your Gmail address
+SMTP_PORT="465"
+SMTP_USER="myabhyasikaofficial@gmail.com"  # Your Gmail address
 SMTP_PASSWORD="your-gmail-app-password"    # Gmail App Password (NOT regular password)
 
 # AWS S3 (for avatar uploads)
