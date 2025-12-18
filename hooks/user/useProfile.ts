@@ -70,7 +70,7 @@ export const useUpdateProfile = () => {
             // Invalidate and refetch profile
             queryClient.invalidateQueries({ queryKey: ['user-profile'] });
 
-            // Update NextAuth session with new user data
+            // Update NextAuth session with new user data (timestamp already added by backend)
             await updateSession({
                 user: {
                     name: data.user.name,

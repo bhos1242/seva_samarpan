@@ -58,9 +58,15 @@ export async function GET(req: NextRequest) {
         // Check if user is OAuth (has external accounts)
         const isOAuthUser = user.accounts.length > 0;
 
+        // Add cache-busting timestamp to image URL
+        const imageWithTimestamp = user.image
+            ? `${user.image}?t=${Date.now()}`
+            : user.image;
+
         return NextResponse.json({
             user: {
                 ...user,
+                image: imageWithTimestamp,
                 isOAuthUser,
             }
         });
@@ -232,9 +238,17 @@ export async function PATCH(req: NextRequest) {
             message += '. Please verify your new email address.';
         }
 
+        // Add cache-busting timestamp to image URL
+        const imageWithTimestamp = updatedUser.image
+            ? `${updatedUser.image}?t=${Date.now()}`
+            : updatedUser.image;
+
         return NextResponse.json({
             message,
-            user: updatedUser,
+            user: {
+                ...updatedUser,
+                image: imageWithTimestamp,
+            },
             requiresEmailVerification: !!updateData.email,
         });
     } catch (error) {
