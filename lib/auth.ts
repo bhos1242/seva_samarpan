@@ -96,17 +96,44 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account }) {
+    async signIn({ user, account, profile }) {
       console.log("SignIn callback:", { user, account, provider: account?.provider });
       // Auto-verify OAuth users (Google, GitHub, etc.)
       if (account?.provider && account.provider !== "credentials" && user.email) {
         console.log("Verifying OAuth user:", user.email);
+        
+        // Download and upload OAuth profile picture to S3
+        let s3ImageUrl: string | null = null;
+        if (user.image) {
+          try {
+            console.log("Downloading OAuth profile picture:", user.image);
+            const response = await fetch(user.image);
+            const arrayBuffer = await response.arrayBuffer();
+            const buffer = Buffer.from(arrayBuffer);
+            
+            // Import uploadToS3 dynamically to avoid circular deps
+            const { uploadToS3 } = await import("./s3");
+            s3ImageUrl = await uploadToS3(buffer, "profile.jpg");
+            console.log("Uploaded to S3:", s3ImageUrl);
+          } catch (error) {
+            console.error("Failed to upload OAuth image to S3:", error);
+            // Fall back to original OAuth image URL
+            s3ImageUrl = user.image;
+          }
+        }
+        
         await prisma_db.user.updateMany({
           where: { email: user.email },
-          data: { isVerified: true },
+          data: { 
+            isVerified: true,
+            ...(s3ImageUrl && { image: s3ImageUrl })
+          },
         });
         // Mark user as verified immediately in the user object
         user.isVerified = true;
+        if (s3ImageUrl) {
+          user.image = s3ImageUrl;
+        }
       }
       return true;
     },
