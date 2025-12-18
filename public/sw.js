@@ -1,57 +1,38 @@
 /* console-ninja:disable */
-// Service Worker v1.0.7
-self.addEventListener("install", function (event) {
-  console.log("Service Worker installing...");
+// Service Worker v1.0.8 - Minimal bulletproof version
+self.addEventListener("install", function (e) {
+  console.log("SW installing");
   self.skipWaiting();
 });
 
-self.addEventListener("activate", function (event) {
-  console.log("Service Worker activating...");
-  event.waitUntil(self.clients.claim());
+self.addEventListener("activate", function (e) {
+  console.log("SW activating");
+  e.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("push", function (event) {
-  console.log("Push event received:", event);
-  if (!event.data) {
-    console.log("Push event has no data");
-    return;
-  }
-  try {
-    var data = event.data.json();
-    var options = {
-      body: data.body || "New notification",
-      icon: data.icon || "/icon-192x192.png",
-      badge: data.badge || "/badge-72x72.png",
-      data: Object.assign({ url: data.url || "/" }, data.data),
+self.addEventListener("push", function (e) {
+  if (!e.data) return;
+  var d = e.data.json();
+  e.waitUntil(
+    self.registration.showNotification(d.title || "Notification", {
+      body: d.body || "New notification",
+      icon: d.icon || "/icon-192x192.png",
+      badge: d.badge || "/badge-72x72.png",
+      data: { url: d.url || "/" },
       vibrate: [200, 100, 200],
-      tag: "notification-" + Date.now(),
-      requireInteraction: false,
-    };
-    event.waitUntil(
-      self.registration.showNotification(data.title || "Notification", options)
-    );
-  } catch (error) {
-    console.error("Error showing notification:", error);
-  }
+    })
+  );
 });
 
-self.addEventListener("notificationclick", function (event) {
-  console.log("Notification clicked:", event);
-  event.notification.close();
-  var urlToOpen =
-    (event.notification.data && event.notification.data.url) || "/";
-  event.waitUntil(
-    self.clients
-      .matchAll({ type: "window", includeUncontrolled: true })
-      .then(function (clientList) {
-        for (var i = 0; i < clientList.length; i++) {
-          if (clientList[i].url === urlToOpen && "focus" in clientList[i]) {
-            return clientList[i].focus();
-          }
-        }
-        if (self.clients.openWindow) {
-          return self.clients.openWindow(urlToOpen);
-        }
-      })
+self.addEventListener("notificationclick", function (e) {
+  e.notification.close();
+  var url = (e.notification.data && e.notification.data.url) || "/";
+  e.waitUntil(
+    self.clients.matchAll({ type: "window" }).then(function (list) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].url === url) return list[i].focus();
+      }
+      return self.clients.openWindow(url);
+    })
   );
 });
