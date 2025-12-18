@@ -109,6 +109,7 @@ export function DashboardSidebar({
                   <AvatarImage
                     src={session?.user?.image || ""}
                     alt={session?.user?.name || ""}
+                    key={session?.user?.image}
                   />
                   <AvatarFallback>
                     {session?.user?.name?.slice(0, 2).toUpperCase() || "U"}

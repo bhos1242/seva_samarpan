@@ -67,6 +67,16 @@ export const useUpdateProfile = () => {
             return data;
         },
         onSuccess: async (data) => {
+            // Show success message first
+            toast.success(data.message || 'Profile updated successfully');
+
+            // If email verification required, show additional info
+            if (data.requiresEmailVerification) {
+                toast.success('Please check your email to verify your new address', {
+                    duration: 6000,
+                });
+            }
+
             // Invalidate and refetch profile
             queryClient.invalidateQueries({ queryKey: ['user-profile'] });
 
@@ -77,20 +87,10 @@ export const useUpdateProfile = () => {
             }
 
             // Force a hard refresh of the page to ensure all components update
-            // This is needed because NextAuth session might cache aggressively
+            // Small delay to allow toasts to show and session to update
             setTimeout(() => {
                 window.location.reload();
-            }, 500);
-
-            // Show success message
-            toast.success(data.message || 'Profile updated successfully');
-
-            // If email verification required, show additional info
-            if (data.requiresEmailVerification) {
-                toast.success('Please check your email to verify your new address', {
-                    duration: 6000,
-                });
-            }
+            }, 1000);
         },
         onError: (error: any) => {
             const errorMessage = error.response?.data?.error || 'Failed to update profile';
