@@ -4,7 +4,7 @@ import { prisma_db } from "@/lib/prisma";
 
 const verifyOTPSchema = z.object({
   email: z.string().email(),
-  otp: z.string().length(6, "OTP must be 6 digits"),
+  otp: z.string().length(4, "OTP must be 4 digits"),
 });
 
 export async function POST(req: NextRequest) {
