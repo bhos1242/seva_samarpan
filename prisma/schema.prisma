@@ -18,18 +18,19 @@ datasource db {
 // ============================================
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?   // Nullable for OAuth users
-  role          String    @default("USER")
-  isVerified    Boolean   @default(false)
-  accounts      Account[]
-  sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id                String             @id @default(cuid())
+  name              String?
+  email             String?            @unique
+  emailVerified     DateTime?
+  image             String?
+  password          String? // Nullable for OAuth users
+  role              String             @default("USER")
+  isVerified        Boolean            @default(false)
+  accounts          Account[]
+  sessions          Session[]
+  pushSubscriptions PushSubscription[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 }
 
 model Account {
@@ -96,8 +97,8 @@ model PasswordResetToken {
 
 model RateLimit {
   id         String   @id @default(cuid())
-  identifier String   // email or IP
-  action     String   // "resend-otp" or "forgot-password"
+  identifier String // email or IP
+  action     String // "resend-otp" or "forgot-password"
   count      Int      @default(1)
   resetAt    DateTime
   createdAt  DateTime @default(now())
@@ -105,6 +106,21 @@ model RateLimit {
 
   @@unique([identifier, action])
   @@index([identifier, action])
+}
+
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @db.Text
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, endpoint])
+  @@index([userId])
 }
 
 // Example:
