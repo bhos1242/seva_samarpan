@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, Suspense } from "react";
+import React, { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -17,17 +16,33 @@ import toast from "react-hot-toast";
 import { useVerifyOtp } from "@/hooks/auth/useVerifyOtp";
 import { useResendOtp } from "@/hooks/auth/useResendOtp";
 import { useAutoSendOtp } from "@/hooks/auth/useAutoSendOtp";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import InputField from "@/components/AppInputFields/InputField";
+
+const otpSchema = z.object({
+  otp: z.string().length(4, "OTP must be 4 digits"),
+});
+
+type OTPFormData = z.infer<typeof otpSchema>;
 
 function VerifyOTPContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get("email") || "";
 
-  const [otp, setOtp] = useState("");
-  const [cooldown, setCooldown] = useState(0);
-
   const verifyMutation = useVerifyOtp();
   const resendMutation = useResendOtp();
+  
+  const form = useForm<OTPFormData>({
+    resolver: zodResolver(otpSchema),
+    defaultValues: {
+      otp: "",
+    },
+  });
+
+  const [cooldown, setCooldown] = React.useState(0);
   
   // Auto-send OTP when page loads using useQuery
   const { data: autoSendData, isError: autoSendError, error: autoSendErrorData } = useAutoSendOtp(email, !!email);
@@ -50,21 +65,16 @@ function VerifyOTPContent() {
 
   // Cooldown timer
   useEffect(() => {
-    if (cooldown > 0) {
-      const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-  }, [cooldown]);
-
-  const handleVerify = async () => {
-    if (otp.length !== 4) {
-      toast.error("Please enter a 4-digit OTP");
-      return;
-    }
-
+    if (cooldown > 0) {data: OTPFormData) => {
     try {
-      const result = await verifyMutation.mutateAsync({ email, otp });
+      const result = await verifyMutation.mutateAsync({ email, otp: data.otp });
       toast.success(result.message);
+      router.push("/auth/login");
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.error || "Invalid or expired OTP";
+      toast.error(errorMessage);
+      form.reset(cess(result.message);
       router.push("/auth/login");
     } catch (error: any) {
       const errorMessage =
@@ -89,7 +99,7 @@ function VerifyOTPContent() {
       const errorMessage =
         error.response?.data?.error || "Failed to resend OTP";
       toast.error(errorMessage);
-
+form.reset(
       // Handle rate limit
       if (error.response?.status === 429) {
         const retryAfter = error.response?.data?.retryAfter;
@@ -140,55 +150,53 @@ function VerifyOTPContent() {
             <InputOTP
               maxLength={4}
               value={otp}
-              onChange={setOtp}
-              onComplete={handleVerify}
-            >
-              <InputOTPGroup>
-                <InputOTPSlot index={0} />
-                <InputOTPSlot index={1} />
-                <InputOTPSlot index={2} />
-                <InputOTPSlot index={3} />
-              </InputOTPGroup>
-            </InputOTP>
+         FormProvider {...form}>
+          <form onSubmit={form.handleSubmit(handleVerify)}>
+            <CardContent className="space-y-6">
+              <div className="flex flex-col items-center space-y-4">
+                <InputField
+                  name="otp"
+                  type="OTP"
+                  label="Enter OTP"
+                  placeholder="Enter 4-digit OTP"
+                  required
+                  description="Enter the OTP code sent to your email"
+                  onComplete={(data) => {
+                    // Auto-submit when all 4 digits are entered
+                    form.handleSubmit(handleVerify)();
+                  }}
+                />
+              </div>
 
-            <p className="text-sm text-muted-foreground text-center">
-              Enter the OTP code sent to your email
-            </p>
-          </div>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={verifyMutation.isPending}
+              >
+                {verifyMutation.isPending ? "Verifying..." : "Verify OTP"}
+              </Button>
 
-          <Button
-            className="w-full"
-            onClick={handleVerify}
-            disabled={otp.length !== 4 || verifyMutation.isPending}
-          >
-            {verifyMutation.isPending ? "Verifying..." : "Verify OTP"}
-          </Button>
-
-          <div className="text-center space-y-2">
-            <p className="text-sm text-muted-foreground">
-              Didn't receive the code?
-            </p>
-            <Button
-              variant="outline"
-              onClick={handleResend}
-              disabled={
-                cooldown > 0 || resendMutation.isPending
-              }
-              className="w-full"
-            >
-              {resendMutation.isPending
-                ? "Sending..."
-                : cooldown > 0
-                ? `Resend in ${cooldown}s`
-                : "Resend OTP"}
-            </Button>
-          </div>
-        </CardContent>
-        <CardFooter className="flex flex-col space-y-2">
-          <div className="text-sm text-muted-foreground text-center">
-            <Link
-              href="/auth/signup"
-              className="text-primary hover:underline font-medium"
+              <div className="text-center space-y-2">
+                <p className="text-sm text-muted-foreground">
+                  Didn't receive the code?
+                </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleResend}
+                  disabled={cooldown > 0 || resendMutation.isPending}
+                  className="w-full"
+                >
+                  {resendMutation.isPending
+                    ? "Sending..."
+                    : cooldown > 0
+                    ? `Resend in ${cooldown}s`
+                    : "Resend OTP"}
+                </Button>
+              </div>
+            </CardContent>
+          </form>
+        </FormProviderme="text-primary hover:underline font-medium"
             >
               Back to Signup
             </Link>
