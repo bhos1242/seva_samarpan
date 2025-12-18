@@ -29,21 +29,6 @@ const sidebarItems = [
     icon: FileText,
   },
   {
-    title: "Analytics",
-    href: "/dashboard/analytics",
-    icon: BarChart3,
-  },
-  {
-    title: "Bookings",
-    href: "/dashboard/bookings",
-    icon: Calendar,
-  },
-  {
-    title: "Reports",
-    href: "/dashboard/reports",
-    icon: FileText,
-  },
-  {
     title: "Settings",
     href: "/dashboard/settings",
     icon: Settings,
