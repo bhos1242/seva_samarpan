@@ -70,17 +70,11 @@ export const useUpdateProfile = () => {
             // Invalidate and refetch profile
             queryClient.invalidateQueries({ queryKey: ['user-profile'] });
 
-            // Force session update with new user data (timestamp already added by backend)
-            // Using trigger: 'update' forces NextAuth to refetch session from callbacks
+            // Force session update - this triggers JWT callback with trigger='update'
+            // The JWT callback will fetch fresh data from DB including new avatar
             if (updateSession) {
-                await updateSession({
-                    ...data.user,
-                    trigger: 'update'
-                });
+                await updateSession();
             }
-
-            // Also manually trigger a session refetch to ensure all components update
-            window.dispatchEvent(new Event('visibilitychange'));
 
             // Show success message
             toast.success(data.message || 'Profile updated successfully');

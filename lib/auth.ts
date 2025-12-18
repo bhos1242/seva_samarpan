@@ -177,7 +177,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, user, account, trigger }) {
+    async jwt({ token, user, account, trigger, session }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
@@ -191,6 +191,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             token.isVerified = true;
           }
         }
+      }
+
+      // Handle session updates (triggered by updateSession)
+      if (trigger === "update" && session) {
+        // Fetch fresh user data from DB when session is updated
+        const dbUser = await prisma_db.user.findUnique({
+          where: { id: token.id as string },
+          select: {
+            name: true,
+            email: true,
+            image: true,
+            role: true,
+            isVerified: true
+          },
+        });
+
+        if (dbUser) {
+          token.name = dbUser.name;
+          token.email = dbUser.email;
+          token.picture = dbUser.image;
+          token.role = dbUser.role;
+          token.isVerified = dbUser.isVerified;
+        }
+
+        return token;
       }
 
       // For credentials users, fetch fresh data from DB
@@ -211,6 +236,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if (session.user) {
         session.user.id = token.id as string;
+        session.user.name = token.name as string;
+        session.user.email = token.email as string;
+        session.user.image = token.picture as string;
         session.user.role = token.role as string;
         session.user.isVerified = token.isVerified as boolean;
         session.user.provider = token.provider as string | undefined;
