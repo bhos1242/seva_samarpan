@@ -1,7 +1,13 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -10,7 +16,14 @@ import { useWebPush } from "@/hooks/useWebPush";
 import { Bell, BellOff, Loader2, Send } from "lucide-react";
 
 export default function SettingsPage() {
-  const { isSubscribed, subscriptions, isLoading, subscribe, unsubscribe, sendTest } = useWebPush();
+  const {
+    isSubscribed,
+    subscriptions,
+    isLoading,
+    subscribe,
+    unsubscribe,
+    sendTest,
+  } = useWebPush();
 
   return (
     <div className="space-y-6">
@@ -65,11 +78,17 @@ export default function SettingsPage() {
               <div className="flex items-center justify-between">
                 <div className="space-y-1">
                   <p className="text-sm font-medium">
-                    Status: {isLoading ? 'Checking...' : isSubscribed ? '✅ Enabled' : '❌ Disabled'}
+                    Status:{" "}
+                    {isLoading
+                      ? "Checking..."
+                      : isSubscribed
+                      ? "✅ Enabled"
+                      : "❌ Disabled"}
                   </p>
                   {subscriptions.length > 0 && (
                     <p className="text-xs text-muted-foreground">
-                      Active on {subscriptions.length} device{subscriptions.length > 1 ? 's' : ''}
+                      Active on {subscriptions.length} device
+                      {subscriptions.length > 1 ? "s" : ""}
                     </p>
                   )}
                 </div>
@@ -123,16 +142,20 @@ export default function SettingsPage() {
 
               {subscriptions.length > 0 && (
                 <div className="mt-4 space-y-2">
-                  <p className="text-xs font-medium text-muted-foreground">Active Devices:</p>
+                  <p className="text-xs font-medium text-muted-foreground">
+                    Active Devices:
+                  </p>
                   {subscriptions.map((sub) => (
                     <div key={sub.id} className="rounded-md border p-3 text-xs">
                       <p className="font-medium">
-                        {sub.userAgent?.includes('Mobile') ? '📱 Mobile' : '💻 Desktop'}
+                        {sub.userAgent?.includes("Mobile")
+                          ? "📱 Mobile"
+                          : "💻 Desktop"}
                       </p>
                       <p className="text-muted-foreground mt-1">
-                        {sub.userAgent && sub.userAgent.length > 50 
-                          ? sub.userAgent.substring(0, 50) + '...' 
-                          : sub.userAgent || 'Unknown device'}
+                        {sub.userAgent && sub.userAgent.length > 50
+                          ? sub.userAgent.substring(0, 50) + "..."
+                          : sub.userAgent || "Unknown device"}
                       </p>
                       <p className="text-muted-foreground mt-1">
                         Registered: {new Date(sub.createdAt).toLocaleString()}
