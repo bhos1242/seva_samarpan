@@ -9,7 +9,6 @@ export default function MarketingLayout({
   return (
     <div className="relative flex min-h-screen flex-col">
       <Navbar />
-      hello
       <main className="flex-1">{children}</main>
       <Footer />
     </div>
