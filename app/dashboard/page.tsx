@@ -3,6 +3,7 @@ import { BarChart, LineChart } from "@/components/charts";
 import { Users, Calendar, DollarSign, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
+import { TestNotificationButton } from "@/components/test-notification-button";
 
 // Sample data - replace with your actual data
 const bookingsData = [
@@ -35,11 +36,14 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome back! Here&apos;s what&apos;s happening.
-        </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-muted-foreground">
+            Welcome back! Here&apos;s what&apos;s happening.
+          </p>
+        </div>
+        <TestNotificationButton />
       </div>
 
       {/* Stats Cards */}
