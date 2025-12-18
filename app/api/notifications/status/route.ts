@@ -13,7 +13,7 @@ export async function GET() {
             );
         }
 
-        const subscriptions = await prisma_db.pushSubscription.findMany({
+        const subscriptions = await (prisma_db as any).pushSubscription.findMany({
             where: { userId: session.user.id },
             select: {
                 id: true,

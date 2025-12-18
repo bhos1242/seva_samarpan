@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const { endpoint } = unsubscribeSchema.parse(body);
 
-        await prisma_db.pushSubscription.deleteMany({
+        await (prisma_db as any).pushSubscription.deleteMany({
             where: {
                 userId: session.user.id,
                 endpoint,
