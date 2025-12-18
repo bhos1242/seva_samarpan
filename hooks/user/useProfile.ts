@@ -70,14 +70,17 @@ export const useUpdateProfile = () => {
             // Invalidate and refetch profile
             queryClient.invalidateQueries({ queryKey: ['user-profile'] });
 
-            // Update NextAuth session with new user data (timestamp already added by backend)
-            await updateSession({
-                user: {
-                    name: data.user.name,
-                    email: data.user.email,
-                    image: data.user.image,
-                }
-            });
+            // Force session update with new user data (timestamp already added by backend)
+            // Using trigger: 'update' forces NextAuth to refetch session from callbacks
+            if (updateSession) {
+                await updateSession({
+                    ...data.user,
+                    trigger: 'update'
+                });
+            }
+
+            // Also manually trigger a session refetch to ensure all components update
+            window.dispatchEvent(new Event('visibilitychange'));
 
             // Show success message
             toast.success(data.message || 'Profile updated successfully');
