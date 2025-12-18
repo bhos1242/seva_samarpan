@@ -106,7 +106,9 @@ export function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button onClick={() => signIn()}>Sign In</Button>
+            <Button asChild>
+              <Link href="/auth/login">Sign In</Link>
+            </Button>
           )}
 
           {/* Mobile Menu */}
