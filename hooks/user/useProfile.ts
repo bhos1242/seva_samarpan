@@ -1,6 +1,11 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
+import { useSession } from 'next-auth/react';
+
+interface Account {
+    provider: string;
+}
 
 interface User {
     id: string;
@@ -11,6 +16,7 @@ interface User {
     isVerified: boolean;
     createdAt: string;
     isOAuthUser?: boolean;
+    accounts?: Account[];
 }
 
 interface ProfileResponse {
@@ -40,6 +46,7 @@ export const useProfile = () => {
 // Update user profile
 export const useUpdateProfile = () => {
     const queryClient = useQueryClient();
+    const { update: updateSession } = useSession();
 
     return useMutation({
         mutationFn: async (updateData: UpdateProfileData) => {
@@ -59,9 +66,18 @@ export const useUpdateProfile = () => {
 
             return data;
         },
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             // Invalidate and refetch profile
             queryClient.invalidateQueries({ queryKey: ['user-profile'] });
+
+            // Update NextAuth session with new user data
+            await updateSession({
+                user: {
+                    name: data.user.name,
+                    email: data.user.email,
+                    image: data.user.image,
+                }
+            });
 
             // Show success message
             toast.success(data.message || 'Profile updated successfully');
