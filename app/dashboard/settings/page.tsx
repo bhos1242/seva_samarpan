@@ -18,14 +18,13 @@ import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputField from "@/components/AppInputFields/InputField";
-import { useState } from "react";
 import { Form } from "@/components/ui/form";
 
 // Profile form schema
 const profileSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Please enter a valid email address"),
-  avatar: z.any().optional(),
+  avatar: z.union([z.string(), z.instanceof(File)]).optional(),
 });
 
 // Password form schema
@@ -63,7 +62,6 @@ export default function SettingsPage() {
 
   const { data: profileData, isLoading: isProfileLoading } = useProfile();
   const updateProfile = useUpdateProfile();
-  const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   // Profile form - initialize with data from query
   const profileForm = useForm<ProfileFormData>({
@@ -71,11 +69,13 @@ export default function SettingsPage() {
     defaultValues: {
       name: profileData?.user?.name || "",
       email: profileData?.user?.email || "",
+      avatar: profileData?.user?.image || undefined,
     },
     values: profileData?.user
       ? {
           name: profileData.user.name || "",
           email: profileData.user.email || "",
+          avatar: profileData.user.image || undefined,
         }
       : undefined,
   });
@@ -95,9 +95,8 @@ export default function SettingsPage() {
     await updateProfile.mutateAsync({
       name: data.name,
       email: data.email,
-      avatar: avatarFile || undefined,
+      avatar: data.avatar instanceof File ? data.avatar : undefined,
     });
-    setAvatarFile(null);
   };
 
   // Handle password update
@@ -153,26 +152,7 @@ export default function SettingsPage() {
                         label="Profile Picture"
                         type="avatar"
                         description="Upload a profile picture (JPG, PNG, or GIF)"
-                        onChange={(file) => {
-                          if (file instanceof File) {
-                            setAvatarFile(file);
-                          }
-                        }}
                       />
-
-                      {/* Current avatar preview if exists */}
-                      {profileData?.user?.image && !avatarFile && (
-                        <div className="flex items-center gap-4">
-                          <img
-                            src={profileData.user.image}
-                            alt="Current avatar"
-                            className="h-20 w-20 rounded-full object-cover"
-                          />
-                          <p className="text-sm text-muted-foreground">
-                            Current avatar
-                          </p>
-                        </div>
-                      )}
 
                       {/* Name Field */}
                       <InputField
@@ -199,7 +179,10 @@ export default function SettingsPage() {
 
                       <Button
                         type="submit"
-                        disabled={updateProfile.isPending}
+                        disabled={
+                          updateProfile.isPending ||
+                          !profileForm.formState.isDirty
+                        }
                         className="w-full sm:w-auto"
                       >
                         {updateProfile.isPending ? (
