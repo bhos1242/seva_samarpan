@@ -17,6 +17,7 @@ declare module "next-auth" {
       image?: string | null;
       role: string;
       isVerified: boolean;
+      provider?: string;
     };
   }
 
@@ -96,25 +97,38 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
-      console.log("SignIn callback:", { user, account });
-      // Auto-verify OAuth users by email (not ID, since they might not exist yet)
-      if (account?.provider !== "credentials" && user.email) {
+      console.log("SignIn callback:", { user, account, provider: account?.provider });
+      // Auto-verify OAuth users (Google, GitHub, etc.)
+      if (account?.provider && account.provider !== "credentials" && user.email) {
+        console.log("Verifying OAuth user:", user.email);
         await prisma_db.user.updateMany({
           where: { email: user.email },
           data: { isVerified: true },
         });
+        // Mark user as verified immediately in the user object
+        user.isVerified = true;
       }
       return true;
     },
-    async jwt({ token, user, trigger }) {
+    async jwt({ token, user, account, trigger }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
         token.isVerified = user.isVerified;
+        
+        // Store provider info to differentiate OAuth vs credentials
+        if (account?.provider) {
+          token.provider = account.provider;
+          // OAuth users are always verified
+          if (account.provider !== "credentials") {
+            token.isVerified = true;
+          }
+        }
       }
       
-      // Fetch fresh user data from DB to get updated isVerified status
-      if (token.id) {
+      // For credentials users, fetch fresh data from DB
+      // For OAuth users, trust the token since they're auto-verified
+      if (token.id && token.provider === "credentials") {
         const dbUser = await prisma_db.user.findUnique({
           where: { id: token.id as string },
           select: { role: true, isVerified: true },
@@ -132,6 +146,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.id as string;
         session.user.role = token.role as string;
         session.user.isVerified = token.isVerified as boolean;
+        session.user.provider = token.provider as string | undefined;
       }
       return session;
     },

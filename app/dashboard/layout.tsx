@@ -15,7 +15,9 @@ export default async function DashboardLayout({
   }
 
   // Redirect to verify OTP if email not verified
-  if (!session.user.isVerified) {
+  // Skip verification check for OAuth users (Google, GitHub, etc.)
+  const isOAuthUser = session.user.provider && session.user.provider !== "credentials";
+  if (!session.user.isVerified && !isOAuthUser) {
     redirect("/auth/verify-otp?email=" + encodeURIComponent(session.user.email));
   }
 
