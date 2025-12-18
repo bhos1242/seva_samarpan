@@ -84,7 +84,7 @@ export default async function DashboardPage() {
           <CardHeader>
             <CardTitle>Monthly Bookings</CardTitle>
           </CardHeader>
-          <CardContent className="h-75">
+          <CardContent className="h-80">
             <BarChart
               data={bookingsData}
               dataKey="bookings"
@@ -98,7 +98,7 @@ export default async function DashboardPage() {
           <CardHeader>
             <CardTitle>Revenue Trend</CardTitle>
           </CardHeader>
-          <CardContent className="h-75">
+          <CardContent className="h-80">
             <LineChart
               data={revenueData}
               dataKey="revenue"
