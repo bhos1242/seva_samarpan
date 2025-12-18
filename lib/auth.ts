@@ -102,6 +102,32 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (account?.provider && account.provider !== "credentials" && user.email) {
         console.log("Verifying OAuth user:", user.email);
         
+        // Check if a user with this email already exists
+        const existingUser = await prisma_db.user.findUnique({
+          where: { email: user.email },
+          include: { accounts: true }
+        });
+        
+        // If user exists but doesn't have this OAuth account linked, link it
+        if (existingUser && !existingUser.accounts.find(acc => acc.provider === account.provider)) {
+          console.log("Linking OAuth account to existing user");
+          await prisma_db.account.create({
+            data: {
+              userId: existingUser.id,
+              type: account.type,
+              provider: account.provider,
+              providerAccountId: account.providerAccountId,
+              access_token: account.access_token,
+              token_type: account.token_type,
+              scope: account.scope,
+              refresh_token: account.refresh_token,
+              expires_at: account.expires_at,
+            }
+          });
+          // Update user.id to the existing user's id for JWT callback
+          user.id = existingUser.id;
+        }
+        
         // Download and upload OAuth profile picture to S3
         let s3ImageUrl: string | null = null;
         if (user.image) {
