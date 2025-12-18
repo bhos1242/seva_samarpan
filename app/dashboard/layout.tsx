@@ -1,10 +1,24 @@
+import { redirect } from "next/navigation";
+import { auth } from "@/lib/auth";
 import { DashboardSidebar, MobileSidebar } from "@/components/dashboard-sidebar";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
+
+  // Redirect to login if not authenticated
+  if (!session?.user) {
+    redirect("/auth/login");
+  }
+
+  // Redirect to verify OTP if email not verified
+  if (!session.user.isVerified) {
+    redirect("/auth/verify-otp?email=" + encodeURIComponent(session.user.email));
+  }
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Desktop Sidebar */}
