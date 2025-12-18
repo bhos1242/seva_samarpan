@@ -17,8 +17,8 @@ import { useProfile, useUpdateProfile } from "@/hooks/user/useProfile";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { InputField } from "@/components/AppInputFields/InputField";
-import { useEffect, useState } from "react";
+import InputField from "@/components/AppInputFields/InputField";
+import { useState } from "react";
 import { Form } from "@/components/ui/form";
 
 // Profile form schema
@@ -65,13 +65,19 @@ export default function SettingsPage() {
   const updateProfile = useUpdateProfile();
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
-  // Profile form
+  // Profile form - initialize with data from query
   const profileForm = useForm<ProfileFormData>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      name: "",
-      email: "",
+      name: profileData?.user?.name || "",
+      email: profileData?.user?.email || "",
     },
+    values: profileData?.user
+      ? {
+          name: profileData.user.name || "",
+          email: profileData.user.email || "",
+        }
+      : undefined,
   });
 
   // Password form
@@ -83,16 +89,6 @@ export default function SettingsPage() {
       confirmPassword: "",
     },
   });
-
-  // Load user data into form
-  useEffect(() => {
-    if (profileData?.user) {
-      profileForm.reset({
-        name: profileData.user.name || "",
-        email: profileData.user.email || "",
-      });
-    }
-  }, [profileData, profileForm]);
 
   // Handle profile update
   const onProfileSubmit = async (data: ProfileFormData) => {
