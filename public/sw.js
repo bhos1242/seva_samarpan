@@ -1,15 +1,15 @@
-// Service Worker v1.0.1
-self.addEventListener("install", (event) => {
+// Service Worker v1.0.2
+self.addEventListener("install", function (event) {
   console.log("Service Worker installing...");
   self.skipWaiting();
 });
 
-self.addEventListener("activate", (event) => {
+self.addEventListener("activate", function (event) {
   console.log("Service Worker activating...");
-  event.waitUntil(clients.claim());
+  event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("push", (event) => {
+self.addEventListener("push", function (event) {
   console.log("Push event received:", event);
 
   if (!event.data) {
@@ -18,17 +18,19 @@ self.addEventListener("push", (event) => {
   }
 
   try {
-    const data = event.data.json();
-    const { title, body, icon, badge, url, data: customData } = data;
+    var data = event.data.json();
+    var title = data.title;
+    var body = data.body;
+    var icon = data.icon;
+    var badge = data.badge;
+    var url = data.url;
+    var customData = data.data;
 
-    const options = {
+    var options = {
       body: body || "New notification",
       icon: icon || "/icon-192x192.png",
       badge: badge || "/badge-72x72.png",
-      data: {
-        url: url || "/",
-        ...customData,
-      },
+      data: Object.assign({ url: url || "/" }, customData),
       vibrate: [200, 100, 200],
       tag: "notification-" + Date.now(),
       requireInteraction: false,
@@ -42,27 +44,29 @@ self.addEventListener("push", (event) => {
   }
 });
 
-self.addEventListener("notificationclick", (event) => {
+self.addEventListener("notificationclick", function (event) {
   console.log("Notification clicked:", event);
 
   event.notification.close();
 
-  const urlToOpen = event.notification.data?.url || "/";
+  var urlToOpen =
+    (event.notification.data && event.notification.data.url) || "/";
 
   event.waitUntil(
-    clients
+    self.clients
       .matchAll({ type: "window", includeUncontrolled: true })
-      .then((clientList) => {
+      .then(function (clientList) {
         // Check if there's already a window open with this URL
-        for (const client of clientList) {
+        for (var i = 0; i < clientList.length; i++) {
+          var client = clientList[i];
           if (client.url === urlToOpen && "focus" in client) {
             return client.focus();
           }
         }
 
         // If no window is open, open a new one
-        if (clients.openWindow) {
-          return clients.openWindow(urlToOpen);
+        if (self.clients.openWindow) {
+          return self.clients.openWindow(urlToOpen);
         }
       })
   );
