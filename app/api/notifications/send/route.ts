@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
         const { userId, title, body: messageBody, url, icon, badge, data } = sendSchema.parse(body);
 
         // Get all subscriptions for the target user
-    const subscriptions = await (prisma_db as any).pushSubscription.findMany({
+        const subscriptions = await (prisma_db as any).pushSubscription.findMany({
         });
 
         if (subscriptions.length === 0) {
@@ -67,8 +67,8 @@ export async function POST(req: NextRequest) {
             })
         );
 
-const successCount = results.filter((r: any) => r.success).length;
-    const failedCount = results.filter((r: any) => !r.success).length;
+        const successCount = results.filter((r: any) => r.success).length;
+        const failedCount = results.filter((r: any) => !r.success).length;
 
         return NextResponse.json({
             message: `Sent to ${successCount} device(s)`,
