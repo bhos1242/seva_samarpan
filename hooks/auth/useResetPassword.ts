@@ -1,6 +1,4 @@
-import { useMutation } from "@tantml:function_calls>
-<invoke name="create_file">
-<parameter name="content">import { useMutation } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
 interface ResetPasswordData {
