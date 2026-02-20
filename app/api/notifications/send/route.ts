@@ -1,6 +1,7 @@
 import { auth } from '@/lib/auth';
 import { prisma_db } from '@/lib/prisma';
 import { sendPushNotification } from '@/lib/web-push';
+import { PushSubscription } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -11,7 +12,7 @@ const sendSchema = z.object({
     url: z.string().optional(),
     icon: z.string().optional(),
     badge: z.string().optional(),
-    data: z.any().optional(),
+    data: z.record(z.string(), z.unknown()).optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
 
         // Send notification to all user's devices
         const results = await Promise.all(
-            subscriptions.map(async (sub: any) => {
+            subscriptions.map(async (sub: PushSubscription) => {
                 const result = await sendPushNotification(sub, payload);
 
                 // Remove expired subscriptions
@@ -68,8 +69,8 @@ export async function POST(req: NextRequest) {
             })
         );
 
-        const successCount = results.filter((r: any) => r.success).length;
-        const failedCount = results.filter((r: any) => !r.success).length;
+        const successCount = results.filter((r) => (r as { success: boolean }).success).length;
+        const failedCount = results.filter((r) => !(r as { success: boolean }).success).length;
 
         return NextResponse.json({
             message: `Sent to ${successCount} device(s)`,

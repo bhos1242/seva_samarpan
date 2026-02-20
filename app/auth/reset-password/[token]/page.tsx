@@ -19,6 +19,7 @@ import { Form } from "@/components/ui/form";
 import InputPassword from "@/components/AppInputFields/components/InputPassword";
 import toast from "react-hot-toast";
 import { useResetPassword } from "@/hooks/auth/useResetPassword";
+import { isAxiosError } from "axios";
 
 const resetPasswordSchema = z
   .object({
@@ -78,9 +79,11 @@ export default function ResetPasswordPage({
       setTimeout(() => {
         router.push("/auth/login");
       }, 2000);
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Failed to reset password";
+    } catch (error) {
+      let errorMessage = "Failed to reset password";
+      if (isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || errorMessage;
+      }
       toast.error(errorMessage);
     }
   };

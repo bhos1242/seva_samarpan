@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
@@ -199,9 +199,14 @@ export function useWebPush() {
             queryClient.invalidateQueries({ queryKey: ['push-notification-status'] });
             toast.success('🔔 Notifications enabled successfully!');
         },
-        onError: (error: any) => {
+        onError: (error) => {
             console.error('Subscribe error:', error);
-            const message = error.response?.data?.error || error.message || 'Failed to enable notifications';
+            let message = 'Failed to enable notifications';
+            if (isAxiosError(error)) {
+                message = error.response?.data?.error || error.message || message;
+            } else if (error instanceof Error) {
+                message = error.message;
+            }
             toast.error(message);
         },
     });
@@ -224,9 +229,13 @@ export function useWebPush() {
             queryClient.invalidateQueries({ queryKey: ['push-notification-status'] });
             toast.success('Notifications disabled');
         },
-        onError: (error: any) => {
+        onError: (error) => {
             console.error('Unsubscribe error:', error);
-            toast.error('Failed to disable notifications');
+            let message = 'Failed to disable notifications';
+            if (isAxiosError(error)) {
+                message = error.response?.data?.error || error.message || message;
+            }
+            toast.error(message);
         },
     });
 
@@ -239,9 +248,12 @@ export function useWebPush() {
         onSuccess: (data) => {
             toast.success(data.message || 'Test notification sent!');
         },
-        onError: (error: any) => {
+        onError: (error) => {
             console.error('Test notification error:', error);
-            const message = error.response?.data?.error || 'Failed to send test notification';
+            let message = 'Failed to send test notification';
+            if (isAxiosError(error)) {
+                message = error.response?.data?.error || message;
+            }
             toast.error(message);
         },
     });

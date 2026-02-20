@@ -38,7 +38,7 @@ export async function sendPushNotification(
         url?: string;
         icon?: string;
         badge?: string;
-        data?: any;
+        data?: Record<string, unknown>;
     }
 ) {
     try {
@@ -56,9 +56,10 @@ export async function sendPushNotification(
         );
 
         return { success: true };
-    } catch (error: any) {
+    } catch (error) {
         // Handle subscription expiration (410 Gone)
-        if (error.statusCode === 410 || error.statusCode === 404) {
+        const err = error as { statusCode?: number };
+        if (err.statusCode === 410 || err.statusCode === 404) {
             return { success: false, expired: true, error };
         }
         return { success: false, expired: false, error };

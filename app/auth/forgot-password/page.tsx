@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { isAxiosError } from "axios";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -41,15 +42,17 @@ export default function ForgotPasswordPage() {
       const result = await forgotPasswordMutation.mutateAsync(data);
       toast.success(result.message);
       setEmailSent(true);
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Failed to send reset email";
-      toast.error(errorMessage);
+    } catch (error) {
+      let errorMessage = "Failed to send reset email";
+      if (isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || errorMessage;
 
-      // If rate limited, don't allow retry
-      if (error.response?.status === 429) {
-        setEmailSent(true);
+        // If rate limited, don't allow retry
+        if (error.response?.status === 429) {
+          setEmailSent(true);
+        }
       }
+      toast.error(errorMessage);
     }
   };
 
@@ -62,13 +65,13 @@ export default function ForgotPasswordPage() {
               Check Your Email
             </CardTitle>
             <CardDescription className="text-center">
-              We've sent a password reset link to your email address
+              We&apos;ve sent a password reset link to your email address
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="rounded-lg border border-green-200 bg-green-50 p-4 dark:border-green-800 dark:bg-green-950">
               <p className="text-sm text-green-800 dark:text-green-200">
-                If an account exists with the email you provided, you'll receive
+                If an account exists with the email you provided, you&apos;ll receive
                 a password reset link shortly. Please check your inbox and spam
                 folder.
               </p>
@@ -104,7 +107,7 @@ export default function ForgotPasswordPage() {
             Forgot Password?
           </CardTitle>
           <CardDescription className="text-center">
-            Enter your email address and we'll send you a link to reset your
+            Enter your email address and we&apos;ll send you a link to reset your
             password
           </CardDescription>
         </CardHeader>

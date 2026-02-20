@@ -26,7 +26,7 @@ export function NotificationBellButton() {
     try {
       await subscribe.mutateAsync();
       setOpen(false);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

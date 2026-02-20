@@ -96,7 +96,7 @@ export default function AboutPage() {
                             </p>
                             <p>
                                 Today, Samarpan stands as a beacon of hope, providing free study space, a comprehensive
-                                library with over 1,500 books, and direct education sponsorship to students. We've also
+                                library with over 1,500 books, and direct education sponsorship to students. We&apos;ve also
                                 extended our compassion to create a warm, dignified home for elders in our community.
                             </p>
                         </div>
@@ -175,7 +175,7 @@ export default function AboutPage() {
                 <div className="container mx-auto px-4 text-center space-y-8">
                     <h2 className="text-3xl md:text-5xl font-bold">Want to be part of our story?</h2>
                     <p className="text-xl opacity-90 max-w-2xl mx-auto">
-                        Your support can transform lives. Every contribution makes a lasting impact on someone's future.
+                        Your support can transform lives. Every contribution makes a lasting impact on someone&apos;s future.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button size="lg" variant="secondary" className="rounded-full px-10" asChild>

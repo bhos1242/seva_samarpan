@@ -2,6 +2,7 @@
 
 import React, { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { isAxiosError } from "axios";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,14 +58,17 @@ function VerifyOTPContent() {
   useEffect(() => {
     if (autoSendData) {
       toast.success(autoSendData.message);
-      setCooldown(60);
+      setTimeout(() => setCooldown(60), 0);
     }
   }, [autoSendData]);
 
   // Show error toast if auto-send fails
   useEffect(() => {
-    if (autoSendError) {
-      const errorMessage = (autoSendErrorData as any)?.response?.data?.error || "Failed to send OTP";
+    if (autoSendError && autoSendErrorData) {
+      let errorMessage = "Failed to send OTP";
+      if (isAxiosError(autoSendErrorData)) {
+        errorMessage = autoSendErrorData.response?.data?.error || errorMessage;
+      }
       toast.error(errorMessage);
     }
   }, [autoSendError, autoSendErrorData]);
@@ -82,9 +86,11 @@ function VerifyOTPContent() {
       const result = await verifyMutation.mutateAsync({ email, otp: data.otp });
       toast.success(result.message);
       router.push("/auth/login");
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Invalid or expired OTP";
+    } catch (error) {
+      let errorMessage = "Invalid or expired OTP";
+      if (isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || errorMessage;
+      }
       toast.error(errorMessage);
       form.reset();
     }
@@ -101,21 +107,23 @@ function VerifyOTPContent() {
       toast.success(result.message);
       setCooldown(60); // 60 second cooldown
       form.reset();
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Failed to resend OTP";
-      toast.error(errorMessage);
+    } catch (error) {
+      let errorMessage = "Failed to resend OTP";
+      if (isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || errorMessage;
 
-      // Handle rate limit
-      if (error.response?.status === 429) {
-        const retryAfter = error.response?.data?.retryAfter;
-        if (retryAfter) {
-          const secondsRemaining = Math.ceil(
-            (new Date(retryAfter).getTime() - Date.now()) / 1000
-          );
-          setCooldown(secondsRemaining);
+        // Handle rate limit
+        if (error.response?.status === 429) {
+          const retryAfter = error.response?.data?.retryAfter;
+          if (retryAfter) {
+            const secondsRemaining = Math.ceil(
+              (new Date(retryAfter).getTime() - Date.now()) / 1000
+            );
+            setCooldown(secondsRemaining);
+          }
         }
       }
+      toast.error(errorMessage);
     }
   };
 
@@ -182,7 +190,7 @@ function VerifyOTPContent() {
             Verify Your Email
           </CardTitle>
           <CardDescription className="text-center">
-            We've sent a 4-digit OTP to{" "}
+            We&apos;ve sent a 4-digit OTP to{" "}
             <span className="font-semibold text-foreground">{email}</span>
           </CardDescription>
         </CardHeader>
@@ -214,7 +222,7 @@ function VerifyOTPContent() {
 
               <div className="text-center space-y-2">
                 <p className="text-sm text-muted-foreground">
-                  Didn't receive the code?
+                  Didn&apos;t receive the code?
                 </p>
                 <Button
                   type="button"

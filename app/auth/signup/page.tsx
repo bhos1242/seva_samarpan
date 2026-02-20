@@ -23,6 +23,7 @@ import InputPassword from "@/components/AppInputFields/components/InputPassword"
 import toast from "react-hot-toast";
 import { useSignup } from "@/hooks/auth/useSignup";
 import { signIn } from "next-auth/react";
+import { isAxiosError } from "axios";
 
 const signupSchema = z
   .object({
@@ -38,7 +39,7 @@ const signupSchema = z
         "Password must contain at least one special character"
       ),
     confirmPassword: z.string(),
-    avatar: z.any().optional(),
+    avatar: z.instanceof(File).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -87,9 +88,11 @@ export default function SignupPage() {
       toast.success(result.message);
       // Redirect to OTP verification page with email
       router.push(`/auth/verify-otp?email=${encodeURIComponent(result.email)}`);
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.error || "Failed to create account";
+    } catch (error) {
+      let errorMessage = "Failed to create account";
+      if (isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || errorMessage;
+      }
       toast.error(errorMessage);
     }
   };
@@ -97,7 +100,7 @@ export default function SignupPage() {
   const handleOAuthSignIn = async (provider: "google" | "github") => {
     try {
       await signIn(provider, { callbackUrl: "/dashboard" });
-    } catch (error) {
+    } catch {
       toast.error(`Failed to sign in with ${provider}`);
     }
   };

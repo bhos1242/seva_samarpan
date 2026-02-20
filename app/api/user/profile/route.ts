@@ -1,6 +1,7 @@
 import { auth } from '@/lib/auth';
 import { prisma_db } from '@/lib/prisma';
 import { uploadToS3 } from '@/lib/s3';
+import { Prisma } from '@prisma/client';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import bcrypt from 'bcryptjs';
@@ -116,7 +117,7 @@ export async function PATCH(req: NextRequest) {
         const isOAuthUser = currentUser.accounts.length > 0;
 
         // Build update data
-        const updateData: any = {};
+        const updateData: Prisma.UserUpdateInput = {};
 
         // Handle name update
         if (name && name !== currentUser.name) {

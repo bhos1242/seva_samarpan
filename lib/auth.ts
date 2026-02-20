@@ -96,7 +96,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
+    async signIn({ user, account }) {
       console.log("SignIn callback:", { user, account, provider: account?.provider });
       // Auto-verify OAuth users (Google, GitHub, etc.)
       if (account?.provider && account.provider !== "credentials" && user.email) {
@@ -109,7 +109,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         });
 
         // If user exists but doesn't have this OAuth account linked, link it
-        if (existingUser && !existingUser.accounts.find(acc => acc.provider === account.provider)) {
+        if (existingUser && !existingUser.accounts.find((acc: { provider: string }) => acc.provider === account.provider)) {
           console.log("Linking OAuth account to existing user");
           await prisma_db.account.create({
             data: {
@@ -177,7 +177,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return true;
     },
-    async jwt({ token, user, account, trigger, session }) {
+    async jwt({ token, user, account, trigger }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;

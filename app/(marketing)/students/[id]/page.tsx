@@ -132,7 +132,7 @@ export default function StudentDetailsPage({ params }: { params: Promise<{ id: s
                                 <div className="flex-1 space-y-2">
                                     <h3 className="text-2xl font-bold flex items-center justify-center md:justify-start gap-2">
                                         <Share2 className="h-6 w-6 text-primary" />
-                                        Share Priya's Story
+                                        Share Priya&apos;s Story
                                     </h3>
                                     <p className="text-muted-foreground">Help us reach more people by sharing this profile with your community.</p>
                                 </div>
@@ -208,7 +208,7 @@ export default function StudentDetailsPage({ params }: { params: Promise<{ id: s
                                  </div>
                                  <div className="space-y-1">
                                     <h4 className="font-bold uppercase tracking-tight">Direct Impact</h4>
-                                    <p className="text-sm text-muted-foreground">100% of your donation goes directly to Priya's educational expenses.</p>
+                                    <p className="text-sm text-muted-foreground">100% of your donation goes directly to Priya&apos;s educational expenses.</p>
                                  </div>
                             </Card>
                         </div>

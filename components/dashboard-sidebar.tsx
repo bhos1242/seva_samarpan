@@ -8,8 +8,6 @@ import {
   Users,
   Settings,
   FileText,
-  Calendar,
-  BarChart3,
 } from "lucide-react";
 
 const sidebarItems = [

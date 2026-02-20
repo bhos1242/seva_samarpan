@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { isAxiosError } from 'axios';
 import { toast } from 'react-hot-toast';
 import { useSession } from 'next-auth/react';
 
@@ -92,8 +92,11 @@ export const useUpdateProfile = () => {
                 window.location.reload();
             }, 1000);
         },
-        onError: (error: any) => {
-            const errorMessage = error.response?.data?.error || 'Failed to update profile';
+        onError: (error) => {
+            let errorMessage = 'Failed to update profile';
+            if (isAxiosError(error)) {
+                errorMessage = error.response?.data?.error || errorMessage;
+            }
             toast.error(errorMessage);
         },
     });

@@ -55,7 +55,7 @@ export function NotificationPromptDialog() {
         setOpen(false);
         setShowSuccess(false);
       }, 2000);
-    } catch (error) {
+    } catch {
       // Error handled by mutation
     }
   };

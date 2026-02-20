@@ -10,7 +10,7 @@ export interface NotificationPayload {
     body: string;
     url?: string;
     icon?: string;
-    data?: any;
+    data?: Record<string, unknown>;
 }
 
 export interface NotificationResult {

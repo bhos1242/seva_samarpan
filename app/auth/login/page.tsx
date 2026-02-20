@@ -66,7 +66,7 @@ export default function LoginPage() {
         toast.success("Successfully logged in!");
         router.push("/dashboard");
       }
-    } catch (error) {
+    } catch {
       toast.error("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -77,7 +77,7 @@ export default function LoginPage() {
     setIsLoading(true);
     try {
       await signIn(provider, { callbackUrl: "/dashboard" });
-    } catch (error) {
+    } catch {
       toast.error(`Failed to sign in with ${provider}`);
       setIsLoading(false);
     }
