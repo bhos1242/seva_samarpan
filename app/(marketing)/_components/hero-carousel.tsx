@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 
@@ -69,45 +68,36 @@ export const HeroCarousel = () => {
             <div className="grid md:grid-cols-2 gap-8 items-center min-h-[500px] md:min-h-[600px]">
                 {/* Text Content */}
                 <div className="relative z-10 order-2 md:order-1 flex flex-col justify-center space-y-6">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={currentIndex}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: 20 }}
-                            transition={{ duration: 0.5 }}
-                            className="space-y-6"
-                        >
-                            <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium w-fit">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
-                                </span>
-                                <span>Featured Program</span>
-                            </div>
+                    <div key={currentIndex} className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700">
+                        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium w-fit">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            <span>Featured Program</span>
+                        </div>
 
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-                                {programs[currentIndex].title}
-                            </h1>
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                            {programs[currentIndex].title}
+                        </h1>
 
-                            <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                                {programs[currentIndex].description}
-                            </p>
+                        <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
+                            {programs[currentIndex].description}
+                        </p>
 
-                            <div className="flex flex-wrap gap-4 pt-4">
-                                <Button size="lg" className="rounded-full shadow-lg hover:shadow-xl transition-all duration-300" asChild>
-                                    <Link href={programs[currentIndex].link}>
-                                        Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                                    </Link>
-                                </Button>
-                                <Button variant="outline" size="lg" className="rounded-full border-2" asChild>
-                                    <Link href="/donate">
-                                        Support Us
-                                    </Link>
-                                </Button>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
+                        <div className="flex flex-wrap gap-4 pt-4">
+                            <Button size="lg" className="rounded-full shadow-lg hover:shadow-xl transition-all duration-300" asChild>
+                                <Link href={programs[currentIndex].link}>
+                                    Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                                </Link>
+                            </Button>
+                            <Button variant="outline" size="lg" className="rounded-full border-2" asChild>
+                                <Link href="/donate">
+                                    Support Us
+                                </Link>
+                            </Button>
+                        </div>
+                    </div>
 
                     {/* Indicators */}
                     <div className="flex items-center space-x-3 mt-8">
@@ -131,27 +121,18 @@ export const HeroCarousel = () => {
                         {/* Background blob */}
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 rounded-full blur-3xl opacity-60 animate-pulse" />
 
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={currentIndex}
-                                initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-                                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                                exit={{ opacity: 0, scale: 1.1, rotate: 5 }}
-                                transition={{ duration: 0.5 }}
-                                className="relative w-full h-full"
-                            >
-                                <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-card transform hover:scale-[1.02] transition-transform duration-500">
-                                    <Image
-                                        src={programs[currentIndex].image}
-                                        alt={programs[currentIndex].title}
-                                        fill
-                                        className="object-cover"
-                                        priority
-                                    />
-                                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
-                                </div>
-                            </motion.div>
-                        </AnimatePresence>
+                        <div key={`img-${currentIndex}`} className="relative w-full h-full animate-in fade-in zoom-in-95 duration-700">
+                            <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-card transform hover:scale-[1.02] transition-transform duration-500">
+                                <Image
+                                    src={programs[currentIndex].image}
+                                    alt={programs[currentIndex].title}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                />
+                                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
+                            </div>
+                        </div>
 
                         {/* Navigation Buttons (Floating) */}
                         <div className="absolute -bottom-4 right-0 md:-right-4 flex space-x-2">
