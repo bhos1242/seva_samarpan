@@ -78,7 +78,7 @@ export function Footer() {
                       href={link.href} 
                       className="text-zinc-400 hover:text-primary transition-all duration-300 flex items-center group font-medium"
                     >
-                      <ArrowUpRight className="h-4 w-4 mr-0 w-0 opacity-0 group-hover:w-4 group-hover:mr-2 group-hover:opacity-100 transition-all" />
+                      <ArrowUpRight className="h-4 w-0 opacity-0 group-hover:w-4 group-hover:mr-2 group-hover:opacity-100 transition-all" />
                       {link.label}
                     </Link>
                   </li>
