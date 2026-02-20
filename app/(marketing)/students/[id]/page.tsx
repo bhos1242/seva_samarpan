@@ -46,7 +46,7 @@ export default function StudentDetailsPage({ params }: { params: Promise<{ id: s
     return (
         <div className="min-h-screen bg-background pb-20">
             {/* Context Header */}
-            <div className="bg-muted/30 border-b">
+            <div className="bg-primary/5 border-b border-primary/10">
                 <div className="container mx-auto px-4 py-8 md:py-12">
                     <Link href="/students" className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary mb-6 transition-colors group">
                         <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />

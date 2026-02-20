@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Heart, Mail, MapPin, Phone, Facebook, Twitter, Instagram, Linkedin, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -31,8 +32,8 @@ export function Footer() {
   ]
 
   return (
-    <footer className="w-full py-10 px-0 md:px-8 border-t bg-muted/30">
-      <div className="mx-auto max-w-7xl bg-zinc-950 md:rounded-[3rem] overflow-hidden shadow-2xl relative isolation-isolate">
+    <footer className="w-full py-10 px-0 md:px-8 border-t bg-background/50">
+      <div className="mx-auto max-w-7xl bg-secondary md:rounded-[3rem] overflow-hidden shadow-2xl relative isolation-isolate">
         {/* Decorative background gradients */}
         <div className="absolute top-0 right-0 -z-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/3 animate-pulse"></div>
         <div className="absolute bottom-0 left-0 -z-10 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl opacity-20 translate-y-1/3 -translate-x-1/3"></div>
@@ -41,13 +42,15 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-5 space-y-8">
-              <Link href="/" className="flex items-center space-x-4 group">
-                <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br from-primary to-primary-600 shadow-xl shadow-primary/20 transition-all duration-500 group-hover:rotate-6 group-hover:scale-110">
-                  <Heart className="h-7 w-7 text-white" fill="white" />
-                </div>
-                <div className="flex flex-col">
-                   <span className="text-3xl font-black text-white tracking-tighter uppercase">Samarpan</span>
-                   <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500">Empowering Lives</span>
+              <Link href="/" className="flex items-center gap-3 group">
+                <div className="relative h-16 w-64 transition-all duration-500 group-hover:scale-105">
+                  <Image
+                    src="/logo/logo_high.png"
+                    alt="Seva Samarpan Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                  />
                 </div>
               </Link>
               <p className="text-zinc-400 text-lg leading-relaxed max-w-md">

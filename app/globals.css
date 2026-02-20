@@ -37,6 +37,13 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  
+  /* Custom Brand Colors */
+  --color-seva-orange: var(--primary);
+  --color-samarpan-blue: var(--secondary);
+  --color-devotion-green: var(--accent);
+  --color-soft-white: var(--background);
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -48,20 +55,20 @@
 
 :root {
   --radius: 0.65rem;
-  --background: oklch(0.985 0 0);
+  --background: oklch(0.985 0.004 247.11); /* Soft White - #F8FAFC */
   --foreground: oklch(0.141 0.005 285.823);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.648 0.2 35.358); /* #F97316 - Orange 500 equivalent */
+  --primary: oklch(0.648 0.2 35.358); /* Seva Orange - #F97316 */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
+  --secondary: oklch(0.354 0.17 263.31); /* Samarpan Blue - #1E40AF */
+  --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.967 0.001 286.375);
   --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
+  --accent: oklch(0.48 0.161 149.33); /* Devotion Green - #15803D */
+  --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.92 0.004 286.32);
   --input: oklch(0.92 0.004 286.32);
@@ -143,13 +150,7 @@
     transform: translateY(-2px);
   }
 
-  .gradient-primary {
-    background: linear-gradient(135deg, var(--primary-400) 0%, var(--primary-600) 100%);
-  }
 
-  .gradient-subtle {
-    background: linear-gradient(135deg, var(--primary-50) 0%, #FFFFFF 100%);
-  }
 
   /* Blob Animation */
   @keyframes blob {

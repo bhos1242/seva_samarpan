@@ -55,21 +55,21 @@ export function Navbar() {
   const isAdmin = ["ADMIN", "SUPER_ADMIN", "NGO_ADMIN"].includes(session?.user?.role || "")
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl supports-backdrop-filter:bg-white/60 dark:supports-backdrop-filter:bg-zinc-950/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 md:h-20 items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative h-10 w-24 md:h-12 md:w-32">
-                <Image
-                  src="/logo1.png"
-                  alt="Samarpan Logo"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
-            </Link>
+        <Link href="/" className="flex items-center gap-2">
+          <div className="relative h-14 w-56 md:h-16 md:w-64">
+            <Image
+              src="/logo/logo_high.png"
+              alt="Seva Samarpan Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
+        </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex lg:items-center lg:gap-6">
@@ -185,16 +185,18 @@ export function Navbar() {
                 <SheetContent side="right" className="w-[85vw] sm:w-[400px] p-0 flex flex-col border-none shadow-2xl">
                   <div className="p-8 bg-linear-to-br from-primary/10 via-background to-background border-b border-border/50">
                     <SheetHeader className="text-left">
-                      <SheetTitle className="flex items-center gap-3">
-                        <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-primary shadow-xl shadow-primary/20">
-                          <Heart className="h-6 w-6 text-white" fill="white" />
-                        </div>
-                        <div className="flex flex-col">
-                           <span className="text-2xl font-black tracking-tighter uppercase text-primary">
-                             Samarpan
-                           </span>
-                           <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">NGO Foundation</span>
-                        </div>
+                      <SheetTitle>
+                        <Link href="/" className="flex items-center gap-3 group">
+                          <div className="relative h-14 w-56 transition-all duration-500 group-hover:scale-105">
+                            <Image
+                              src="/logo/logo_high.png"
+                              alt="Seva Samarpan Logo"
+                              fill
+                              className="object-contain"
+                              priority
+                            />
+                          </div>
+                        </Link>
                       </SheetTitle>
                     </SheetHeader>
                   </div>
