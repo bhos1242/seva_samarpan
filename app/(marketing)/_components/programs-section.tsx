@@ -4,14 +4,14 @@ import { BookOpen, HomeIcon, Heart, ArrowRight } from "lucide-react";
 
 const programs = [
   {
-    title: 'Samarpan Abhyasika',
+    title: 'Seva Samarpan Abhyasika',
     description: 'A dedicated library and study space for tribal and underprivileged students, equipped with over 1,500 books and modern learning resources.',
     icon: BookOpen,
     link: '/programs/abhyasika',
     color: 'primary',
   },
   {
-    title: 'Samarpan Old Age Home',
+    title: 'Seva Samarpan Old Age Home',
     description: 'A sanctuary in Mulshi providing dignified living, holistic care, and a supportive community for our elders.',
     icon: HomeIcon,
     link: '/programs/old-age-home',
@@ -33,7 +33,7 @@ export function ProgramsSection() {
         <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
           <h2 className="text-3xl md:text-5xl font-bold mb-4">What We Do</h2>
           <p className="text-lg text-muted-foreground">
-            Samarpan is dedicated to transforming lives through education and compassionate care.
+            Seva Samarpan is dedicated to transforming lives through education and compassionate care.
           </p>
         </div>
 

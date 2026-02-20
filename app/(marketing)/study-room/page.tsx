@@ -13,7 +13,7 @@ import {
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Samarpan Abhyasika | Free Study Room & Library in Pune',
+    title: 'Seva Samarpan Abhyasika | Free Study Room & Library in Pune',
     description: 'A dedicated study space providing over 1,500 books and modern resources for tribal and underprivileged students in Mulshi, Pune.',
 }
 
@@ -24,7 +24,7 @@ export default function StudyRoomPage() {
             <section className="relative h-[50vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
                 <Image
                     src="/programs/samarpan.png"
-                    alt="Samarpan Abhyasika"
+                    alt="Seva Samarpan Abhyasika"
                     fill
                     className="object-cover"
                     priority
@@ -36,7 +36,7 @@ export default function StudyRoomPage() {
                         Knowledge is Power
                     </Badge>
                     <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase mb-4">
-                        Samarpan <span className="text-primary italic">Abhyasika</span>
+                        Seva Samarpan <span className="text-primary italic">Abhyasika</span>
                     </h1>
                     <p className="text-xl md:text-2xl opacity-90 max-w-2xl mx-auto font-medium">
                         Empowering tribal and underprivileged students through access to a world-class library and quiet study sanctuary.

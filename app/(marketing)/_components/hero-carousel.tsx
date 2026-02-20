@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 const programs = [
     {
         id: 7,
-        title: 'Samarpan Abhyasika',
+        title: 'Seva Samarpan Abhyasika',
         description: 'Free Library and study room for tribal and underprivileged students, providing a quiet and resourceful environment for learning.',
         image: '/programs/samarpan.png',
         link: '/programs/abhyasika',
@@ -17,7 +17,7 @@ const programs = [
     },
     {
         id: 8,
-        title: 'Samarpan Old Age Home',
+        title: 'Seva Samarpan Old Age Home',
         description: 'Dignified care and a loving community for elders in Mulshi, providing medical support, nutritious food, and a place to call home.',
         image: '/old-age/image.png',
         link: '/programs/old-age-home',
@@ -26,7 +26,7 @@ const programs = [
     {
         id: 9,
         title: 'Compassionate Care',
-        description: 'At Samarpan, we believe in giving our elders the respect and quality of life they deserve through holistic support and community engagement.',
+        description: 'At Seva Samarpan, we believe in giving our elders the respect and quality of life they deserve through holistic support and community engagement.',
         image: '/old-age/news-1.png',
         link: '/programs/old-age-home',
         color: 'bg-primary',

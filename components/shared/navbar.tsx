@@ -55,20 +55,19 @@ export function Navbar() {
   const isAdmin = ["ADMIN", "SUPER_ADMIN", "NGO_ADMIN"].includes(session?.user?.role || "")
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl supports-backdrop-filter:bg-white/60 dark:supports-backdrop-filter:bg-zinc-950/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-white dark:bg-zinc-950/80 backdrop-blur-xl  dark:supports-backdrop-filter:bg-zinc-950/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 md:h-20 items-center justify-between">
             {/* Logo */}
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-14 w-56 md:h-16 md:w-64">
-            <Image
-              src="/logo/logo_high.png"
-              alt="Seva Samarpan Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+        <Link href="/" className="flex items-center align-middle gap-2 group">
+          <Image
+            src="/logo/logo_high.png"
+            alt="Seva Samarpan Logo"
+            width={150}
+            height={50}
+            className="w-auto object-cover"
+            priority
+          />
         </Link>
 
             {/* Desktop Navigation */}

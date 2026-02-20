@@ -15,7 +15,7 @@ import {
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-    title: 'Samarpan Old Age Home | Dignified Care in Pune',
+    title: 'Seva Samarpan Old Age Home | Dignified Care in Pune',
     description: 'A sanctuary providing dignified living, holistic care, and a supportive community for elders in Mulshi, Pune.',
 }
 
@@ -26,7 +26,7 @@ export default function OldAgeHomePage() {
             <section className="relative h-[60vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
                 <Image
                     src="/old-age/image.png"
-                    alt="Samarpan Old Age Home"
+                    alt="Seva Samarpan Old Age Home"
                     fill
                     className="object-cover"
                     priority
@@ -38,7 +38,7 @@ export default function OldAgeHomePage() {
                         Our Main Project
                     </Badge>
                     <h1 className="text-4xl md:text-7xl font-black tracking-tighter uppercase mb-4">
-                        Samarpan <span className="text-primary">Old Age</span> Home
+                        Seva Samarpan <span className="text-primary">Old Age</span> Home
                     </h1>
                     <blockquote className="text-xl md:text-3xl font-medium italic opacity-90 max-w-3xl mx-auto leading-relaxed">
                         &quot;Even if there is no blood relation, there is definitely a bond of love!&quot;
@@ -141,7 +141,7 @@ export default function OldAgeHomePage() {
                             <div className="space-y-4">
                                 <h2 className="text-3xl md:text-5xl font-black uppercase tracking-tighter">A Sanctuary for Dignity</h2>
                                 <p className="text-xl text-muted-foreground leading-relaxed">
-                                    Samarpan Old Age Home is a dedicated haven and recreation center for underprivileged and helpless elders. We believe that aging should be a journey of respect, comfort, and community.
+                                    Seva Samarpan Old Age Home is a dedicated haven and recreation center for underprivileged and helpless elders. We believe that aging should be a journey of respect, comfort, and community.
                                 </p>
                             </div>
 

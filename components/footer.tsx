@@ -2,18 +2,10 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Heart, Mail, MapPin, Phone, Facebook, Twitter, Instagram, Linkedin, ArrowUpRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Heart, Mail, MapPin, Phone, ArrowUpRight } from "lucide-react"
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
-
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" }
-  ]
 
   const quickLinks = [
     { label: "About Us", href: "/about" },
@@ -42,33 +34,22 @@ export function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 lg:gap-8">
             {/* Brand Section */}
             <div className="lg:col-span-5 space-y-8">
-              <Link href="/" className="flex items-center gap-3 group">
-                <div className="relative h-16 w-64 transition-all duration-500 group-hover:scale-105">
+              <div className="bg-white rounded-[2rem] p-4 md:px-6 md:py-4 w-fit inline-block shadow-lg">
+                <Link href="/" className="flex items-center group">
                   <Image
                     src="/logo/logo_high.png"
                     alt="Seva Samarpan Logo"
-                    fill
-                    className="object-contain"
+                    width={240}
+                    height={64}
+                    className="h-12 md:h-24 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
                     priority
                   />
-                </div>
-              </Link>
+                </Link>
+              </div>
               <p className="text-zinc-400 text-lg leading-relaxed max-w-md">
                 Dedicated to transforming lives through quality education for underprivileged students
                 and compassionate care for elders in rural Mulshi, Pune.
               </p>
-              <div className="flex gap-4">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    className="w-12 h-12 rounded-2xl bg-zinc-900 hover:bg-primary border border-zinc-800 hover:border-primary flex items-center justify-center transition-all duration-500 group active:scale-95"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="h-5 w-5 text-zinc-500 group-hover:text-white transition-colors" />
-                  </a>
-                ))}
-              </div>
             </div>
 
             {/* Quick Links */}
@@ -135,26 +116,10 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Form Section / Newsletter */}
-          <div className="mt-20 p-8 rounded-[2rem] bg-zinc-900/50 border border-zinc-800 flex flex-col md:flex-row items-center justify-between gap-8">
-             <div className="space-y-2 text-center md:text-left">
-                <h4 className="text-xl font-bold text-white">Subscribe to our newsletter</h4>
-                <p className="text-zinc-400">Receive updates about our impact and upcoming events.</p>
-             </div>
-             <div className="flex w-full md:w-auto gap-2">
-                <input 
-                  type="email" 
-                  placeholder="name@example.com" 
-                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 h-12 w-full md:w-72 text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
-                />
-                <Button className="rounded-xl h-12 px-6 font-bold bg-white text-secondary hover:bg-zinc-100 shadow-lg" variant="secondary">Subscribe</Button>
-             </div>
-          </div>
-
           {/* Bottom Bar */}
           <div className="mt-20 pt-10 border-t border-zinc-800/50 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="text-zinc-500 font-medium text-sm">
-              © {currentYear} Samarpan NGO Foundation. All rights reserved.
+              © {currentYear} Seva Samarpan NGO Foundation. All rights reserved.
             </div>
 
             <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
