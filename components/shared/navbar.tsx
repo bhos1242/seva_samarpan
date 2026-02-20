@@ -14,10 +14,8 @@ import {
   HeartHandshake, 
   LogIn, 
   UserPlus, 
-  X,
   LayoutDashboard,
   Settings,
-  User as UserIcon
 } from "lucide-react"
 import { useSession, signIn, signOut } from "next-auth/react"
 import {
@@ -37,7 +35,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from "next/image"
-import { cn } from "@/lib/utils"
 
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
@@ -58,10 +55,9 @@ export function Navbar() {
   const isAdmin = ["ADMIN", "SUPER_ADMIN", "NGO_ADMIN"].includes(session?.user?.role || "")
 
   return (
-    <div className="sticky top-0 md:top-5 z-50 w-full px-0 md:px-8">
-      <nav className="mx-auto max-w-7xl md:rounded-2xl border-b md:border border-border bg-background/90 backdrop-blur-xl shadow-lg transition-all hover:shadow-xl supports-backdrop-filter:bg-background/60">
-        <div className="px-4 sm:px-6 lg:px-8">
-          <div className="flex h-16 md:h-20 items-center justify-between">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 md:h-20 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3">
               <div className="relative h-10 w-24 md:h-12 md:w-32">
@@ -306,9 +302,8 @@ export function Navbar() {
                 </SheetContent>
               </Sheet>
             </div>
-          </div>
         </div>
-      </nav>
-    </div>
+      </div>
+    </header>
   )
 }

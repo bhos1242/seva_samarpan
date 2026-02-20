@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { BookOpen, Users, Heart, TrendingUp, Award, ArrowRight, HomeIcon } from "lucide-react";
 import { HeroCarousel } from "./_components/hero-carousel";
 import { StudentCard } from "./_components/student-card";
@@ -158,7 +156,7 @@ export default function Home() {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl md:text-5xl font-bold mb-4">Support Our Students</h2>
             <p className="text-lg text-muted-foreground">
-              Every contribution makes a direct difference in a student's educational journey.
+              Every contribution makes a direct difference in a student&apos;s educational journey.
             </p>
           </div>
 
@@ -258,7 +256,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <blockquote className="text-3xl md:text-5xl font-medium leading-tight">
-              "Education is the most powerful weapon which you can use to change the world."
+              &quot;Education is the most powerful weapon which you can use to change the world.&quot;
             </blockquote>
             <p className="text-xl opacity-80 font-semibold tracking-wider">— SAMARPAN TEAM</p>
           </div>

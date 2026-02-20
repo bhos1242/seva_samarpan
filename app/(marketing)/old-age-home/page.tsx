@@ -1,14 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 import Link from 'next/link'
 import { 
-  Building2, 
   MapPin, 
   Phone, 
   Clock, 
-  Calendar, 
   Heart, 
   Users, 
   Home as HomeIcon,
@@ -44,7 +41,7 @@ export default function OldAgeHomePage() {
                         Samarpan <span className="text-primary">Old Age</span> Home
                     </h1>
                     <blockquote className="text-xl md:text-3xl font-medium italic opacity-90 max-w-3xl mx-auto leading-relaxed">
-                        "Even if there is no blood relation, there is definitely a bond of love!"
+                        &quot;Even if there is no blood relation, there is definitely a bond of love!&quot;
                     </blockquote>
                 </div>
             </section>
