@@ -70,22 +70,23 @@ export function StudentCard({ student, className }: StudentCardProps) {
             <CardContent className="p-4 pt-2 space-y-3">
                 <div>
                     <div className="flex justify-between text-xs mb-1.5">
-                        <span className="font-semibold">
-                            {formatINR(student.collectedAmount)}
+                        <span className="font-bold text-primary">
+                            {formatINR(student.collectedAmount)} raised
                         </span>
-                        <span className="text-muted-foreground">
+                        <span className="text-muted-foreground font-medium">
                             of {formatINR(student.requiredAmount)}
                         </span>
                     </div>
                     <Progress value={percentage} className="h-2" />
-                    <p className="text-[10px] text-center mt-1.5 text-primary font-semibold uppercase tracking-wide">
-                        {percentage}% Funded • {formatINR(remaining)} remaining
+                    <p className="text-[10px] flex justify-between mt-2.5 font-bold uppercase tracking-wide">
+                        <span className="text-primary">{percentage}% Funded</span>
+                        <span className="text-muted-foreground">{formatINR(remaining)} to go</span>
                     </p>
                 </div>
             </CardContent>
 
             <CardFooter className="p-4 pt-0">
-                <Button className="w-full h-9 shadow-md shadow-primary/20 group-hover:shadow-primary/30 transition-all rounded-full" asChild>
+                <Button className="w-full h-9 bg-accent hover:bg-accent/90 shadow-md shadow-accent/20 group-hover:shadow-accent/30 text-white transition-all rounded-full font-bold" asChild>
                     <Link href={`/students/${student.id}`}>
                         View & Sponsor
                     </Link>

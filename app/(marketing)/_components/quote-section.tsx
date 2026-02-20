@@ -1,7 +1,7 @@
 export function QuoteSection() {
   return (
     <section className="py-16 md:py-24 bg-primary text-primary-foreground relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
          <QuoteIcon className="absolute top-10 left-10 w-40 h-40" />
          <QuoteIcon className="absolute bottom-10 right-10 w-40 h-40 rotate-180" />
       </div>

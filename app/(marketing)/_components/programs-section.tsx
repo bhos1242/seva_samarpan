@@ -38,26 +38,32 @@ export function ProgramsSection() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {programs.map((program, index) => (
-            <Link key={index} href={program.link} className="block group">
-              <Card className="h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl border-none ring-1 ring-border/50">
-                <CardHeader>
-                  <div className={`w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
-                    <program.icon className="h-7 w-7 text-primary" />
-                  </div>
-                  <CardTitle className="text-2xl">{program.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed mb-6">
-                    {program.description}
-                  </p>
-                  <div className="flex items-center text-primary font-semibold group-hover:underline transition-all underline-offset-4">
-                    Learn More <ArrowRight className="ml-2 h-4 w-4" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
+          {programs.map((program, index) => {
+            // Apply different branding colors based on the data 'color' field
+            const badgeBg = program.color === 'primary' ? 'bg-primary/10' : program.color === 'secondary' ? 'bg-secondary/10' : 'bg-accent/10';
+            const iconText = program.color === 'primary' ? 'text-primary' : program.color === 'secondary' ? 'text-secondary' : 'text-accent';
+            const shadowClass = program.color === 'primary' ? 'shadow-primary/20' : program.color === 'secondary' ? 'shadow-secondary/20' : 'shadow-accent/20';
+            
+            return (
+              <Link key={index} href={program.link} className="block group">
+                <Card className="h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-xl border-none ring-1 ring-border/30 bg-white/60 dark:bg-zinc-950/60 flex flex-col">
+                  <CardHeader>
+                    <div className={`w-14 h-14 rounded-2xl ${badgeBg} flex items-center justify-center mb-4 transition-transform group-hover:scale-110 shadow-sm ${shadowClass}`}>
+                      <program.icon className={`h-7 w-7 ${iconText}`} />
+                    </div>
+                    <CardTitle className="text-2xl">{program.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-1 flex flex-col justify-between">
+                    <p className="text-muted-foreground leading-relaxed mb-6">
+                      {program.description}
+                    </p>
+                    <div className={`flex items-center font-bold group-hover:translate-x-1 transition-transform ${iconText}`}>
+                      Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+          )})}
         </div>
       </div>
     </section>

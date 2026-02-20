@@ -69,12 +69,12 @@ export const HeroCarousel = () => {
                 {/* Text Content */}
                 <div className="relative z-10 order-2 md:order-1 flex flex-col justify-center space-y-6">
                     <div key={currentIndex} className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700">
-                        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-medium w-fit">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary/40 opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-bold w-fit border border-primary/20 shadow-sm">
+                            <span className="relative flex h-2.5 w-2.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
                             </span>
-                            <span>Featured Program</span>
+                            <span className="uppercase tracking-wider text-xs">Featured Program</span>
                         </div>
 
                         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
@@ -86,12 +86,12 @@ export const HeroCarousel = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4 pt-4">
-                            <Button size="lg" className="rounded-full shadow-lg hover:shadow-xl transition-all duration-300" asChild>
+                            <Button size="lg" className="rounded-full h-14 px-8 font-bold shadow-lg shadow-primary/30 hover:shadow-xl transition-all duration-300" asChild>
                                 <Link href={programs[currentIndex].link}>
-                                    Learn More <ArrowRight className="ml-2 h-4 w-4" />
+                                    Learn More <ArrowRight className="ml-2 h-5 w-5" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" size="lg" className="rounded-full border-2" asChild>
+                            <Button variant="outline" size="lg" className="rounded-full h-14 px-8 font-bold border-2 hover:bg-muted/50 transition-all duration-300" asChild>
                                 <Link href="/donate">
                                     Support Us
                                 </Link>

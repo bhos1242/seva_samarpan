@@ -145,9 +145,9 @@ export function Footer() {
                 <input 
                   type="email" 
                   placeholder="name@example.com" 
-                  className="bg-black border border-zinc-800 rounded-xl px-4 py-3 h-12 w-full md:w-72 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                  className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 h-12 w-full md:w-72 text-white placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-white/50 focus:bg-white/20 transition-all"
                 />
-                <Button className="rounded-xl h-12 px-6 font-bold shadow-lg shadow-primary/20">Subscribe</Button>
+                <Button className="rounded-xl h-12 px-6 font-bold bg-white text-secondary hover:bg-zinc-100 shadow-lg" variant="secondary">Subscribe</Button>
              </div>
           </div>
 
