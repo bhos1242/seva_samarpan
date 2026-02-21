@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Form } from "@/components/ui/form";
+import InputField from "@/components/AppInputFields/InputField";
 import InputPassword from "@/components/AppInputFields/components/InputPassword";
 import toast from "react-hot-toast";
 import { useSignup } from "@/hooks/auth/useSignup";
@@ -144,34 +145,21 @@ export default function SignupPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Full Name
-                </label>
-                <Input
-                  {...methods.register("name")}
+                <InputField
+                  name="name"
+                  label="Full Name"
                   placeholder="John Doe"
+                  type="text"
                 />
-                {methods.formState.errors.name && (
-                  <p className="text-sm font-medium text-destructive">
-                    {methods.formState.errors.name.message}
-                  </p>
-                )}
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Email
-                </label>
-                <Input
-                  {...methods.register("email")}
+                <InputField
+                  name="email"
+                  label="Email"
                   placeholder="name@example.com"
                   type="email"
                 />
-                {methods.formState.errors.email && (
-                  <p className="text-sm font-medium text-destructive">
-                    {methods.formState.errors.email.message}
-                  </p>
-                )}
               </div>
 
               <div className="space-y-2">

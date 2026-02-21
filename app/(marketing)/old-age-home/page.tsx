@@ -17,6 +17,12 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
     title: 'Seva Samarpan Old Age Home | Dignified Care in Pune',
     description: 'A sanctuary providing dignified living, holistic care, and a supportive community for elders in Mulshi, Pune.',
+    openGraph: {
+        title: 'Seva Samarpan Old Age Home in Pune',
+        description: 'Providing comprehensive care, medical support, and a peaceful home for elders.',
+        url: '/old-age-home',
+        images: [{ url: '/old-age/image.png', width: 1200, height: 630, alt: 'Old Age Home' }],
+    }
 }
 
 export default function OldAgeHomePage() {

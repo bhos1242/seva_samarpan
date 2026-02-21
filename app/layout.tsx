@@ -16,8 +16,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hackathon Starter",
-  description: "Ship fast. Win hackathons. 🚀",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://sevasamarpan.org"),
+  title: {
+    default: "Seva Samarpan | NGO in Mulshi, Pune",
+    template: "%s | Seva Samarpan",
+  },
+  description: "Empowering lives through education and care in Mulshi, Pune. We provide free study rooms, education sponsorships, and run an old age home.",
+  keywords: ["NGO", "Mulshi", "Pune", "Education", "Old Age Home", "Charity", "Social Work", "Seva Samarpan"],
+  authors: [{ name: "Seva Samarpan" }],
+  creator: "Seva Samarpan",
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: "/",
+    title: "Seva Samarpan | NGO in Mulshi, Pune",
+    description: "Empowering lives through education and care in Mulshi, Pune.",
+    siteName: "Seva Samarpan",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Seva Samarpan | NGO in Mulshi, Pune",
+    description: "Empowering lives through education and care in Mulshi, Pune.",
+  },
 };
 
 export default function RootLayout({

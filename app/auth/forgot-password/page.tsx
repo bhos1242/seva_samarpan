@@ -15,8 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Form } from "@/components/ui/form";
+import InputField from "@/components/AppInputFields/InputField";
 import toast from "react-hot-toast";
 import { useForgotPassword } from "@/hooks/auth/useForgotPassword";
 
@@ -118,19 +118,12 @@ export default function ForgotPasswordPage() {
               className="space-y-4"
             >
               <div className="space-y-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Email
-                </label>
-                <Input
-                  {...methods.register("email")}
+                <InputField
+                  name="email"
+                  label="Email"
                   placeholder="name@example.com"
                   type="email"
                 />
-                {methods.formState.errors.email && (
-                  <p className="text-sm font-medium text-destructive">
-                    {methods.formState.errors.email.message}
-                  </p>
-                )}
               </div>
 
               <Button

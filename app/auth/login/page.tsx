@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import InputField from "@/components/AppInputFields/InputField";
 import InputPassword from "@/components/AppInputFields/components/InputPassword";
 import toast from "react-hot-toast";
 
@@ -99,21 +99,12 @@ export default function LoginPage() {
             <form onSubmit={methods.handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                      Email
-                    </label>
-                    <Input
-                      {...methods.register("email")}
-                      placeholder="name@example.com"
-                      type="email"
-                    />
-                    {methods.formState.errors.email && (
-                      <p className="text-sm font-medium text-destructive">
-                        {methods.formState.errors.email.message}
-                      </p>
-                    )}
-                  </div>
+                  <InputField
+                    name="email"
+                    label="Email"
+                    placeholder="name@example.com"
+                    type="email"
+                  />
                 </div>
 
                 <div className="space-y-2">

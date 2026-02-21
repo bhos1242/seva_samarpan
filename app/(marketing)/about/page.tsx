@@ -8,6 +8,11 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
     title: 'About Seva Samarpan | Empowering Lives Through Education & Care',
     description: 'Learn about Seva Samarpan NGO\'s mission to provide quality education and dignified care to underprivileged students and elders in Mulshi, Pune.',
+    openGraph: {
+        title: 'About Seva Samarpan | Empowering Lives',
+        description: 'Learn about our mission to provide quality education and dignified care in Mulshi, Pune.',
+        url: '/about',
+    }
 }
 
 const milestones = [
