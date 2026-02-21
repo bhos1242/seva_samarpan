@@ -3,10 +3,10 @@ import crypto from "crypto";
 
 // Initialize S3 client
 const s3Client = new S3Client({
-  region: process.env.AWS_REGION || "us-east-1",
+  region: process.env.NEXT_AWS_S3_REGION || "us-east-1",
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || "",
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || "",
+    accessKeyId: process.env.NEXT_AWS_ACCESS_KEY_ID || "",
+    secretAccessKey: process.env.NEXT_AWS_SECRET_ACCESS_KEY || "",
   },
 });
 
@@ -27,9 +27,9 @@ export async function uploadToS3(
       : "jpg";
     const uniqueFilename = `avatars/${crypto.randomUUID()}.${fileExtension}`;
 
-    const bucketName = process.env.S3_BUCKET_NAME;
+    const bucketName = process.env.NEXT_AWS_BUCKET_NAME;
     if (!bucketName) {
-      throw new Error("S3_BUCKET_NAME environment variable is not set");
+      throw new Error("NEXT_AWS_BUCKET_NAME environment variable is not set");
     }
 
     // Upload to S3
@@ -43,8 +43,8 @@ export async function uploadToS3(
     await s3Client.send(command);
 
     // Return public URL (assuming bucket has public read access)
-    const publicUrl = `https://${bucketName}.s3.${process.env.AWS_REGION || "us-east-1"}.amazonaws.com/${uniqueFilename}`;
-    
+    const publicUrl = `https://${bucketName}.s3.${process.env.NEXT_AWS_S3_REGION || "us-east-1"}.amazonaws.com/${uniqueFilename}`;
+
     return publicUrl;
   } catch (error) {
     console.error("Error uploading to S3:", error);
@@ -60,7 +60,7 @@ export async function uploadToS3(
 export async function uploadAvatar(formData: FormData): Promise<string | null> {
   try {
     const avatar = formData.get("avatar") as File | null;
-    
+
     if (!avatar || avatar.size === 0) {
       return null;
     }

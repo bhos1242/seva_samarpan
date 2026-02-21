@@ -11,7 +11,7 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { amount } = orderSchema.parse(body);
 
-        if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET) {
+        if (!process.env.NEXT_RAZORPAY_KEY_ID || !process.env.NEXT_RAZORPAY_KEY_SECRET) {
             return NextResponse.json(
                 { error: "Razorpay keys are missing on the server." },
                 { status: 500 }
@@ -19,8 +19,8 @@ export async function POST(req: Request) {
         }
 
         const instance = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY_ID,
-            key_secret: process.env.RAZORPAY_KEY_SECRET,
+            key_id: process.env.NEXT_RAZORPAY_KEY_ID,
+            key_secret: process.env.NEXT_RAZORPAY_KEY_SECRET,
         });
 
         const options = {

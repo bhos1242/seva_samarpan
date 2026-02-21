@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -10,55 +10,34 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import { Card, CardContent } from "@/components/ui/card"
-import { Search, Filter, Loader2 } from "lucide-react"
-import { StudentCard } from "../_components/student-card"
-
-// Static data for now to match the user's src folder structure but working in the new app structure
-const STUDENTS_DATA = [
-  {
-    id: '1',
-    fullName: 'Priya Sharma',
-    photoUrl: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=400&h=400&fit=crop',
-    age: 16,
-    standard: '11th',
-    schoolOrCollege: 'Mulshi High School',
-    location: 'Mulshi, Pune',
-    category: 'TRIBAL',
-    requiredAmount: 25000,
-    collectedAmount: 12000,
-  },
-  {
-    id: '2',
-    fullName: 'Rahul Patil',
-    photoUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop',
-    age: 19,
-    standard: 'B.Com 2nd Year',
-    schoolOrCollege: 'Pune College',
-    location: 'Mulshi, Pune',
-    category: 'UNDERPRIVILEGED',
-    requiredAmount: 40000,
-    collectedAmount: 28000,
-  },
-  {
-    id: '3',
-    fullName: 'Anita Desai',
-    photoUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop',
-    age: 14,
-    standard: '9th',
-    schoolOrCollege: 'Government School',
-    location: 'Mulshi, Pune',
-    category: 'TRIBAL',
-    requiredAmount: 18000,
-    collectedAmount: 5000,
-  },
-];
+import { Card } from "@/components/ui/card"
+import { Search, Filter, Loader2, GraduationCap } from "lucide-react"
+import { StudentCard, StudentCardProps } from "../_components/student-card"
 
 export default function StudentsPage() {
+    const [students, setStudents] = useState<StudentCardProps['student'][]>([])
+    const [isLoading, setIsLoading] = useState(true)
     const [searchQuery, setSearchQuery] = useState('')
     const [category, setCategory] = useState<string>('ALL')
 
-    const filteredStudents = STUDENTS_DATA.filter(student => {
+    useEffect(() => {
+        const fetchStudents = async () => {
+            try {
+                const res = await fetch('/api/students')
+                if (res.ok) {
+                    const data = await res.json()
+                    setStudents(data)
+                }
+            } catch (error) {
+                console.error("Failed to load students", error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchStudents()
+    }, [])
+
+    const filteredStudents = students.filter(student => {
         const matchesSearch = student.fullName.toLowerCase().includes(searchQuery.toLowerCase())
         const matchesCategory = category === 'ALL' || student.category === category
         return matchesSearch && matchesCategory
@@ -102,6 +81,7 @@ export default function StudentsPage() {
                                     <SelectItem value="ALL">All Categories</SelectItem>
                                     <SelectItem value="UNDERPRIVILEGED">Underprivileged</SelectItem>
                                     <SelectItem value="TRIBAL">Tribal</SelectItem>
+                                    <SelectItem value="ORPHAN">Orphan</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
@@ -109,7 +89,11 @@ export default function StudentsPage() {
                 </Card>
 
                 {/* Grid */}
-                {filteredStudents.length > 0 ? (
+                {isLoading ? (
+                    <div className="flex justify-center items-center py-24">
+                        <Loader2 className="h-12 w-12 animate-spin text-primary" />
+                    </div>
+                ) : filteredStudents.length > 0 ? (
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {filteredStudents.map((student) => (
                             <StudentCard key={student.id} student={student} />
@@ -118,7 +102,7 @@ export default function StudentsPage() {
                 ) : (
                     <div className="text-center py-24 space-y-4 bg-muted/10 rounded-3xl border-2 border-dashed">
                         <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto">
-                            <Search className="h-10 w-10 text-muted-foreground" />
+                            <GraduationCap className="h-10 w-10 text-muted-foreground" />
                         </div>
                         <div className="space-y-2">
                              <h3 className="text-2xl font-bold">No students found</h3>

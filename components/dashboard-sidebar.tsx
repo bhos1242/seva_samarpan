@@ -8,6 +8,8 @@ import {
   Users,
   Settings,
   FileText,
+  GraduationCap,
+  Heart,
 } from "lucide-react";
 
 const sidebarItems = [
@@ -25,6 +27,16 @@ const sidebarItems = [
     title: "Inputs",
     href: "/dashboard/inputs",
     icon: FileText,
+  },
+  {
+    title: "Students",
+    href: "/dashboard/students",
+    icon: GraduationCap,
+  },
+  {
+    title: "Donations",
+    href: "/dashboard/donations",
+    icon: Heart,
   },
   {
     title: "Settings",

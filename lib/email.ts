@@ -261,3 +261,72 @@ export const sendPasswordResetEmail = async (
     return { success: false, error };
   }
 };
+
+// Donation Receipt Template
+export const getDonationReceiptTemplate = (
+  donation: { name: string; amount: number; orderId: string | null; require80G: boolean }
+) => {
+  return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Receipt</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
+    .container { background: white; border-radius: 10px; padding: 40px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    .header { text-align: center; margin-bottom: 30px; }
+    .header h1 { color: #16a34a; margin: 0; font-size: 24px; }
+    .receipt-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 20px; margin: 20px 0; }
+    .receipt-row { display: flex; justify-content: space-between; border-bottom: 1px solid #e2e8f0; padding: 10px 0; }
+    .receipt-row:last-child { border-bottom: none; }
+    .amount { font-size: 24px; font-weight: bold; color: #16a34a; text-align: center; margin: 20px 0; }
+    .footer { margin-top: 30px; text-align: center; color: #94a3b8; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Thank You for Your Donation! ❤️</h1>
+    </div>
+    <p>Dear ${donation.name},</p>
+    <p>We have successfully received your generous contribution. Your support makes a huge difference!</p>
+    
+    <div class="amount">₹${donation.amount}</div>
+    
+    <div class="receipt-box">
+      <div class="receipt-row"><strong>Order ID:</strong> <span>${donation.orderId || "N/A"}</span></div>
+      <div class="receipt-row"><strong>Date:</strong> <span>${new Date().toLocaleDateString('en-IN')}</span></div>
+      ${donation.require80G ? `<div class="receipt-row"><strong>80G Receipt:</strong> <span>Requested (Will be sent separately)</span></div>` : ''}
+    </div>
+    
+    <p>If you have any questions about this receipt, please contact our support team.</p>
+    
+    <div class="footer">
+      <p>This is an automated receipt from Seva Samarpan.</p>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+};
+
+// Send donation receipt email
+export const sendDonationReceipt = async (donation: any) => {
+  try {
+    if (!donation || !donation.email) return { success: false, error: "No email provided" };
+
+    await transporter.sendMail({
+      from: `"Seva Samarpan" <${process.env.SMTP_USER}>`,
+      to: donation.email,
+      subject: "Thank You for Your Donation! - Receipt",
+      html: getDonationReceiptTemplate(donation),
+    });
+    return { success: true };
+  } catch (error) {
+    console.error("Error sending donation receipt email:", error);
+    return { success: false, error };
+  }
+};
+

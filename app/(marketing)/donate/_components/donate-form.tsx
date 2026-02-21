@@ -55,10 +55,7 @@ interface RazorpayOptions {
 
 declare global {
   interface Window {
-    Razorpay: new (options: RazorpayOptions) => {
-        on: (event: string, handler: (response: RazorpayErrorResponse) => void) => void;
-        open: () => void;
-    };
+    Razorpay: any;
   }
 }
 
