@@ -20,9 +20,16 @@ export async function POST(req: NextRequest) {
         } = data;
 
         // Verify signature
+        const keySecret = process.env.NEXT_RAZORPAY_KEY_SECRET || process.env.RAZORPAY_KEY_SECRET;
+
+        if (!keySecret) {
+            console.error("Razorpay Secret is missing on the server.");
+            return NextResponse.json({ error: "Configuration error" }, { status: 500 });
+        }
+
         const text = razorpay_order_id + "|" + razorpay_payment_id;
         const generated_signature = crypto
-            .createHmac("sha256", process.env.NEXT_RAZORPAY_KEY_SECRET!)
+            .createHmac("sha256", keySecret)
             .update(text)
             .digest("hex");
 

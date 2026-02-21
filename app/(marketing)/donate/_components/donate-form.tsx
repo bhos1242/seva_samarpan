@@ -132,19 +132,40 @@ export function DonateForm() {
                 throw new Error("Invalid order generated")
             }
 
+            const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+
             const options = {
-                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // Ensure you use public env var here if needed, or pass from server. Usually RAZORPAY_KEY_ID can be passed here if public.
+                key: razorpayKey,
                 amount: order.amount,
                 currency: order.currency,
                 name: "Seva Samarpan",
                 description: "Donation for Education and Elder Care",
                 image: "https://sevasamarpan.org/icon.svg", // Replace with your actual logo
                 order_id: order.id,
-                handler: function (response: RazorpaySuccessResponse) {
-                    // This is where you would normally call a verify API route,
-                    // but for this simple implementation we just show success.
-                    toast.success(`Thank you, ${data.name}! Your donation of ₹${data.amount} was successful. (ID: ${response.razorpay_payment_id})`)
-                    form.reset()
+                handler: async function (response: RazorpaySuccessResponse) {
+                    try {
+                        const verifyRes = await fetch("/api/donations/verify", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                razorpay_payment_id: response.razorpay_payment_id,
+                                razorpay_order_id: response.razorpay_order_id,
+                                razorpay_signature: response.razorpay_signature,
+                                name: data.name,
+                                email: data.email,
+                                phone: data.phone,
+                                amount: data.amount,
+                            }),
+                        });
+                        
+                        if (!verifyRes.ok) throw new Error("Verification failed");
+                        
+                        toast.success(`Thank you, ${data.name}! Your donation of ₹${data.amount} was successful. (ID: ${response.razorpay_payment_id})`);
+                        form.reset();
+                    } catch (err) {
+                         toast.error("Payment successful but verification failed. Please contact support.");
+                         console.error("Verification Error:", err);
+                    }
                 },
                 prefill: {
                     name: data.name,

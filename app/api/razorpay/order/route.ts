@@ -11,16 +11,19 @@ export async function POST(req: Request) {
         const body = await req.json();
         const { amount } = orderSchema.parse(body);
 
-        if (!process.env.NEXT_RAZORPAY_KEY_ID || !process.env.NEXT_RAZORPAY_KEY_SECRET) {
+        const keyId = process.env.NEXT_RAZORPAY_KEY_ID || process.env.RAZORPAY_KEY_ID;
+        const keySecret = process.env.NEXT_RAZORPAY_KEY_SECRET || process.env.RAZORPAY_KEY_SECRET;
+
+        if (!keyId || !keySecret) {
             return NextResponse.json(
-                { error: "Razorpay keys are missing on the server." },
+                { error: "Razorpay keys are missing on the server. Please check your .env file for RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET." },
                 { status: 500 }
             );
         }
 
         const instance = new Razorpay({
-            key_id: process.env.NEXT_RAZORPAY_KEY_ID,
-            key_secret: process.env.NEXT_RAZORPAY_KEY_SECRET,
+            key_id: keyId,
+            key_secret: keySecret,
         });
 
         const options = {

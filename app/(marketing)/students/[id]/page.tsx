@@ -113,8 +113,10 @@ export default function StudentDetailsPage({
       const order = await orderRes.json();
 
       // 2. Configure Razorpay Options
+      const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+      
       const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        key: razorpayKey,
         amount: order.amount,
         currency: order.currency,
         name: "Seva Samarpan",
