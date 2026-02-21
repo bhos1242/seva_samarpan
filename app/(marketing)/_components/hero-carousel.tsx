@@ -64,34 +64,34 @@ export const HeroCarousel = () => {
     }
 
     return (
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-            <div className="grid md:grid-cols-2 gap-8 items-center min-h-[500px] md:min-h-[600px]">
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center min-h-[400px] md:min-h-[500px]">
                 {/* Text Content */}
                 <div className="relative z-10 order-2 md:order-1 flex flex-col justify-center space-y-6">
-                    <div key={currentIndex} className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-700">
-                        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-bold w-fit border border-primary/20 shadow-sm">
-                            <span className="relative flex h-2.5 w-2.5">
+                    <div key={currentIndex} className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-left-8 duration-700">
+                        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-bold w-fit border border-primary/20 shadow-sm">
+                            <span className="relative flex h-2 w-2 md:h-2.5 md:w-2.5">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 md:h-2.5 md:w-2.5 bg-primary"></span>
                             </span>
-                            <span className="uppercase tracking-wider text-xs">Featured Program</span>
+                            <span className="uppercase tracking-wider text-[10px] md:text-xs">Featured Program</span>
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
                             {programs[currentIndex].title}
                         </h1>
 
-                        <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
+                        <p className="text-base md:text-lg text-muted-foreground max-w-lg leading-snug md:leading-relaxed font-medium">
                             {programs[currentIndex].description}
                         </p>
 
-                        <div className="flex flex-wrap gap-4 pt-4">
-                            <Button size="lg" className="rounded-full h-14 px-8 font-bold shadow-lg shadow-primary/30 hover:shadow-xl transition-all duration-300" asChild>
+                        <div className="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-4">
+                            <Button size="lg" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold shadow-md shadow-primary/20 hover:shadow-lg transition-all duration-300 text-sm md:text-base" asChild>
                                 <Link href={programs[currentIndex].link}>
-                                    Learn More <ArrowRight className="ml-2 h-5 w-5" />
+                                    Learn More <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" size="lg" className="rounded-full h-14 px-8 font-bold border-2 hover:bg-muted/50 transition-all duration-300" asChild>
+                            <Button variant="outline" size="lg" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold border-2 hover:bg-muted/50 transition-all duration-300 text-sm md:text-base" asChild>
                                 <Link href="/donate">
                                     Support Us
                                 </Link>
@@ -100,14 +100,14 @@ export const HeroCarousel = () => {
                     </div>
 
                     {/* Indicators */}
-                    <div className="flex items-center space-x-3 mt-8">
+                    <div className="flex items-center space-x-2.5 mt-6 md:mt-8">
                         {programs.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => goToSlide(index)}
                                 className={`transition-all duration-300 rounded-full ${index === currentIndex
-                                    ? 'w-8 h-2 bg-primary'
-                                    : 'w-2 h-2 bg-muted hover:bg-primary/30'
+                                    ? 'w-6 h-1.5 md:w-8 md:h-2 bg-primary'
+                                    : 'w-1.5 h-1.5 md:w-2 md:h-2 bg-muted hover:bg-primary/30'
                                     }`}
                                 aria-label={`Go to slide ${index + 1}`}
                             />

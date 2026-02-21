@@ -30,14 +30,14 @@ export function ProgramsSection() {
   return (
     <section className="py-8 md:py-12 bg-background">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4">What We Do</h2>
-          <p className="text-lg text-muted-foreground">
+        <div className="text-center max-w-3xl mx-auto mb-8 md:mb-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">What We Do</h2>
+          <p className="text-base md:text-lg text-muted-foreground">
             Seva Samarpan is dedicated to transforming lives through education and compassionate care.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           {programs.map((program, index) => {
             // Apply different branding colors based on the data 'color' field
             const badgeBg = program.color === 'primary' ? 'bg-primary/10' : program.color === 'secondary' ? 'bg-secondary/10' : 'bg-accent/10';
@@ -47,17 +47,17 @@ export function ProgramsSection() {
             return (
               <Link key={index} href={program.link} className="block group">
                 <Card className="h-full transition-all duration-300 hover:-translate-y-2 hover:shadow-xl border-none ring-1 ring-border/30 bg-white/60 dark:bg-zinc-950/60 flex flex-col">
-                  <CardHeader>
-                    <div className={`w-14 h-14 rounded-2xl ${badgeBg} flex items-center justify-center mb-4 transition-transform group-hover:scale-110 shadow-sm ${shadowClass}`}>
-                      <program.icon className={`h-7 w-7 ${iconText}`} />
+                  <CardHeader className="p-5 md:p-6 pb-2 md:pb-3">
+                    <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl ${badgeBg} flex items-center justify-center mb-3 md:mb-4 transition-transform group-hover:scale-110 shadow-sm ${shadowClass}`}>
+                      <program.icon className={`h-6 w-6 md:h-7 md:w-7 ${iconText}`} />
                     </div>
-                    <CardTitle className="text-2xl">{program.title}</CardTitle>
+                    <CardTitle className="text-xl md:text-2xl">{program.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-1 flex flex-col justify-between">
-                    <p className="text-muted-foreground leading-relaxed mb-6">
+                  <CardContent className="p-5 md:p-6 pt-0 flex-1 flex flex-col justify-between space-y-4 md:space-y-6">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                       {program.description}
                     </p>
-                    <div className={`flex items-center font-bold group-hover:translate-x-1 transition-transform ${iconText}`}>
+                    <div className={`flex items-center text-sm md:text-base font-bold group-hover:translate-x-1 transition-transform ${iconText}`}>
                       Learn More <ArrowRight className="ml-2 h-4 w-4" />
                     </div>
                   </CardContent>

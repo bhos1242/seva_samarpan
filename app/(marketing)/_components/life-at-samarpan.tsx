@@ -4,21 +4,21 @@ import { ArrowRight } from "lucide-react";
 
 export function LifeAtSamarpan() {
   return (
-    <section className="py-8 md:py-12 bg-background overflow-hidden" id="life-at-samarpan">
+    <section className="py-6 md:py-10 bg-background overflow-hidden" id="life-at-samarpan">
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-end justify-between gap-6 mb-10 md:mb-12">
+        <div className="flex flex-col md:flex-row items-end justify-between gap-4 md:gap-6 mb-8 md:mb-10">
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4">Life at Seva Samarpan</h2>
-            <p className="text-lg text-muted-foreground">
+            <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Life at Seva Samarpan</h2>
+            <p className="text-base md:text-lg text-muted-foreground">
               Glimpses of the daily life, happiness, and community at our Old Age Home in Mulshi.
             </p>
           </div>
-          <Link href="/about" className="text-primary font-bold flex items-center gap-2 hover:underline underline-offset-4">
-            View Our Story <ArrowRight className="h-4 w-4" />
+          <Link href="/about" className="text-primary font-bold flex items-center gap-2 hover:underline underline-offset-4 text-sm md:text-base">
+            View Our Story <ArrowRight className="h-4 w-4 md:h-5 md:w-5" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6">
           <div className="md:col-span-2 md:row-span-2 relative aspect-4/5 md:aspect-auto rounded-[2rem] overflow-hidden group shadow-2xl">
              <Image 
               src="/old-age/image.png" 
