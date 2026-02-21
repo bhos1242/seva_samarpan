@@ -181,12 +181,12 @@ export function Navbar() {
                     <span className="sr-only">Toggle menu</span>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-[85vw] sm:w-[400px] p-0 flex flex-col border-none shadow-2xl">
-                  <div className="p-8 bg-linear-to-br from-primary/10 via-background to-background border-b border-border/50">
+                <SheetContent side="right" className="w-[85vw] sm:w-[350px] p-0 flex flex-col border-none shadow-2xl">
+                  <div className="p-5 bg-linear-to-br from-primary/10 via-background to-background border-b border-border/50">
                     <SheetHeader className="text-left">
                       <SheetTitle>
                         <Link href="/" className="flex items-center gap-3 group">
-                          <div className="relative h-14 w-56 transition-all duration-500 group-hover:scale-105">
+                          <div className="relative h-16 w-56 transition-all duration-500 group-hover:scale-105">
                             <Image
                               src="/logo/logo_high.png"
                               alt="Seva Samarpan Logo"
@@ -200,19 +200,19 @@ export function Navbar() {
                     </SheetHeader>
                   </div>
 
-                  <div className="flex-1 overflow-y-auto py-8 px-6">
-                    <div className="grid gap-2">
+                  <div className="flex-1 overflow-y-auto py-4 px-4">
+                    <div className="grid gap-1">
                       {navLinks.map((link) => {
                         const Icon = link.icon
                         return (
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="flex items-center gap-4 px-4 py-4 text-lg font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-2xl transition-all group"
+                            className="flex items-center gap-3 px-3 py-2.5 text-base font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all group"
                             onClick={() => setIsOpen(false)}
                           >
-                            <div className="p-3 rounded-xl bg-muted group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
-                              <Icon className="h-6 w-6 group-hover:text-primary" />
+                            <div className="p-2 rounded-lg bg-muted group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
+                              <Icon className="h-5 w-5 group-hover:text-primary" />
                             </div>
                             {link.label}
                           </Link>
@@ -221,33 +221,33 @@ export function Navbar() {
                     </div>
                   </div>
 
-                  <div className="p-8 border-t border-border/50 bg-muted/20 mt-auto">
-                    <div className="space-y-6">
+                  <div className="p-5 border-t border-border/50 bg-muted/20 mt-auto">
+                    <div className="space-y-4">
                       {!isLoading && !isAuthenticated && (
-                        <div className="grid grid-cols-2 gap-4">
-                          <Button variant="outline" onClick={() => {signIn(); setIsOpen(false)}} className="w-full h-14 rounded-2xl font-bold border-border/50">
-                            <LogIn className="mr-2 h-5 w-5" />
+                        <div className="grid grid-cols-2 gap-3">
+                          <Button variant="outline" onClick={() => {signIn(); setIsOpen(false)}} className="w-full h-11 rounded-xl font-bold border-border/50">
+                            <LogIn className="mr-2 h-4 w-4" />
                             Login
                           </Button>
-                          <Button className="w-full h-14 rounded-2xl font-bold shadow-xl shadow-primary/20" onClick={() => {signIn(); setIsOpen(false)}}>
-                            <UserPlus className="mr-2 h-5 w-5" />
+                          <Button className="w-full h-11 rounded-xl font-bold shadow-md shadow-primary/20" onClick={() => {signIn(); setIsOpen(false)}}>
+                            <UserPlus className="mr-2 h-4 w-4" />
                             Join
                           </Button>
                         </div>
                       )}
 
                       {isAuthenticated && session.user && (
-                        <div className="space-y-4 bg-background p-5 rounded-2xl border border-border/50 shadow-sm">
-                          <div className="flex items-center gap-4 pb-4 border-b border-border/50">
-                            <Avatar className="h-12 w-12 ring-2 ring-primary/20">
+                        <div className="space-y-3 bg-background p-4 rounded-xl border border-border/50 shadow-sm">
+                          <div className="flex items-center gap-3 pb-3 border-b border-border/50">
+                            <Avatar className="h-10 w-10 ring-2 ring-primary/20">
                               <AvatarImage src={session.user.image || ""} />
                               <AvatarFallback className="bg-primary/10 text-primary font-bold">
                                 {session.user.name?.charAt(0).toUpperCase()}
                               </AvatarFallback>
                             </Avatar>
                             <div className="flex-1 min-w-0">
-                              <p className="font-bold truncate text-lg">{session.user.name}</p>
-                              <p className="text-sm text-muted-foreground truncate">{session.user.email}</p>
+                              <p className="font-bold truncate text-base">{session.user.name}</p>
+                              <p className="text-xs text-muted-foreground truncate">{session.user.email}</p>
                             </div>
                           </div>
 
@@ -256,37 +256,37 @@ export function Navbar() {
                                <>
                                 <Link 
                                   href="/admin" 
-                                  className="flex items-center gap-3 px-3 py-3 font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                   onClick={() => setIsOpen(false)}
                                 >
-                                  <LayoutDashboard className="h-5 w-5" />
+                                  <LayoutDashboard className="h-4 w-4" />
                                   Admin Panel
                                 </Link>
                                 <Link 
                                   href="/admin/settings" 
-                                  className="flex items-center gap-3 px-3 py-3 font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                   onClick={() => setIsOpen(false)}
                                 >
-                                  <Settings className="h-5 w-5" />
+                                  <Settings className="h-4 w-4" />
                                   Settings
                                 </Link>
                                </>
                             ) : (
                                 <Link 
                                   href="/profile" 
-                                  className="flex items-center gap-3 px-3 py-3 font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all"
+                                  className="flex items-center gap-2 px-3 py-2 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                   onClick={() => setIsOpen(false)}
                                 >
-                                  <Heart className="h-5 w-5" />
+                                  <Heart className="h-4 w-4" />
                                   My Impact
                                 </Link>
                             )}
                             
                             <button
                               onClick={() => { signOut(); setIsOpen(false); }}
-                              className="w-full flex items-center gap-3 px-3 py-3 font-bold text-destructive hover:bg-destructive/5 rounded-xl transition-all text-left"
+                              className="w-full flex items-center gap-2 px-3 py-2 text-sm font-bold text-destructive hover:bg-destructive/5 rounded-lg transition-all text-left"
                             >
-                              <LogIn className="h-5 w-5 rotate-180" />
+                              <LogIn className="h-4 w-4 rotate-180" />
                               Sign Out
                             </button>
                           </div>
@@ -294,7 +294,7 @@ export function Navbar() {
                       )}
 
                       <Link href="/students" onClick={() => setIsOpen(false)} className="block">
-                        <Button className="w-full h-16 text-lg font-black uppercase tracking-tight shadow-2xl shadow-primary/30 rounded-2xl">
+                        <Button className="w-full h-12 text-base font-black uppercase tracking-tight shadow-lg shadow-primary/30 rounded-xl">
                           Sponsor a Student
                         </Button>
                       </Link>
