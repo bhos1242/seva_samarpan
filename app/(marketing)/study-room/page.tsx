@@ -6,13 +6,14 @@ import { VisualGallery } from './_components/visual-gallery'
 import { VisitSupportSection } from './_components/visit-support-section'
 
 export const metadata: Metadata = {
-    title: 'Seva Samarpan Abhyasika | Free Study Room & Library in Pune',
-    description: 'A dedicated study space providing over 1,500 books and modern resources for tribal and underprivileged students in Mulshi, Pune.',
+    title: 'Free Study Room in Pune | NGO Helping Students | Seva Samarpan',
+    description: 'Seva Samarpan is a leading NGO helping students with a free study room and library in Pune (Mulshi). Supporting underprivileged education through modern resources.',
+    keywords: ["free study room in Pune", "NGO helping student", "student sponsorship NGO", "library for underprivileged", "Seva Samarpan Abhyasika"],
     openGraph: {
-        title: 'Seva Samarpan Abhyasika | Free Study Room & Library in Pune',
+        title: 'Seva Samarpan | Free Study Room & NGO Helping Students',
         description: 'Empowering students with a vast library and serene study space in Mulshi, Pune.',
         url: '/study-room',
-        images: [{ url: '/programs/samarpan.png', width: 1200, height: 630, alt: 'Study Room' }],
+        images: [{ url: "/programs/samarpan.png", width: 1200, height: 630, alt: 'Study Room' }],
     }
 }
 

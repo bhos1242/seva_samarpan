@@ -21,8 +21,8 @@ export const metadata: Metadata = {
     default: "Seva Samarpan | NGO in Mulshi, Pune",
     template: "%s | Seva Samarpan",
   },
-  description: "Empowering lives through education and care in Mulshi, Pune. We provide free study rooms, education sponsorships, and run an old age home.",
-  keywords: ["NGO", "Mulshi", "Pune", "Education", "Old Age Home", "Charity", "Social Work", "Seva Samarpan"],
+  description: "Empowering lives through education and care in Mulshi, Pune. We provide free study rooms, education sponsorships, and run a dignified old age home.",
+  keywords: ["NGO", "NGO near me", "best NGO near me", "Mulshi", "Pune", "Education", "Old Age Home", "Charity", "Social Work", "Seva Samarpan"],
   authors: [{ name: "Seva Samarpan" }],
   creator: "Seva Samarpan",
   openGraph: {
