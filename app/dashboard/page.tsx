@@ -35,11 +35,11 @@ export default async function DashboardPage() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-          <p className="text-muted-foreground">
+        <div className="space-y-1">
+          <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
+          <p className="text-sm text-muted-foreground hidden sm:block">
             Welcome back! Here&apos;s what&apos;s happening.
           </p>
         </div>
@@ -47,7 +47,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-3 md:gap-4 grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Total Users"
           value="2,543"
@@ -83,12 +83,12 @@ export default async function DashboardPage() {
       </div>
 
       {/* Charts */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Monthly Bookings</CardTitle>
+      <div className="grid gap-3 md:gap-4 md:grid-cols-2">
+        <Card className="shadow-sm">
+          <CardHeader className="p-4 pb-2">
+            <CardTitle className="text-base">Monthly Bookings</CardTitle>
           </CardHeader>
-          <CardContent className="h-80 flex items-center justify-center">
+          <CardContent className="h-48 md:h-64 flex items-center justify-center p-4 pt-0">
             <BarChart
               data={bookingsData}
               dataKey="bookings"
@@ -99,11 +99,11 @@ export default async function DashboardPage() {
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Revenue Trend</CardTitle>
+        <Card className="shadow-sm">
+          <CardHeader className="p-4 pb-2">
+            <CardTitle className="text-base">Revenue Trend</CardTitle>
           </CardHeader>
-          <CardContent className="h-80 flex items-center justify-center">
+          <CardContent className="h-48 md:h-64 flex items-center justify-center p-4 pt-0">
             <LineChart
               data={revenueData}
               dataKey="revenue"
@@ -116,28 +116,28 @@ export default async function DashboardPage() {
       </div>
 
       {/* Recent Activity */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Recent Activity</CardTitle>
+      <Card className="shadow-sm">
+        <CardHeader className="p-4 pb-2">
+          <CardTitle className="text-base">Recent Activity</CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b pb-3">
+        <CardContent className="p-4 pt-0">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between border-b border-border/50 pb-2">
               <div>
-                <p className="font-medium">New booking created</p>
-                <p className="text-sm text-muted-foreground">2 hours ago</p>
+                <p className="text-sm font-medium leading-none mb-1">New booking created</p>
+                <p className="text-xs text-muted-foreground">2 hours ago</p>
               </div>
             </div>
-            <div className="flex items-center justify-between border-b pb-3">
+            <div className="flex items-center justify-between border-b border-border/50 pb-2">
               <div>
-                <p className="font-medium">User registration</p>
-                <p className="text-sm text-muted-foreground">5 hours ago</p>
+                <p className="text-sm font-medium leading-none mb-1">User registration</p>
+                <p className="text-xs text-muted-foreground">5 hours ago</p>
               </div>
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium">Payment received</p>
-                <p className="text-sm text-muted-foreground">1 day ago</p>
+                <p className="text-sm font-medium leading-none mb-1">Payment received</p>
+                <p className="text-xs text-muted-foreground">1 day ago</p>
               </div>
             </div>
           </div>

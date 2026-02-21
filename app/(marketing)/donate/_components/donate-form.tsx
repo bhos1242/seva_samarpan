@@ -171,7 +171,7 @@ export function DonateForm() {
     }
 
     return (
-        <Card className="border-none shadow-2xl bg-card rounded-[2.5rem] overflow-hidden ring-1 ring-border/50">
+        <Card className="border-none shadow-xl bg-card rounded-2xl md:rounded-[2rem] overflow-hidden ring-1 ring-border/50">
             <Script
                 src="https://checkout.razorpay.com/v1/checkout.js"
                 strategy="lazyOnload"
@@ -179,85 +179,85 @@ export function DonateForm() {
                 onError={() => toast.error("Failed to load payment gateway")}
             />
             
-            <CardHeader className="bg-primary/5 pb-8 pt-10 text-center border-b">
-                <CardTitle className="text-2xl font-bold uppercase tracking-tight mb-2">Secure Donation</CardTitle>
-                <CardDescription className="text-base">Join us in making a difference today.</CardDescription>
+            <CardHeader className="bg-primary/5 pb-4 md:pb-6 pt-6 md:pt-8 text-center border-b">
+                <CardTitle className="text-xl md:text-2xl font-bold uppercase tracking-tight mb-1 md:mb-2">Secure Donation</CardTitle>
+                <CardDescription className="text-sm md:text-base font-medium">Join us in making a difference today.</CardDescription>
             </CardHeader>
             
-            <CardContent className="p-6 md:p-10">
+            <CardContent className="p-4 md:p-8">
                 <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 md:space-y-8">
                     {/* Amount Selection */}
-                    <div className="space-y-4">
-                        <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Select Amount (₹)</label>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="space-y-3 md:space-y-4">
+                        <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-muted-foreground">Select Amount (₹)</label>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
                             {PRESET_AMOUNTS.map((amt) => (
                                 <Button
                                     key={amt}
                                     type="button"
                                     variant={selectedAmount === amt && !customAmount ? 'default' : 'outline'}
                                     onClick={() => handlePresetClick(amt)}
-                                    className="h-14 font-bold text-lg rounded-xl"
+                                    className="h-12 md:h-14 font-bold text-base md:text-lg rounded-xl"
                                 >
                                     ₹{amt}
                                 </Button>
                             ))}
                         </div>
-                        <div className="pt-2">
+                        <div className="pt-1 md:pt-2">
                             <InputField 
                                 name="amount"
                                 type="number"
                                 placeholder="Other Amount (₹)"
-                                className="h-14 bg-muted/30 border-none font-bold text-lg rounded-xl"
+                                className="h-12 md:h-14 bg-muted/30 border-none font-bold text-base md:text-lg rounded-xl"
                             />
                         </div>
                     </div>
 
-                    <div className="space-y-6">
-                        <label className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Your Details</label>
+                    <div className="space-y-4 md:space-y-6">
+                        <label className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-muted-foreground">Your Details</label>
                         
-                        <div className="space-y-4">
+                        <div className="space-y-3 md:space-y-4">
                             <InputField 
                                 name="name"
                                 type="text"
                                 placeholder="Full Name"
-                                className="h-14 bg-muted/30 border-none rounded-xl"
+                                className="h-12 md:h-14 bg-muted/30 border-none rounded-xl"
                             />
 
-                            <div className="grid md:grid-cols-2 gap-4">
+                            <div className="grid md:grid-cols-2 gap-3 md:gap-4">
                                 <InputField 
                                     name="email"
                                     type="email"
                                     placeholder="Email Address"
-                                    className="h-14 bg-muted/30 border-none rounded-xl"
+                                    className="h-12 md:h-14 bg-muted/30 border-none rounded-xl"
                                 />
                                 <InputField 
                                     name="phone"
                                     type="phone"
                                     placeholder="Phone Number"
-                                    className="h-14 bg-muted/30 border-none rounded-xl"
+                                    className="h-12 md:h-14 bg-muted/30 border-none rounded-xl"
                                 />
                             </div>
                         </div>
                     </div>
 
-                    <div className="pt-4 space-y-4">
+                    <div className="pt-2 md:pt-4 space-y-3 md:space-y-4">
                         <Button 
                             type="submit" 
                             size="lg" 
-                            className="w-full h-16 rounded-2xl text-lg font-black uppercase shadow-xl hover:scale-[1.02] transition-transform shadow-primary/20 gap-2"
+                            className="w-full h-14 md:h-16 rounded-xl md:rounded-2xl text-base md:text-lg font-black uppercase shadow-lg md:shadow-xl hover:scale-[1.02] transition-transform shadow-primary/20 gap-2"
                             disabled={createOrderMutation.isPending || !isScriptLoaded}
                         >
                             {createOrderMutation.isPending ? (
-                                <Loader2 className="h-6 w-6 animate-spin" />
+                                <Loader2 className="h-5 w-5 md:h-6 md:w-6 animate-spin" />
                             ) : (
-                                <Heart className="h-6 w-6 fill-current" />
+                                <Heart className="h-5 w-5 md:h-6 md:w-6 fill-current" />
                             )}
                             Donate {selectedAmount ? `₹${selectedAmount}` : ''}
                         </Button>
 
-                        <div className="flex items-center justify-center gap-2 text-muted-foreground text-xs font-bold uppercase tracking-wider">
-                             <Lock className="h-4 w-4" /> 
+                        <div className="flex items-center justify-center gap-1.5 md:gap-2 text-muted-foreground text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                             <Lock className="h-3 w-3 md:h-4 md:w-4" /> 
                              100% Secure Payment by Razorpay
                         </div>
                     </div>
