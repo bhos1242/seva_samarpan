@@ -304,6 +304,14 @@ export default function StudentDetailsPage({
                     Achievements
                   </TabsTrigger>
                 )}
+                {student.donations && student.donations.length > 0 && (
+                  <TabsTrigger
+                    value="supporters"
+                    className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-foreground rounded-none px-0 py-3 text-sm md:text-base font-bold whitespace-nowrap data-[state=active]:shadow-none"
+                  >
+                    Supporters ({student.donations.length})
+                  </TabsTrigger>
+                )}
               </TabsList>
               <TabsContent value="story" className="mt-6">
                 <div className="prose prose-sm md:prose-base max-w-none text-muted-foreground leading-relaxed whitespace-pre-line font-medium">
@@ -326,6 +334,47 @@ export default function StudentDetailsPage({
                           </div>
                           <p className="font-medium text-sm text-foreground/80 md:text-base leading-snug">
                             {achievement.replace(/^[•\-\*]\s*/, "")}
+                          </p>
+                        </div>
+                      ))}
+                  </div>
+                </TabsContent>
+              )}
+              {student.donations && student.donations.length > 0 && (
+                <TabsContent value="supporters" className="mt-6">
+                  <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 supports-scrollbars:pr-2">
+                    {[...student.donations]
+                      .sort(
+                        (a: any, b: any) =>
+                          new Date(b.createdAt).getTime() -
+                          new Date(a.createdAt).getTime(),
+                      )
+                      .map((donation: any) => (
+                        <div
+                          key={donation.id}
+                          className="flex items-center justify-between p-4 rounded-xl bg-muted/20 border border-border/40 transition-colors hover:bg-muted/40"
+                        >
+                          <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                              <Heart className="h-4 w-4 text-primary" />
+                            </div>
+                            <div>
+                              <p className="font-bold text-sm md:text-base text-foreground/90 capitalize">
+                                {donation.name || "Anonymous Donor"}
+                              </p>
+                              <p className="text-xs text-muted-foreground">
+                                {new Date(
+                                  donation.createdAt,
+                                ).toLocaleDateString("en-US", {
+                                  month: "short",
+                                  day: "numeric",
+                                  year: "numeric",
+                                })}
+                              </p>
+                            </div>
+                          </div>
+                          <p className="font-black text-primary text-sm md:text-base bg-primary/10 px-3 py-1 rounded-full whitespace-nowrap">
+                            ₹{donation.amount}
                           </p>
                         </div>
                       ))}
