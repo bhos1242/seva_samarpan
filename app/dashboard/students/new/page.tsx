@@ -72,8 +72,8 @@ export default function NewStudentPage() {
       toast.success("Student added successfully");
       router.push("/dashboard/students");
       router.refresh();
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setIsSubmitting(false);
     }

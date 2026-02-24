@@ -20,7 +20,7 @@ const updateProfileSchema = z.object({
 });
 
 // GET: Fetch current user profile
-export async function GET(req: NextRequest) {
+export async function GET() {
     try {
         const session = await auth();
 

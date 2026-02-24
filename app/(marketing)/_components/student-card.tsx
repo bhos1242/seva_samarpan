@@ -2,15 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { MapPin, GraduationCap } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export interface StudentCardProps {
   student: {
@@ -34,7 +29,6 @@ export function StudentCard({ student, className }: StudentCardProps) {
   );
   const remaining = student.requiredAmount - student.collectedAmount;
 
-  // Simple currency formatter as we don't have the sophisticated one in app folder yet
   const formatINR = (amt: number) =>
     new Intl.NumberFormat("en-IN", {
       style: "currency",
@@ -43,77 +37,99 @@ export function StudentCard({ student, className }: StudentCardProps) {
     }).format(amt);
 
   return (
-    <Card
-      className={`overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col border-border/40 bg-card rounded-2xl ${className || ""}`}
+    <div
+      className={cn(
+        "group relative flex flex-col overflow-hidden rounded-[1.5rem] md:rounded-[2.5rem] bg-white dark:bg-zinc-950 border border-border/40 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-primary/10",
+        className
+      )}
     >
-      <Link
-        href={`/sponsor-students/${student.id}`}
-        className="block relative h-40 md:h-48 w-full overflow-hidden bg-muted/50"
-      >
-        <Image
-          src={student.photoUrl}
-          alt={student.fullName}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-      </Link>
+      {/* Image Container */}
+      <div className="relative aspect-square w-full overflow-hidden">
+        <Link href={`/sponsor-students/${student.id}`} className="block w-full h-full">
+          <Image
+            src={student.photoUrl}
+            alt={student.fullName}
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          />
+          {/* Subtle gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+        </Link>
+        
+        {/* Badges - Top left */}
+        <div className="absolute top-2 left-2 md:top-4 md:left-4 flex flex-col gap-1.5">
+          <Badge className="bg-white/95 hover:bg-white text-zinc-950 border-none backdrop-blur-md font-black text-[7px] md:text-[10px] uppercase tracking-widest px-2 py-0.5 md:px-3 md:py-1 rounded-md md:rounded-lg shadow-xl">
+            {student.category}
+          </Badge>
+        </div>
 
-      <CardHeader className="p-4 pb-2 space-y-1.5">
-        <div className="flex justify-between items-start gap-2">
-          <Link
-            href={`/sponsor-students/${student.id}`}
-            className="hover:underline decoration-primary underline-offset-2 decoration-2 group-hover:text-primary transition-colors"
-          >
-            <h3 className="text-base md:text-lg font-bold truncate leading-tight text-foreground/90">
+        {/* Location - Bottom left */}
+        <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 flex items-center gap-1 text-white/95">
+          <div className="bg-primary p-0.5 md:p-1 rounded-sm md:rounded-md shadow-lg">
+            <MapPin className="h-2 w-2 md:h-3 md:w-3 text-white" />
+          </div>
+          <span className="text-[9px] md:text-xs font-black truncate drop-shadow-md tracking-tight">
+            {student.location}
+          </span>
+        </div>
+      </div>
+
+      {/* Content Area */}
+      <div className="flex flex-col flex-1 p-2.5 md:p-5 space-y-2 md:space-y-4">
+        {/* Name and Basic Info */}
+        <div className="space-y-0.5 md:space-y-1">
+          <Link href={`/sponsor-students/${student.id}`} className="group/title inline-block max-w-full">
+            <h3 className="text-xs md:text-xl font-black leading-tight tracking-tighter text-foreground group-hover/title:text-primary transition-colors line-clamp-1">
               {student.fullName}
-              {student.age && (
-                <span className="text-muted-foreground text-xs md:text-sm font-medium ml-1.5">
-                  ({student.age})
-                </span>
-              )}
             </h3>
           </Link>
-        </div>
-
-        <div className="flex flex-col gap-1 text-[11px] md:text-xs text-muted-foreground font-medium">
-          <div className="flex items-center gap-1.5">
-            <GraduationCap className="h-3 w-3 text-primary shrink-0" />
-            <span className="truncate">
-              {student.standard} <span className="opacity-50">•</span>{" "}
-              {student.schoolOrCollege}
-            </span>
+          <div className="flex items-center gap-1 text-muted-foreground/70">
+            <GraduationCap className="h-2.5 w-2.5 md:h-4 md:w-4 text-primary/60" />
+            <p className="text-[9px] md:text-sm font-bold truncate tracking-tight">
+              {student.standard}
+            </p>
           </div>
         </div>
-      </CardHeader>
 
-      <CardContent className="p-4 pt-2 space-y-3 flex-1 flex flex-col justify-end">
-        <div>
-          <div className="flex justify-between text-xs mb-1.5 font-semibold">
-            <span className="text-primary tracking-tight">
-              {formatINR(student.collectedAmount)}
-            </span>
-            <span className="text-muted-foreground tracking-tight">
-              Goal {formatINR(student.requiredAmount)}
-            </span>
+        {/* Funding Widget */}
+        <div className="bg-zinc-50 dark:bg-zinc-900/50 p-2 md:p-4 rounded-xl md:rounded-2xl border border-zinc-200/50 dark:border-zinc-800/50 space-y-1.5 md:space-y-3">
+          <div className="flex justify-between items-end">
+            <div className="space-y-0">
+              <span className="text-[7px] md:text-[10px] font-black uppercase tracking-widest text-muted-foreground/50">Support</span>
+              <p className="text-[10px] md:text-lg font-black text-primary leading-none">
+                {formatINR(student.collectedAmount)}
+              </p>
+            </div>
           </div>
-          <Progress value={percentage} className="h-1.5 bg-muted/60" />
-          <p className="text-[10px] flex justify-between mt-2 font-bold uppercase tracking-widest text-muted-foreground">
-            <span>{percentage}%</span>
-            <span>{formatINR(remaining)} left</span>
-          </p>
-        </div>
-      </CardContent>
+          
+          <div className="relative md:pt-1">
+            <div className="h-1 md:h-2 w-full bg-zinc-200 dark:bg-zinc-800 rounded-full overflow-hidden border border-white dark:border-zinc-700 shadow-inner">
+               <div 
+                 className="h-full bg-primary transition-all duration-1000 ease-out rounded-full"
+                 style={{ width: `${percentage}%` }}
+               />
+            </div>
+          </div>
 
-      <CardFooter className="p-4 pt-0">
-        <Button
-          className="w-full h-10 md:h-11 shadow-sm hover:shadow-md transition-all rounded-xl font-bold uppercase tracking-wider text-xs md:text-sm group-hover:bg-primary/90 group-hover:text-primary-foreground"
-          variant="outline"
-          asChild
-        >
-          <Link href={`/sponsor-students/${student.id}`}>Sponsor Now</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+          <div className="flex justify-between items-center text-[7px] md:text-[10px] font-black uppercase tracking-tighter">
+            <span className="text-muted-foreground/70">{percentage}% Reached</span>
+            <span className="text-primary/70">{formatINR(remaining)} to go</span>
+          </div>
+        </div>
+
+        {/* Action Button */}
+        <div className="pt-1">
+          <Button
+            className="w-full h-8 md:h-14 font-black uppercase tracking-tighter text-[9px] md:text-sm rounded-lg md:rounded-2xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-[1.03] active:scale-95 bg-primary text-white border-none"
+            asChild
+          >
+            <Link href={`/sponsor-students/${student.id}`}>
+              Sponsor Now
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 }

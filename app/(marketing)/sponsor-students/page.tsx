@@ -10,8 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card } from "@/components/ui/card";
-import { Search, Filter, Loader2, GraduationCap } from "lucide-react";
+import { Search, Loader2, GraduationCap } from "lucide-react";
 import { StudentCard, StudentCardProps } from "../_components/student-card";
 
 export default function StudentsPage() {
@@ -48,56 +47,44 @@ export default function StudentsPage() {
   return (
     <div className="flex flex-col min-h-screen pb-20">
       {/* Header Section */}
-      <section className="relative py-12 md:py-16 bg-muted/30 border-b">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-size-[50px_50px]" />
-        <div className="max-w-6xl mx-auto px-4 relative text-center space-y-3">
-          <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase leading-tight">
+      <section className="relative py-8 md:py-16 bg-muted/20 border-b">
+        <div className="max-w-8xl mx-auto px-4 relative text-center space-y-2">
+          <h1 className="text-2xl md:text-5xl font-black tracking-tighter uppercase leading-tight">
             Sponsor <span className="text-primary italic">Students</span>
           </h1>
-          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto font-medium">
-            Your contribution can change a life forever. Choose a student to
-            support their education and dreams. Every child deserves a chance.
+          <p className="text-xs md:text-lg text-muted-foreground max-w-2xl mx-auto font-medium opacity-80">
+            Empower underprivileged students with quality education. 
+            Every contribution changes a life.
           </p>
         </div>
       </section>
 
-      <div className="max-w-6xl mx-auto px-4 -mt-6 md:-mt-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 -mt-5 relative z-10">
         {/* Filters */}
-        <Card className="p-3 md:p-4 shadow-lg border-border/50 bg-card mb-8 md:mb-10 rounded-2xl">
-          <div className="flex flex-col md:flex-row gap-3 items-center justify-between">
-            <div className="relative w-full md:max-w-md">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search by name..."
-                className="pl-9 h-10 md:h-11 bg-muted/30 border-none focus-visible:ring-primary rounded-xl text-sm"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-            </div>
-            <div className="flex items-center gap-2 w-full md:w-auto shrink-0">
-              <Filter className="h-4 w-4 text-muted-foreground hidden md:block" />
-              <Select value={category} onValueChange={setCategory}>
-                <SelectTrigger className="w-full md:w-[180px] h-10 md:h-11 bg-muted/30 border-none focus:ring-primary rounded-xl text-sm font-medium">
-                  <SelectValue placeholder="All Categories" />
-                </SelectTrigger>
-                <SelectContent className="rounded-xl">
-                  <SelectItem value="ALL" className="text-sm">
-                    All Categories
-                  </SelectItem>
-                  <SelectItem value="UNDERPRIVILEGED" className="text-sm">
-                    Underprivileged
-                  </SelectItem>
-                  <SelectItem value="TRIBAL" className="text-sm">
-                    Tribal
-                  </SelectItem>
-                  <SelectItem value="ORPHAN" className="text-sm">
-                    Orphan
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+        <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-card p-2 md:p-3 rounded-2xl shadow-xl border border-border/40 mb-6 md:mb-10">
+          <div className="relative w-full md:max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3 w-3 md:h-4 md:w-4 text-muted-foreground/60" />
+            <Input
+              placeholder="Search students..."
+              className="pl-9 h-9 md:h-11 bg-muted/20 border-none focus-visible:ring-1 focus-visible:ring-primary rounded-xl text-xs md:text-sm font-bold"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
-        </Card>
+          <div className="flex items-center gap-2 w-full md:w-auto">
+            <Select value={category} onValueChange={setCategory}>
+              <SelectTrigger className="w-full md:w-[160px] h-9 md:h-11 bg-muted/20 border-none focus:ring-1 focus:ring-primary rounded-xl text-xs md:text-sm font-bold uppercase tracking-tight">
+                <SelectValue placeholder="Category" />
+              </SelectTrigger>
+              <SelectContent className="rounded-xl border-none shadow-2xl">
+                <SelectItem value="ALL" className="text-xs font-bold uppercase">All</SelectItem>
+                <SelectItem value="UNDERPRIVILEGED" className="text-xs font-bold uppercase">Underprivileged</SelectItem>
+                <SelectItem value="TRIBAL" className="text-xs font-bold uppercase">Tribal</SelectItem>
+                <SelectItem value="ORPHAN" className="text-xs font-bold uppercase">Orphan</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
         {/* Grid */}
         {isLoading ? (
@@ -105,7 +92,7 @@ export default function StudentsPage() {
             <Loader2 className="h-10 w-10 animate-spin text-primary" />
           </div>
         ) : filteredStudents.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-8">
             {filteredStudents.map((student) => (
               <StudentCard key={student.id} student={student} />
             ))}

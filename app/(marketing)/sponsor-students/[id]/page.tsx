@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -29,11 +28,41 @@ import {
 } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
+import { RazorpayOptions, RazorpaySuccessResponse, RazorpayErrorResponse } from "@/types/razorpay";
+
+interface Donation {
+  id: string;
+  name?: string;
+  amount: number;
+  createdAt: string;
+}
+
+interface Student {
+  id: string;
+  fullName: string;
+  photoUrl: string;
+  age?: number;
+  standard: string;
+  schoolOrCollege: string;
+  location: string;
+  category: string;
+  requiredAmount: number;
+  collectedAmount: number;
+  progressPercentage?: number;
+  story?: string;
+  achievements?: string;
+  donations?: Donation[];
+}
+
+type RazorpayResponse = RazorpaySuccessResponse;
 
 // Declare Razorpay globally
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: new (options: RazorpayOptions) => {
+      on: (event: string, handler: (response: RazorpayErrorResponse) => void) => void;
+      open: () => void;
+    };
   }
 }
 
@@ -46,7 +75,7 @@ export default function StudentDetailsPage({
   const router = useRouter();
 
   // Core data state
-  const [student, setStudent] = useState<any>(null);
+  const [student, setStudent] = useState<Student | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Donation state
@@ -68,7 +97,7 @@ export default function StudentDetailsPage({
         if (!res.ok) throw new Error("Student not found");
         const data = await res.json();
         setStudent(data);
-      } catch (error) {
+      } catch {
         toast.error("Failed to load student details");
         router.push("/sponsor-students");
       } finally {
@@ -100,6 +129,8 @@ export default function StudentDetailsPage({
       return;
     }
 
+    if (!student) return;
+
     setIsSubmitting(true);
     try {
       // 1. Create Razorpay Order
@@ -122,7 +153,7 @@ export default function StudentDetailsPage({
         name: "Seva Samarpan",
         description: `Sponsorship for ${student.fullName}`,
         order_id: order.id,
-        handler: async function (response: any) {
+        handler: async function (response: RazorpayResponse) {
           try {
             const verifyRes = await fetch("/api/donations/verify", {
               method: "POST",
@@ -146,17 +177,18 @@ export default function StudentDetailsPage({
             toast.success("Donation successful! Thank you.");
 
             // Optimistically update the UI
-            setStudent((prev: any) => ({
-              ...prev,
-              collectedAmount: prev.collectedAmount + finalAmount,
-              progressPercentage: Math.min(
-                100,
-                Math.round(
-                  ((prev.collectedAmount + finalAmount) / prev.requiredAmount) *
-                    100,
+            setStudent((prev) => {
+              if (!prev) return null;
+              const newCollected = prev.collectedAmount + finalAmount;
+              return {
+                ...prev,
+                collectedAmount: newCollected,
+                progressPercentage: Math.min(
+                  100,
+                  Math.round((newCollected / prev.requiredAmount) * 100),
                 ),
-              ),
-            }));
+              };
+            });
 
             // Reset forms
             setDonorName("");
@@ -164,8 +196,8 @@ export default function StudentDetailsPage({
             setDonorPhone("");
             setPanNumber("");
             setNeeds80G(false);
-          } catch (err: any) {
-            toast.error(err.message || "Payment verification failed");
+          } catch (err) {
+            toast.error(err instanceof Error ? err.message : "Payment verification failed");
           }
         },
         prefill: {
@@ -177,12 +209,12 @@ export default function StudentDetailsPage({
       };
 
       const rzp = new window.Razorpay(options);
-      rzp.on("payment.failed", function (response: any) {
+      rzp.on("payment.failed", function (response: { error: { description: string } }) {
         toast.error(response.error.description || "Payment failed");
       });
       rzp.open();
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong initializing payment");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Something went wrong initializing payment");
     } finally {
       setIsSubmitting(false);
     }
@@ -221,10 +253,11 @@ export default function StudentDetailsPage({
               <div className="absolute inset-0 bg-primary/20 rounded-2xl md:rounded-3xl rotate-3 -z-10 group-hover:rotate-6 transition-transform duration-500" />
               <div className="w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-lg bg-card">
                 {student.photoUrl ? (
-                  <img
+                  <Image
                     src={student.photoUrl}
                     alt={student.fullName}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 ) : (
                   <div className="w-full h-full bg-muted flex items-center justify-center">
@@ -347,11 +380,11 @@ export default function StudentDetailsPage({
                   <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 supports-scrollbars:pr-2">
                     {[...student.donations]
                       .sort(
-                        (a: any, b: any) =>
+                        (a: Donation, b: Donation) =>
                           new Date(b.createdAt).getTime() -
                           new Date(a.createdAt).getTime(),
                       )
-                      .map((donation: any) => (
+                      .map((donation: Donation) => (
                         <div
                           key={donation.id}
                           className="flex items-center justify-between p-4 rounded-xl bg-muted/20 border border-border/40 transition-colors hover:bg-muted/40"

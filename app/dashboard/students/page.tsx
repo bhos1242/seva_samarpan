@@ -43,7 +43,7 @@ export default function AdminStudentsPage() {
       if (!response.ok) throw new Error("Failed to fetch students");
       const data = await response.json();
       setStudents(data);
-    } catch (error) {
+    } catch {
       toast.error("Error loading students");
     } finally {
       setIsLoading(false);
@@ -57,7 +57,7 @@ export default function AdminStudentsPage() {
       if (!response.ok) throw new Error("Failed to delete");
       toast.success("Student deleted successfully");
       fetchStudents();
-    } catch (error) {
+    } catch {
       toast.error("Failed to delete student");
     }
   };

@@ -205,7 +205,7 @@ function VerifyOTPContent() {
                   placeholder="Enter 4-digit OTP"
                   required
                   description="Enter the OTP code sent to your email"
-                  onComplete={(data) => {
+                  onComplete={() => {
                     // Auto-submit when all 4 digits are entered
                     form.handleSubmit(handleVerify)();
                   }}

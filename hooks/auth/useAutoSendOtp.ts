@@ -1,10 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 
-interface AutoSendOTPData {
-  email: string;
-}
-
 interface AutoSendOTPResponse {
   message: string;
 }

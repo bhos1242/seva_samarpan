@@ -2,7 +2,6 @@ import { StatsCard } from "@/components/stats-card";
 import { BarChart, LineChart } from "@/components/charts";
 import { Users, HeartHandshake, IndianRupee, TrendingUp } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { auth } from "@/lib/auth";
 import { TestNotificationButton } from "@/components/test-notification-button";
 import { prisma_db } from "@/lib/prisma";
 
@@ -25,7 +24,6 @@ interface MonthlyDonationStat {
 
 
 export default async function DashboardPage() {
-  const session = await auth();
 
   // Fetch actual stats from database
   const [
@@ -167,7 +165,7 @@ export default async function DashboardPage() {
             {recentDonations.length === 0 ? (
                 <p className="text-sm text-muted-foreground py-4 text-center">No recent donations yet.</p>
             ) : (
-                recentDonations.map((donation: any) => (
+                recentDonations.map((donation: { id: string; name: string; amount: number; createdAt: Date; student: { fullName: string } | null }) => (
                     <div key={donation.id} className="flex items-center justify-between border-b border-border/50 pb-2 last:border-0 last:pb-0">
                       <div>
                         <p className="text-sm font-medium leading-none mb-1">

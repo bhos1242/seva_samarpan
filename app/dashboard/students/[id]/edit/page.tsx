@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, use } from "react";
+import Image from "next/image";
 import { useForm, FormProvider } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -69,7 +70,7 @@ export default function EditStudentPage({ params }: { params: Promise<{ id: stri
           requiredAmount: data.requiredAmount,
         });
         setCurrentPhotoUrl(data.photoUrl);
-      } catch (error) {
+      } catch {
         toast.error("Failed to load student data");
         router.push("/dashboard/students");
       } finally {
@@ -79,7 +80,7 @@ export default function EditStudentPage({ params }: { params: Promise<{ id: stri
     fetchStudent();
   }, [id, methods, router]);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: StudentFormValues) => {
     try {
       setIsSubmitting(true);
       const formData = new FormData();
@@ -104,8 +105,8 @@ export default function EditStudentPage({ params }: { params: Promise<{ id: stri
       toast.success("Student updated successfully");
       router.push("/dashboard/students");
       router.refresh();
-    } catch (error: any) {
-      toast.error(error.message || "An error occurred");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setIsSubmitting(false);
     }
@@ -139,7 +140,7 @@ export default function EditStudentPage({ params }: { params: Promise<{ id: stri
               <div className="border border-input rounded-md p-4 flex flex-col sm:flex-row items-center gap-4">
                 {currentPhotoUrl && !photo && (
                   <div className="relative w-16 h-16 rounded-full overflow-hidden border shrink-0">
-                    <img src={currentPhotoUrl} alt="Current" className="w-full h-full object-cover" />
+                    <Image src={currentPhotoUrl} alt="Current" fill className="object-cover" />
                   </div>
                 )}
                 {photo && (

@@ -44,7 +44,19 @@ export async function PATCH(
         const formData = await req.formData();
 
         // We update fields dynamically
-        const updateData: any = {};
+        const updateData: {
+            fullName?: string;
+            age?: number;
+            standard?: string;
+            schoolOrCollege?: string;
+            location?: string;
+            category?: string;
+            story?: string;
+            achievements?: string;
+            requiredAmount?: number;
+            isActive?: boolean;
+            photoUrl?: string;
+        } = {};
 
         const fullName = formData.get("fullName") as string;
         if (fullName) updateData.fullName = fullName;

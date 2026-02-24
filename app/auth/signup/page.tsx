@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -129,11 +130,14 @@ export default function SignupPage() {
                 </label>
                 <div className="flex items-center gap-4">
                   {avatarPreview && (
-                    <img
-                      src={avatarPreview}
-                      alt="Avatar preview"
-                      className="h-16 w-16 rounded-full object-cover"
-                    />
+                    <div className="relative h-16 w-16 rounded-full overflow-hidden">
+                      <Image
+                        src={avatarPreview}
+                        alt="Avatar preview"
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   )}
                   <Input
                     type="file"

@@ -14,48 +14,14 @@ import InputField from "@/components/AppInputFields/InputField"
 import { Lock, Heart, Loader2 } from "lucide-react"
 
 // Strict Razorpay Types to avoid 'any'
-interface RazorpaySuccessResponse {
-    razorpay_payment_id: string;
-    razorpay_order_id: string;
-    razorpay_signature: string;
-}
-
-interface RazorpayErrorResponse {
-    error: {
-        code: string;
-        description: string;
-        source: string;
-        step: string;
-        reason: string;
-        metadata: {
-            order_id: string;
-            payment_id: string;
-        };
-    };
-}
-
-interface RazorpayOptions {
-    key: string | undefined;
-    amount: number;
-    currency: string;
-    name: string;
-    description?: string;
-    image?: string;
-    order_id: string;
-    handler: (response: RazorpaySuccessResponse) => void;
-    prefill?: {
-        name?: string;
-        email?: string;
-        contact?: string;
-    };
-    theme?: {
-        color?: string;
-    };
-}
+import { RazorpayOptions, RazorpaySuccessResponse, RazorpayErrorResponse } from "@/types/razorpay"
 
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: new (options: RazorpayOptions) => {
+      on: (event: string, handler: (response: RazorpayErrorResponse) => void) => void;
+      open: () => void;
+    };
   }
 }
 
@@ -91,15 +57,6 @@ export function DonateForm() {
         form.setValue("amount", amount, { shouldValidate: true })
     }
 
-    const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const val = e.target.value
-        setCustomAmount(val)
-        if (val) {
-            form.setValue("amount", parseInt(val, 10), { shouldValidate: true })
-        } else {
-            form.setValue("amount", 0)
-        }
-    }
 
     const createOrderMutation = useMutation({
         mutationFn: async (data: { amount: number }) => {
@@ -134,7 +91,7 @@ export function DonateForm() {
 
             const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 
-            const options = {
+            const options: RazorpayOptions = {
                 key: razorpayKey,
                 amount: order.amount,
                 currency: order.currency,

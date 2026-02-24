@@ -2,7 +2,7 @@
 // Service Worker v2.0.0 - Fixed async message handling
 const SW_VERSION = "2.0.0";
 
-self.addEventListener("install", function (e) {
+self.addEventListener("install", function () {
   console.log(`[SW ${SW_VERSION}] Installing...`);
   self.skipWaiting();
 });
@@ -88,7 +88,7 @@ self.addEventListener("notificationclick", function (e) {
   );
 });
 
-self.addEventListener("notificationclose", function (e) {
+self.addEventListener("notificationclose", function () {
   console.log("[SW] Notification closed");
 });
 

@@ -313,7 +313,13 @@ export const getDonationReceiptTemplate = (
 };
 
 // Send donation receipt email
-export const sendDonationReceipt = async (donation: any) => {
+export const sendDonationReceipt = async (donation: {
+  email: string;
+  name: string;
+  amount: number;
+  orderId: string | null;
+  require80G: boolean
+}) => {
   try {
     if (!donation || !donation.email) return { success: false, error: "No email provided" };
 

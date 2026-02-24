@@ -46,7 +46,7 @@ export default function AdminDonationsPage() {
       if (!response.ok) throw new Error("Failed to fetch donations");
       const data = await response.json();
       setDonations(data);
-    } catch (error) {
+    } catch {
       toast.error("Error loading donations data");
     } finally {
       setIsLoading(false);
