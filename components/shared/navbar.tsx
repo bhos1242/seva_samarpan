@@ -16,6 +16,7 @@ import {
   UserPlus, 
   LayoutDashboard,
   Settings,
+  Phone,
 } from "lucide-react"
 import { useSession, signIn, signOut } from "next-auth/react"
 import {
@@ -42,6 +43,7 @@ const navLinks = [
   { href: "/students", label: "Sponsor Students", icon: GraduationCap },
   { href: "/study-room", label: "Study Room", icon: BookOpen },
   { href: "/old-age-home", label: "Old Age Home", icon: Building2 },
+  { href: "/contact", label: "Contact", icon: Phone },
   { href: "/donate", label: "Donate", icon: HeartHandshake },
 ]
 

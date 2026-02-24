@@ -8,8 +8,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         '/about',
         '/study-room',
         '/old-age-home',
-        '/programs',
         '/students',
+        '/contact',
+        '/privacy',
+        '/terms',
+        '/refund-policy',
+        '/shipping-policy',
     ].map((route) => ({
         url: `${baseUrl}${route}`,
         lastModified: new Date(),

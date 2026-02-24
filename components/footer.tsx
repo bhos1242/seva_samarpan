@@ -12,6 +12,7 @@ export function Footer() {
     { label: "Sponsor Students", href: "/students" },
     { label: "Study Room", href: "/study-room" },
     { label: "Old Age Home", href: "/old-age-home" },
+    { label: "Contact Us", href: "/contact" },
     { label: "Donate", href: "/donate" }
   ]
 
@@ -123,11 +124,13 @@ export function Footer() {
             </div>
 
             <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-4">
-              <div className="flex gap-6 text-sm font-semibold">
+              <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold justify-center">
                 <Link href="/privacy" className="text-zinc-500 hover:text-primary transition-colors">Privacy</Link>
                 <Link href="/terms" className="text-zinc-500 hover:text-primary transition-colors">Terms</Link>
+                <Link href="/refund-policy" className="text-zinc-500 hover:text-primary transition-colors">Refund Policy</Link>
+                <Link href="/shipping-policy" className="text-zinc-500 hover:text-primary transition-colors">Shipping</Link>
               </div>
-              <div className="hidden md:block h-1.5 w-1.5 bg-zinc-800 rounded-full"></div>
+              <div className="hidden lg:block h-1.5 w-1.5 bg-zinc-800 rounded-full"></div>
               <div className="text-zinc-500 text-sm font-medium">
                 Artfully crafted at 
                 <a 
