@@ -20,7 +20,7 @@ export function VisitSupportSection() {
                                     <Link href="/donate">Donate Now</Link>
                                 </Button>
                                 <Button size="lg" variant="outline" className="rounded-xl md:rounded-2xl h-12 md:h-14 px-6 md:px-8 font-bold text-sm md:text-base border-zinc-800 hover:bg-zinc-900" asChild>
-                                    <Link href="/students">Sponsor a Student</Link>
+                                    <Link href="/sponsor-needy-students">Sponsor a Student</Link>
                                 </Button>
                             </div>
                          </div>

@@ -50,18 +50,18 @@ export default function StudentsPage() {
       {/* Header Section */}
       <section className="relative py-12 md:py-16 bg-muted/30 border-b">
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-size-[50px_50px]" />
-        <div className="container mx-auto px-4 relative text-center space-y-3">
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight uppercase">
-            Support Our <span className="text-primary">Stars</span>
+        <div className="max-w-6xl mx-auto px-4 relative text-center space-y-3">
+          <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase leading-tight">
+            Sponsor <span className="text-primary italic">Needy Students</span>
           </h1>
-          <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto font-medium">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto font-medium">
             Your contribution can change a life forever. Choose a student to
-            support their education and dreams.
+            support their education and dreams. Every child deserves a chance.
           </p>
         </div>
       </section>
 
-      <div className="container mx-auto px-4 -mt-6 md:-mt-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 -mt-6 md:-mt-8 relative z-10">
         {/* Filters */}
         <Card className="p-3 md:p-4 shadow-lg border-border/50 bg-card mb-8 md:mb-10 rounded-2xl">
           <div className="flex flex-col md:flex-row gap-3 items-center justify-between">

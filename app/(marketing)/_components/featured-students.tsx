@@ -61,7 +61,7 @@ export function FeaturedStudents() {
 
         <div className="text-center">
           <Button size="lg" className="rounded-xl px-6 md:px-8 h-12 flex items-center shadow-md shadow-primary/20 hover:shadow-lg transition-all" asChild>
-            <Link href="/students">
+            <Link href="/sponsor-needy-students">
               View All Students <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

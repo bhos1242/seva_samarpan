@@ -19,10 +19,10 @@ const programs = [
     color: 'secondary',
   },
   {
-    title: 'Education Sponsorship',
+    title: 'Sponsorship for Needy Students',
     description: 'Direct financial and academic support for students, covering tuition, uniforms, and essential educational materials.',
     icon: Heart,
-    link: '/students',
+    link: '/sponsor-needy-students',
     color: 'accent',
   },
 ];

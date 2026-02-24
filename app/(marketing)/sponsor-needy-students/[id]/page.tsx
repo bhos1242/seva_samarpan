@@ -70,7 +70,7 @@ export default function StudentDetailsPage({
         setStudent(data);
       } catch (error) {
         toast.error("Failed to load student details");
-        router.push("/students");
+        router.push("/sponsor-needy-students");
       } finally {
         setIsLoading(false);
       }
@@ -209,7 +209,7 @@ export default function StudentDetailsPage({
       <div className="bg-primary/5 border-b border-primary/10">
         <div className="container mx-auto px-4 py-8 md:py-10 max-w-5xl">
           <Link
-            href="/students"
+            href="/sponsor-needy-students"
             className="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-primary mb-6 transition-colors group"
           >
             <ArrowLeft className="mr-2 h-4 w-4 group-hover:-translate-x-1 transition-transform" />

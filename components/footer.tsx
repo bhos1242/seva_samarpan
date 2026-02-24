@@ -9,7 +9,7 @@ export function Footer() {
 
   const quickLinks = [
     { label: "About Us", href: "/about" },
-    { label: "Sponsor Students", href: "/students" },
+    { label: "Sponsor Students", href: "/sponsor-needy-students" },
     { label: "Study Room", href: "/study-room" },
     { label: "Old Age Home", href: "/old-age-home" },
     { label: "Contact Us", href: "/contact" },
