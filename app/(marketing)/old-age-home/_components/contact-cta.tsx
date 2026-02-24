@@ -21,9 +21,9 @@ export function ContactCTA() {
                             <Phone className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" /> +91 94222 62499
                          </Button>
                     </Link>
-                    <Link href="/donate" className="w-full sm:w-auto">
+                    <Link href="/sponsor-students" className="w-full sm:w-auto">
                         <Button size="lg" variant="outline" className="w-full h-14 md:h-16 px-8 md:px-10 rounded-xl md:rounded-2xl text-base md:text-xl font-bold border-2 hover:bg-primary hover:text-white transition-all">
-                            Support Us <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6" />
+                            Donate <ArrowRight className="ml-2 md:ml-3 h-5 w-5 md:h-6 md:w-6" />
                         </Button>
                     </Link>
                  </div>

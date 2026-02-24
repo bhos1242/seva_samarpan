@@ -47,7 +47,7 @@ export function StudentCard({ student, className }: StudentCardProps) {
       className={`overflow-hidden hover:shadow-xl transition-all duration-300 group flex flex-col border-border/40 bg-card rounded-2xl ${className || ""}`}
     >
       <Link
-        href={`/sponsor-needy-students/${student.id}`}
+        href={`/sponsor-students/${student.id}`}
         className="block relative h-40 md:h-48 w-full overflow-hidden bg-muted/50"
       >
         <Image
@@ -62,7 +62,7 @@ export function StudentCard({ student, className }: StudentCardProps) {
       <CardHeader className="p-4 pb-2 space-y-1.5">
         <div className="flex justify-between items-start gap-2">
           <Link
-            href={`/sponsor-needy-students/${student.id}`}
+            href={`/sponsor-students/${student.id}`}
             className="hover:underline decoration-primary underline-offset-2 decoration-2 group-hover:text-primary transition-colors"
           >
             <h3 className="text-base md:text-lg font-bold truncate leading-tight text-foreground/90">
@@ -111,7 +111,7 @@ export function StudentCard({ student, className }: StudentCardProps) {
           variant="outline"
           asChild
         >
-          <Link href={`/sponsor-needy-students/${student.id}`}>Sponsor Now</Link>
+          <Link href={`/sponsor-students/${student.id}`}>Sponsor Now</Link>
         </Button>
       </CardFooter>
     </Card>

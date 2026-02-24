@@ -52,7 +52,7 @@ export default function StudentsPage() {
         <div className="absolute inset-0 bg-grid-white/[0.02] bg-size-[50px_50px]" />
         <div className="max-w-6xl mx-auto px-4 relative text-center space-y-3">
           <h1 className="text-3xl md:text-5xl font-black tracking-tighter uppercase leading-tight">
-            Sponsor <span className="text-primary italic">Needy Students</span>
+            Sponsor <span className="text-primary italic">Students</span>
           </h1>
           <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto font-medium">
             Your contribution can change a life forever. Choose a student to

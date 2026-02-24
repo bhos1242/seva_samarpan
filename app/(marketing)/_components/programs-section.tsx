@@ -22,7 +22,7 @@ const programs = [
     title: 'Sponsorship for Needy Students',
     description: 'Direct financial and academic support for students, covering tuition, uniforms, and essential educational materials.',
     icon: Heart,
-    link: '/sponsor-needy-students',
+    link: '/sponsor-students',
     color: 'accent',
   },
 ];

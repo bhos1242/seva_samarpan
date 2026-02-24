@@ -92,8 +92,8 @@ export const HeroCarousel = () => {
                                 </Link>
                             </Button>
                             <Button variant="outline" size="lg" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold border-2 hover:bg-muted/50 transition-all duration-300 text-sm md:text-base" asChild>
-                                <Link href="/donate">
-                                    Support Us
+                                <Link href="/sponsor-students">
+                                    Donate
                                 </Link>
                             </Button>
                         </div>

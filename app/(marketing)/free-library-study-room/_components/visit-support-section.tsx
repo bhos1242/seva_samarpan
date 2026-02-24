@@ -17,10 +17,10 @@ export function VisitSupportSection() {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
                                 <Button size="lg" className="rounded-xl md:rounded-2xl h-12 md:h-14 px-6 md:px-8 font-bold text-sm md:text-base" asChild>
-                                    <Link href="/donate">Donate Now</Link>
+                                    <Link href="/sponsor-students">Donate</Link>
                                 </Button>
                                 <Button size="lg" variant="outline" className="rounded-xl md:rounded-2xl h-12 md:h-14 px-6 md:px-8 font-bold text-sm md:text-base border-zinc-800 hover:bg-zinc-900" asChild>
-                                    <Link href="/sponsor-needy-students">Sponsor a Student</Link>
+                                    <Link href="/sponsor-students">Sponsor Students</Link>
                                 </Button>
                             </div>
                          </div>

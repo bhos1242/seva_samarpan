@@ -8,11 +8,10 @@ import {
   Heart, 
   Home, 
   Info, 
+  GraduationCap,
   BookOpen, 
   Building2, 
-  HeartHandshake, 
   LogIn, 
-  UserPlus, 
   LayoutDashboard,
   Settings,
   Phone,
@@ -41,7 +40,7 @@ import Image from "next/image"
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/about", label: "About", icon: Info },
-  { href: "/sponsor-needy-students", label: "Donate", icon: HeartHandshake },
+  { href: "/sponsor-students", label: "Sponsor Students", icon: GraduationCap },
   { href: "/free-library-study-room", label: "Free Library", icon: BookOpen },
   { href: "/old-age-home", label: "Old Age Home", icon: Building2 },
   { href: "/contact", label: "Contact", icon: Phone },
@@ -163,16 +162,13 @@ export function Navbar() {
                       <Button variant="ghost" onClick={() => signIn()} className="text-muted-foreground hover:text-primary font-bold">
                         Login
                       </Button>
-                      <Button variant="outline" className="border-primary/20 text-primary hover:bg-primary/5 font-bold rounded-xl px-6">
-                        Join Us
-                      </Button>
                     </div>
                   )}
                 </>
               )}
-              <Link href="/sponsor-needy-students">
+              <Link href="/sponsor-students">
                 <Button className="bg-primary text-white font-bold rounded-xl px-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all">
-                  Sponsor Now
+                  Donate
                 </Button>
               </Link>
             </div>
@@ -246,14 +242,10 @@ export function Navbar() {
                   <div className="p-5 border-t border-border/50 bg-muted/20 mt-auto">
                     <div className="space-y-4">
                       {!isLoading && !isAuthenticated && (
-                        <div className="grid grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1">
                           <Button variant="outline" onClick={() => {signIn(); setIsOpen(false)}} className="w-full h-11 rounded-xl font-bold border-border/50">
                             <LogIn className="mr-2 h-4 w-4" />
                             Login
-                          </Button>
-                          <Button className="w-full h-11 rounded-xl font-bold shadow-md shadow-primary/20" onClick={() => {signIn(); setIsOpen(false)}}>
-                            <UserPlus className="mr-2 h-4 w-4" />
-                            Join
                           </Button>
                         </div>
                       )}
@@ -315,9 +307,9 @@ export function Navbar() {
                         </div>
                       )}
 
-                      <Link href="/sponsor-needy-students" onClick={() => setIsOpen(false)} className="block">
+                      <Link href="/sponsor-students" onClick={() => setIsOpen(false)} className="block">
                         <Button className="w-full h-12 text-base font-black uppercase tracking-tight shadow-lg shadow-primary/30 rounded-xl">
-                          Sponsor a Student
+                          Donate
                         </Button>
                       </Link>
                     </div>

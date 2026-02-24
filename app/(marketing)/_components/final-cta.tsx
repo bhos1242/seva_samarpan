@@ -14,7 +14,7 @@ export function FinalCta() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="rounded-xl h-12 px-8 border-2 border-accent bg-accent hover:bg-transparent hover:text-accent font-bold" asChild>
-              <Link href="/donate">Sponsor a Student</Link>
+              <Link href="/sponsor-students">Donate</Link>
             </Button>
             <Button size="lg" variant="outline" className="rounded-xl h-12 px-8 text-secondary border-2 border-secondary hover:bg-secondary hover:text-white font-bold" asChild>
               <Link href="/about">Our Mission</Link>
