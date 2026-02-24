@@ -5,10 +5,10 @@ import { Button } from "@/components/ui/button";
 
 const programs = [
   {
-    title: 'Seva Samarpan Abhyasika',
+    title: 'Free Library & Study Room',
     description: 'A dedicated library and study space for tribal and underprivileged students, equipped with over 1,500 books and modern learning resources.',
     icon: BookOpen,
-    link: '/study-room',
+    link: '/free-library-study-room',
     color: 'primary',
   },
   {

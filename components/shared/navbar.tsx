@@ -8,7 +8,6 @@ import {
   Heart, 
   Home, 
   Info, 
-  GraduationCap, 
   BookOpen, 
   Building2, 
   HeartHandshake, 
@@ -18,7 +17,9 @@ import {
   Settings,
   Phone,
 } from "lucide-react"
+import { usePathname } from "next/navigation"
 import { useSession, signIn, signOut } from "next-auth/react"
+import { cn } from "@/lib/utils"
 import {
   Sheet,
   SheetContent,
@@ -40,14 +41,14 @@ import Image from "next/image"
 const navLinks = [
   { href: "/", label: "Home", icon: Home },
   { href: "/about", label: "About", icon: Info },
-  { href: "/sponsor-needy-students", label: "Sponsor Students", icon: GraduationCap },
-  { href: "/study-room", label: "Study Room", icon: BookOpen },
+  { href: "/sponsor-needy-students", label: "Donate", icon: HeartHandshake },
+  { href: "/free-library-study-room", label: "Free Library", icon: BookOpen },
   { href: "/old-age-home", label: "Old Age Home", icon: Building2 },
   { href: "/contact", label: "Contact", icon: Phone },
-  { href: "/donate", label: "Donate", icon: HeartHandshake },
 ]
 
 export function Navbar() {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const { data: session, status } = useSession()
   const isLoading = status === "loading"
@@ -73,17 +74,27 @@ export function Navbar() {
         </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex lg:items-center lg:gap-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-sm font-semibold text-muted-foreground hover:text-primary transition-colors relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full rounded-full" />
-                </Link>
-              ))}
+            <div className="hidden lg:flex lg:items-center lg:gap-2">
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "text-sm font-bold transition-all relative py-2 px-4 rounded-xl",
+                      isActive 
+                        ? "text-primary bg-primary/5" 
+                        : "text-muted-foreground hover:text-primary hover:bg-muted/50"
+                    )}
+                  >
+                    {link.label}
+                    {isActive && (
+                      <span className="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
+                    )}
+                  </Link>
+                )
+              })}
             </div>
 
             {/* Desktop Auth & CTA */}
@@ -206,15 +217,24 @@ export function Navbar() {
                     <div className="grid gap-1">
                       {navLinks.map((link) => {
                         const Icon = link.icon
+                        const isActive = pathname === link.href
                         return (
                           <Link
                             key={link.href}
                             href={link.href}
-                            className="flex items-center gap-3 px-3 py-2.5 text-base font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-all group"
+                            className={cn(
+                              "flex items-center gap-3 px-3 py-2.5 text-base font-bold transition-all group rounded-xl",
+                              isActive
+                                ? "text-primary bg-primary/10"
+                                : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                            )}
                             onClick={() => setIsOpen(false)}
                           >
-                            <div className="p-2 rounded-lg bg-muted group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
-                              <Icon className="h-5 w-5 group-hover:text-primary" />
+                            <div className={cn(
+                              "p-2 rounded-lg transition-all duration-300",
+                              isActive ? "bg-primary text-white scale-110" : "bg-muted group-hover:bg-primary/10 group-hover:scale-110"
+                            )}>
+                              <Icon className={cn("h-5 w-5", isActive ? "text-white" : "group-hover:text-primary")} />
                             </div>
                             {link.label}
                           </Link>

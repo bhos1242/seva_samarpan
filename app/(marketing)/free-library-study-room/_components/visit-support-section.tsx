@@ -11,7 +11,7 @@ export function VisitSupportSection() {
                     <div className="absolute top-0 right-0 -z-10 w-64 h-64 md:w-96 md:h-96 bg-primary/20 rounded-full blur-3xl opacity-30 -translate-y-1/2 translate-x-1/2" />
                     <div className="grid md:grid-cols-2">
                          <div className="p-8 md:p-12 lg:p-20 space-y-6 md:space-y-8">
-                            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter">Support the Study Room</h2>
+                            <h2 className="text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter">Support the Library</h2>
                             <p className="text-zinc-400 text-sm md:text-base lg:text-lg leading-snug md:leading-relaxed">
                                 Your donation helps us buy new books, maintain the facility, and provide scholarships to the dedicated students who use this space.
                             </p>

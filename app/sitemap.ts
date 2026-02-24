@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     const routes = [
         '',
         '/about',
-        '/study-room',
+        '/free-library-study-room',
         '/old-age-home',
         '/sponsor-needy-students',
         '/contact',
