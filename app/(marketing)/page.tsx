@@ -4,6 +4,7 @@ import { ProgramsSection } from "./_components/programs-section";
 import { FeaturedStudents } from "./_components/featured-students";
 import { LifeAtSamarpan } from "./_components/life-at-samarpan";
 import { QuoteSection } from "./_components/quote-section";
+import { FAQSection } from "./_components/faq-section";
 import { FinalCta } from "./_components/final-cta";
 import { Metadata } from "next";
 
@@ -23,6 +24,7 @@ export default function Home() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'NGO',
+    '@id': 'https://sevasamarpan.org/#organization',
     name: 'Seva Samarpan',
     url: 'https://sevasamarpan.org',
     description: 'Empowering lives through education and care in Mulshi, Pune.',
@@ -32,10 +34,34 @@ export default function Home() {
       addressRegion: 'Maharashtra',
       addressCountry: 'IN'
     },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      "name": "Social Programs",
+      "itemListElement": [
+        {
+          "@type": "Service",
+          "name": "Free Library & Study Room",
+          "description": "A dedicated library space for tribal students with 1,500+ books.",
+          "provider": { "@id": "https://sevasamarpan.org/#organization" }
+        },
+        {
+          "@type": "Service",
+          "name": "Seva Samarpan Old Age Home",
+          "description": "A dignified sanctuary for elders provide holistic care and community.",
+          "provider": { "@id": "https://sevasamarpan.org/#organization" }
+        },
+        {
+          "@type": "Service",
+          "name": "Student Sponsorship Program",
+          "description": "Financial and academic support for underprivileged tribal students.",
+          "provider": { "@id": "https://sevasamarpan.org/#organization" }
+        }
+      ]
+    },
     sameAs: [
-      'https://www.facebook.com/', // Replace with actual links
-      'https://www.instagram.com/',
-      'https://twitter.com/'
+      'https://www.facebook.com/sevasamarpan',
+      'https://www.instagram.com/sevasamarpan',
+      'https://twitter.com/sevasamarpan'
     ]
   };
 

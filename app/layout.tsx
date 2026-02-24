@@ -46,6 +46,44 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "NGO",
+              "@id": "https://sevasamarpan.org/#organization",
+              "name": "Seva Samarpan",
+              "url": "https://sevasamarpan.org",
+              "logo": "https://sevasamarpan.org/logo.png",
+              "description": "Seva Samarpan is a dedicated NGO in Mulshi, Pune, empowering lives through education and holistic elderly care.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Mulshi, Pune",
+                "addressRegion": "Maharashtra",
+                "addressCountry": "IN"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-XXXXXXXXXX",
+                "contactType": "General Support"
+              }
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "@id": "https://sevasamarpan.org/#website",
+              "url": "https://sevasamarpan.org",
+              "name": "Seva Samarpan",
+              "publisher": { "@id": "https://sevasamarpan.org/#organization" }
+            })
+          }}
+        />
         <Providers>
           <ThemeProvider
             attribute="class"
