@@ -28,11 +28,20 @@ export const metadata: Metadata = {
     title: "Seva Samarpan | NGO in Mulshi, Pune",
     description: "Empowering lives through education and care in Mulshi, Pune.",
     siteName: "Seva Samarpan",
+    images: [
+      {
+        url: `/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Mulshi, Pune.")}`,
+        width: 1200,
+        height: 630,
+        alt: "Seva Samarpan NGO"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "Seva Samarpan | NGO in Mulshi, Pune",
     description: "Empowering lives through education and care in Mulshi, Pune.",
+    images: [`/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Mulshi, Pune.")}`],
   },
 };
 

@@ -16,7 +16,12 @@ export const metadata: Metadata = {
     title: "Seva Samarpan | Top-Rated NGO in Pune",
     description: "Empowering tribal students with free study rooms and caring for elders. Support the best NGO near me today.",
     url: "/",
-    images: [{ url: "/programs/samarpan.png", width: 1200, height: 630, alt: "Seva Samarpan Free Library" }],
+    images: [{ 
+      url: `/api/og?title=${encodeURIComponent("Seva Samarpan | Top-Rated NGO")}&description=${encodeURIComponent("Empowering tribal students and caring for elders in Mulshi.")}`, 
+      width: 1200, 
+      height: 630, 
+      alt: "Seva Samarpan NGO" 
+    }],
   }
 };
 
