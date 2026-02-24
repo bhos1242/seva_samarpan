@@ -8,8 +8,10 @@ export function LifeAtSamarpan() {
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-end justify-between gap-4 md:gap-6 mb-8 md:mb-10">
           <div className="max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4">Life at Seva Samarpan</h2>
-            <p className="text-base md:text-lg text-muted-foreground">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-3 md:mb-4 leading-tight">
+              Life at <span className="text-primary italic">Seva Samarpan</span>
+            </h2>
+            <p className="text-sm md:text-lg text-muted-foreground">
               Glimpses of the daily life, happiness, and community at our Old Age Home in Mulshi.
             </p>
           </div>

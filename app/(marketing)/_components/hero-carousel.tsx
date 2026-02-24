@@ -86,9 +86,9 @@ export const HeroCarousel = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-4">
-                            <Button size="lg" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold shadow-md shadow-primary/20 hover:shadow-lg transition-all duration-300 text-sm md:text-base" asChild>
+                            <Button size="lg" variant="secondary" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold shadow-lg shadow-secondary/10 transition-all duration-300 text-sm md:text-base group" asChild>
                                 <Link href={programs[currentIndex].link}>
-                                    Learn More <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                                    Learn More <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </Button>
                             <Button variant="outline" size="lg" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold border-2 hover:bg-muted/50 transition-all duration-300 text-sm md:text-base" asChild>

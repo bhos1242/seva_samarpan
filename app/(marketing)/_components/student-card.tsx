@@ -121,7 +121,8 @@ export function StudentCard({ student, className }: StudentCardProps) {
         {/* Action Button */}
         <div className="pt-1">
           <Button
-            className="w-full h-8 md:h-14 font-black uppercase tracking-tighter text-[9px] md:text-sm rounded-lg md:rounded-2xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-[1.03] active:scale-95 bg-primary text-white border-none"
+            variant="secondary"
+            className="w-full h-8 md:h-14 font-black uppercase tracking-tighter text-[9px] md:text-sm rounded-lg md:rounded-2xl shadow-lg shadow-secondary/10 hover:shadow-secondary/20 transition-all hover:scale-[1.03] active:scale-95"
             asChild
           >
             <Link href={`/sponsor-students/${student.id}`}>
