@@ -14,23 +14,23 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://sevasamarpan.org"),
   title: {
-    default: "Seva Samarpan | NGO in Mulshi, Pune",
+    default: "Seva Samarpan | NGO in Pune",
     template: "%s | Seva Samarpan",
   },
-  description: "Empowering lives through education and care in Mulshi, Pune. We provide free study rooms, education sponsorships, and run a dignified old age home.",
-  keywords: ["NGO", "NGO near me", "best NGO near me", "Mulshi", "Pune", "Education", "Old Age Home", "Charity", "Social Work", "Seva Samarpan"],
+  description: "Empowering lives through education and care in Pune. We provide free study rooms, education sponsorships, and run a dignified old age home.",
+  keywords: ["NGO", "NGO near me", "best NGO near me", "Pune", "Pune", "Education", "Old Age Home", "Charity", "Social Work", "Seva Samarpan"],
   authors: [{ name: "Seva Samarpan" }],
   creator: "Seva Samarpan",
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "/",
-    title: "Seva Samarpan | NGO in Mulshi, Pune",
-    description: "Empowering lives through education and care in Mulshi, Pune.",
+    title: "Seva Samarpan | NGO in Pune",
+    description: "Empowering lives through education and care in Pune.",
     siteName: "Seva Samarpan",
     images: [
       {
-        url: `/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Mulshi, Pune.")}`,
+        url: `/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Pune.")}`,
         width: 1200,
         height: 630,
         alt: "Seva Samarpan NGO"
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Seva Samarpan | NGO in Mulshi, Pune",
-    description: "Empowering lives through education and care in Mulshi, Pune.",
-    images: [`/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Mulshi, Pune.")}`],
+    title: "Seva Samarpan | NGO in Pune",
+    description: "Empowering lives through education and care in Pune.",
+    images: [`/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Pune.")}`],
   },
 };
 
@@ -65,10 +65,10 @@ export default function RootLayout({
               "name": "Seva Samarpan",
               "url": "https://sevasamarpan.org",
               "logo": "https://sevasamarpan.org/logo.png",
-              "description": "Seva Samarpan is a dedicated NGO in Mulshi, Pune, empowering lives through education and holistic elderly care.",
+              "description": "Seva Samarpan is a dedicated NGO in Pune, empowering lives through education and holistic elderly care.",
               "address": {
                 "@type": "PostalAddress",
-                "addressLocality": "Mulshi, Pune",
+                "addressLocality": "Pune",
                 "addressRegion": "Maharashtra",
                 "addressCountry": "IN"
               },

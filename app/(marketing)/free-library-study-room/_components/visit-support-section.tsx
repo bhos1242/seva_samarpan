@@ -29,7 +29,7 @@ export function VisitSupportSection() {
                              <div className="space-y-4 md:space-y-6">
                                 <div className="flex gap-3 md:gap-4 items-center">
                                     <MapPin className="h-5 w-5 md:h-6 md:w-6 text-primary shrink-0" />
-                                    <p className="text-zinc-300 text-sm md:text-base">Mulshi, Pune, Maharashtra, India</p>
+                                    <p className="text-zinc-300 text-sm md:text-base">Pune, Maharashtra, India</p>
                                 </div>
                                 <div className="flex gap-3 md:gap-4 items-center">
                                     <Clock className="h-5 w-5 md:h-6 md:w-6 text-primary shrink-0" />

@@ -12,7 +12,7 @@ export function AboutHero() {
                 <div className="max-w-3xl mx-auto text-center space-y-4 md:space-y-6">
                     <div className="inline-flex items-center gap-1.5 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-primary/10 text-primary text-xs md:text-sm font-medium mb-2 md:mb-4">
                         <MapPin className="h-3 w-3 md:h-4 md:w-4" />
-                        Mulshi, Pune, Maharashtra
+                        Pune, Maharashtra
                     </div>
                     <h1 className="text-3xl md:text-5xl font-black leading-tight tracking-tight">
                         About{' '}

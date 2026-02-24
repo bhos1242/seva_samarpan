@@ -7,11 +7,11 @@ import { AboutCTA } from './_components/about-cta'
 
 export const metadata: Metadata = {
     title: 'About Seva Samarpan | Best NGO in Pune for Social Impact',
-    description: 'Learn how Seva Samarpan, a top NGO in Pune, is helping old people and students through dedicated care and education programs in Mulshi.',
-    keywords: ["best NGO in Pune", "NGO helping old people", "NGO helping students Pune", "Seva Samarpan mission", "Mulshi NGO"],
+    description: 'Learn how Seva Samarpan, a top NGO in Pune, is helping old people and students through dedicated care and education programs in Pune.',
+    keywords: ["best NGO in Pune", "NGO helping old people", "NGO helping students Pune", "Seva Samarpan mission", "Pune NGO"],
     openGraph: {
         title: 'About Seva Samarpan | Empowering Lives in Pune',
-        description: 'Learn about our mission to provide quality education and dignified care in Mulshi, Pune.',
+        description: 'Learn about our mission to provide quality education and dignified care in Pune.',
         url: '/about',
     }
 }

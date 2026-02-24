@@ -25,7 +25,7 @@ export default function ShippingPolicy() {
               Service Delivery
             </h2>
             <p className="text-muted-foreground leading-relaxed font-medium">
-              Seva Samarpan is a non-profit organization providing social services including education and elderly care. We do not sell or ship physical products. Our services are provided directly at our facilities in Mulshi, Pune.
+              Seva Samarpan is a non-profit organization providing social services including education and elderly care. We do not sell or ship physical products. Our services are provided directly at our facilities in Pune.
             </p>
           </section>
 

@@ -48,7 +48,7 @@ export function Footer() {
               </div>
               <p className="text-zinc-400 text-lg leading-relaxed max-w-md">
                 Dedicated to transforming lives through quality education for underprivileged students
-                and compassionate care for elders in rural Mulshi, Pune.
+                and compassionate care for elders in rural Pune.
               </p>
             </div>
 
@@ -95,7 +95,7 @@ export function Footer() {
                     <MapPin className="h-5 w-5 text-primary" />
                   </div>
                   <span className="text-zinc-400 font-medium pt-1 group-hover:text-zinc-300 transition-colors">
-                    Mulshi, Pune,<br />Maharashtra, India
+                    Pune,<br />Maharashtra, India
                   </span>
                 </li>
                 <li className="flex items-center space-x-4 group">

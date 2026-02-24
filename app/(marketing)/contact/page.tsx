@@ -45,7 +45,7 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-2">Location</h3>
-                <p className="text-muted-foreground font-medium">Mulshi, Pune, Maharashtra, India</p>
+                <p className="text-muted-foreground font-medium">Pune, Maharashtra, India</p>
               </div>
             </div>
 

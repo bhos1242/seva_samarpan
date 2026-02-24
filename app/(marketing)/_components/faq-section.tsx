@@ -11,7 +11,7 @@ import {
 const faqs = [
   {
     question: "Where is Seva Samarpan located?",
-    answer: "Seva Samarpan is located in Mulshi, Pune, Maharashtra. We operate primarily in the tribal blocks of Mulshi, providing education support and care for the elderly."
+    answer: "Seva Samarpan is located in Pune, Maharashtra. We operate primarily in the tribal blocks of Pune, providing education support and care for the elderly."
   },
   {
     question: "How can I support Seva Samarpan?",
@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     question: "Can I visit the Old Age Home or Library?",
-    answer: "Yes, we welcome visitors! Please contact us through our official channels to schedule a visit to our Mulshi facilities."
+    answer: "Yes, we welcome visitors! Please contact us through our official channels to schedule a visit to our Pune facilities."
   }
 ];
 

@@ -11,13 +11,13 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Seva Samarpan | Best NGO in Pune | Empowering Lives",
   description: "Seva Samarpan is the best NGO in Pune helping students with education and providing a safe old age home. Find an NGO near me dedicated to social impact.",
-  keywords: ["best NGO in Pune", "NGO near me", "NGO helping student", "Seva Samarpan", "NGO in Mulshi"],
+  keywords: ["best NGO in Pune", "NGO near me", "NGO helping student", "Seva Samarpan", "NGO in Pune"],
   openGraph: {
     title: "Seva Samarpan | Top-Rated NGO in Pune",
     description: "Empowering tribal students with free study rooms and caring for elders. Support the best NGO near me today.",
     url: "/",
     images: [{ 
-      url: `/api/og?title=${encodeURIComponent("Seva Samarpan | Top-Rated NGO")}&description=${encodeURIComponent("Empowering tribal students and caring for elders in Mulshi.")}`, 
+      url: `/api/og?title=${encodeURIComponent("Seva Samarpan | Top-Rated NGO")}&description=${encodeURIComponent("Empowering tribal students and caring for elders in Pune.")}`, 
       width: 1200, 
       height: 630, 
       alt: "Seva Samarpan NGO" 
@@ -32,10 +32,10 @@ export default function Home() {
     '@id': 'https://sevasamarpan.org/#organization',
     name: 'Seva Samarpan',
     url: 'https://sevasamarpan.org',
-    description: 'Empowering lives through education and care in Mulshi, Pune.',
+    description: 'Empowering lives through education and care in Pune.',
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Mulshi, Pune',
+      addressLocality: 'Pune',
       addressRegion: 'Maharashtra',
       addressCountry: 'IN'
     },

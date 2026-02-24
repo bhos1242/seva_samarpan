@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Sponsor Students | Underprivileged Children Education Support",
-  description: "Browse student profiles and sponsor a needy child's education in Mulshi, Pune. Your support empowers underprivileged students with quality education.",
+  description: "Browse student profiles and sponsor a needy child's education in Pune. Your support empowers underprivileged students with quality education.",
   openGraph: {
     title: "Sponsor Students | Underprivileged Children Education Support",
     description: "Support education of tribal and needy students in Pune.",

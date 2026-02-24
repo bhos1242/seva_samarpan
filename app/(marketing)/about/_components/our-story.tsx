@@ -12,12 +12,12 @@ export function OurStory() {
                         <p>
                             Seva Samarpan was born from a simple belief: every child deserves access to quality education,
                             and every elder deserves dignity and care in their golden years. Founded in 2014 in the
-                            serene hills of Mulshi, Pune, we started with a small study room and a dream to make a
+                            serene hills of Pune, we started with a small study room and a dream to make a
                             difference.
                         </p>
                         <p>
                             Our journey began when we witnessed the struggles of tribal and underprivileged children
-                            in rural Mulshi who had to travel long distances for education or lacked proper study
+                            in rural Pune who had to travel long distances for education or lacked proper study
                             facilities. Many talented students were unable to continue their education due to financial
                             constraints and lack of resources.
                         </p>

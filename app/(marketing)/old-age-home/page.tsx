@@ -7,11 +7,11 @@ import { ContactCTA } from './_components/contact-cta'
 
 export const metadata: Metadata = {
     title: 'Old Age Home in Pune | Seva Samarpan | Dignified Care',
-    description: 'Looking for an old age home near me? Seva Samarpan provides a dignified old age home in Pune (Mulshi/Hinjewadi) with holistic care and support for elders.',
-    keywords: ["old age home in Pune", "old age home near me", "old age home in Hinjewadi", "NGO helping elder", "NGO helping old people", "senior citizen home Pune"],
+    description: 'Looking for an old age home near me? Seva Samarpan provides a dignified old age home in Pune with holistic care and support for elders.',
+    keywords: ["old age home in Pune", "old age home near me", "NGO helping elder", "NGO helping old people", "senior citizen home Pune"],
     openGraph: {
         title: 'Best Old Age Home in Pune | Seva Samarpan',
-        description: 'Dignified living and comprehensive care for elders at our old age home near Hinjewadi, Pune.',
+        description: 'Dignified living and comprehensive care for elders at our old age home in Pune.',
         url: '/old-age-home',
         images: [{ url: '/old-age/image.png', width: 1200, height: 630, alt: 'Old Age Home' }],
     }

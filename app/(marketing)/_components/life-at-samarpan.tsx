@@ -12,7 +12,7 @@ export function LifeAtSamarpan() {
               Life at <span className="text-primary italic">Seva Samarpan</span>
             </h2>
             <p className="text-sm md:text-lg text-muted-foreground">
-              Glimpses of the daily life, happiness, and community at our Old Age Home in Mulshi.
+              Glimpses of the daily life, happiness, and community at our Old Age Home in Pune.
             </p>
           </div>
           <Link href="/about" className="text-primary font-bold flex items-center gap-2 hover:underline underline-offset-4 text-sm md:text-base">

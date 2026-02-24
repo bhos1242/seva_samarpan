@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card'
 
 const milestones = [
-    { year: '2014', event: 'Seva Samarpan NGO founded in Mulshi, Pune' },
+    { year: '2014', event: 'Seva Samarpan NGO founded in Pune' },
     { year: '2015', event: 'Study room and library established with 500 books' },
     { year: '2017', event: 'Reached 100 students supported milestone' },
     { year: '2019', event: 'Seva Samarpan Old Age Home opened' },

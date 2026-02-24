@@ -17,7 +17,7 @@ const programs = [
   },
   {
     title: 'Seva Samarpan Old Age Home',
-    description: 'A sanctuary in Mulshi providing dignified living, holistic care, and a supportive community for our elders.',
+    description: 'A sanctuary in Pune providing dignified living, holistic care, and a supportive community for our elders.',
     icon: HomeIcon,
     link: '/old-age-home',
     color: 'secondary',

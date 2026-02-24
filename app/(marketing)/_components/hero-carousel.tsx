@@ -18,7 +18,7 @@ const programs = [
     {
         id: 8,
         title: 'Seva Samarpan Old Age Home',
-        description: 'Dignified care and a loving community for elders in Mulshi, providing medical support, nutritious food, and a place to call home.',
+        description: 'Dignified care and a loving community for elders in Pune, providing medical support, nutritious food, and a place to call home.',
         image: '/old-age/image.png',
         link: '/programs/old-age-home',
         color: 'bg-orange-600',

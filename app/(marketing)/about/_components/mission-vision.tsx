@@ -15,7 +15,7 @@ export function MissionVision() {
                         </CardHeader>
                         <CardContent className="p-6 md:p-8 pt-0">
                             <p className="text-muted-foreground leading-snug md:leading-relaxed text-sm md:text-base font-medium">
-                                To empower underprivileged and tribal students in Mulshi through quality education,
+                                To empower underprivileged and tribal students in Pune through quality education,
                                 resources, and mentorship, while providing dignified care and community for elders.
                             </p>
                         </CardContent>
