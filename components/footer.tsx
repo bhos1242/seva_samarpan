@@ -102,7 +102,7 @@ export function Footer() {
                   <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center shrink-0 border border-zinc-800 group-hover:border-primary/30 transition-colors">
                     <Phone className="h-5 w-5 text-primary" />
                   </div>
-                  <span className="text-zinc-400 font-medium group-hover:text-zinc-300 transition-colors">+91 89835 41719</span>
+                  <span className="text-zinc-400 font-medium group-hover:text-zinc-300 transition-colors">+91 94222 62499</span>
                 </li>
                 <li className="flex items-center space-x-4 group">
                    <div className="w-10 h-10 rounded-xl bg-zinc-900 flex items-center justify-center shrink-0 border border-zinc-800 group-hover:border-primary/30 transition-colors">

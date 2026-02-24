@@ -38,7 +38,7 @@ export function VisitSupportSection() {
                              </div>
                              <div className="pt-6 md:pt-8 border-t border-zinc-800">
                                  <p className="text-zinc-500 font-bold uppercase tracking-widest text-[10px] md:text-xs mb-1 md:mb-2">Contact for Admission</p>
-                                 <p className="text-xl md:text-2xl font-black">+91 89835 41719</p>
+                                 <p className="text-xl md:text-2xl font-black">+91 94222 62499</p>
                              </div>
                          </div>
                     </div>

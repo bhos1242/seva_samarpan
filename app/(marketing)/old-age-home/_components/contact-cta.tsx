@@ -16,9 +16,9 @@ export function ContactCTA() {
                     </p>
                  </div>
                  <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center pt-4 md:pt-0">
-                    <Link href="tel:+917972475067" className="w-full sm:w-auto">
+                    <Link href="tel:+919422262499" className="w-full sm:w-auto">
                          <Button size="lg" className="w-full h-14 md:h-16 px-8 md:px-10 rounded-xl md:rounded-2xl text-base md:text-xl font-bold shadow-lg md:shadow-2xl shadow-primary/20 hover:scale-105 transition-all">
-                            <Phone className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" /> +91 79724 75067
+                            <Phone className="mr-2 md:mr-3 h-5 w-5 md:h-6 md:w-6" /> +91 94222 62499
                          </Button>
                     </Link>
                     <Link href="/donate" className="w-full sm:w-auto">
