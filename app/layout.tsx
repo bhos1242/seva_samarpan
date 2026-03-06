@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Providers } from "@/components/providers";
 import { Toaster } from "@/components/ui/sonner";
+import Script from "next/script";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -58,18 +59,18 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased`}
       >
-        {/* Google tag (gtag.js) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-38P6B1K054"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-38P6B1K054');
-            `,
-          }}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-38P6B1K054"
+          strategy="afterInteractive"
         />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-38P6B1K054');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

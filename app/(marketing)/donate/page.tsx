@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Donate | Seva Samarpan',
         description: 'Your contribution empowers underprivileged students and provides dignified care to elders.',
-        url: '/sponsor-students',
+        url: '/donate',
     }
 }
 
