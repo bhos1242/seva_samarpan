@@ -129,7 +129,7 @@ function VerifyOTPContent() {
 
   if (!email) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50/50 p-4 dark:bg-gray-950">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50/50 px-4 py-6 dark:bg-gray-950">
         <Card className="w-full max-w-md shadow-lg">
           <CardHeader>
             <CardTitle className="text-2xl text-center">Error</CardTitle>
@@ -150,7 +150,7 @@ function VerifyOTPContent() {
   // Show loading state while sending initial OTP
   if (isSendingOtp) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gray-50/50 p-4 dark:bg-gray-950">
+      <div className="flex min-h-screen items-center justify-center bg-gray-50/50 px-4 py-6 dark:bg-gray-950">
         <Card className="w-full max-w-md shadow-lg">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold tracking-tight text-center">
@@ -183,7 +183,7 @@ function VerifyOTPContent() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50/50 p-4 dark:bg-gray-950">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50/50 px-4 py-6 dark:bg-gray-950">
       <Card className="w-full max-w-md shadow-lg">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold tracking-tight text-center">

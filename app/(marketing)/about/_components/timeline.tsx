@@ -7,12 +7,12 @@ const milestones = [
 
 export function Timeline() {
     return (
-        <section className="py-12 md:py-16 bg-background">
+        <section className="py-6 md:py-14 bg-background">
             <div className="container mx-auto px-4">
                 <div className="max-w-3xl mx-auto">
-                    <div className="mb-10 md:mb-12 text-center space-y-2">
-                        <h2 className="text-3xl md:text-4xl font-bold">Our Journey</h2>
-                        <p className="text-muted-foreground text-sm md:text-base">Milestones that shaped our path</p>
+                    <div className="mb-5 md:mb-10 text-center space-y-1.5">
+                        <h2 className="text-2xl md:text-4xl font-bold">Our Journey</h2>
+                        <p className="text-muted-foreground text-xs md:text-base">Milestones that shaped our path</p>
                     </div>
 
                     <div className="relative space-y-6 md:space-y-8">

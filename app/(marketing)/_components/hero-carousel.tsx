@@ -56,43 +56,41 @@ export const HeroCarousel = () => {
     }
 
     return (
-        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
-            <div className="grid md:grid-cols-2 gap-6 md:gap-8 items-center min-h-[400px] md:min-h-[500px]">
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-10">
+            <div className="grid md:grid-cols-2 gap-4 md:gap-8 items-center min-h-[320px] md:min-h-[480px]">
                 {/* Text Content */}
-                <div className="relative z-10 order-2 md:order-1 flex flex-col justify-center space-y-6">
-                    <div key={currentIndex} className="space-y-4 md:space-y-6 animate-in fade-in slide-in-from-left-8 duration-700">
-                        <div className="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 md:px-4 md:py-1.5 rounded-full text-xs md:text-sm font-bold w-fit border border-primary/20 shadow-sm">
-                            <span className="relative flex h-2 w-2 md:h-2.5 md:w-2.5">
+                <div className="relative z-10 order-2 md:order-1 flex flex-col justify-center">
+                    <div key={currentIndex} className="space-y-3 md:space-y-5 animate-in fade-in slide-in-from-left-8 duration-700">
+                        <div className="inline-flex items-center space-x-1.5 bg-primary/10 text-primary px-2.5 py-1 rounded-full text-xs font-bold w-fit border border-primary/20">
+                            <span className="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 md:h-2.5 md:w-2.5 bg-primary"></span>
+                                <span className="relative inline-flex rounded-full h-full w-full bg-primary"></span>
                             </span>
-                            <span className="uppercase tracking-wider text-[10px] md:text-xs">Featured Program</span>
+                            <span className="uppercase tracking-wider text-[9px] md:text-xs">Featured Program</span>
                         </div>
 
-                        <h1 className="text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
                             {programs[currentIndex].title}
                         </h1>
 
-                        <p className="text-base md:text-lg text-muted-foreground max-w-lg leading-snug md:leading-relaxed font-medium">
+                        <p className="text-sm md:text-lg text-muted-foreground max-w-lg leading-snug font-medium line-clamp-3 md:line-clamp-none">
                             {programs[currentIndex].description}
                         </p>
 
-                        <div className="flex flex-wrap gap-3 md:gap-4 pt-2 md:pt-4">
-                            <Button size="lg" variant="secondary" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold shadow-lg shadow-secondary/10 transition-all duration-300 text-sm md:text-base group" asChild>
+                        <div className="flex gap-2.5 md:gap-4 pt-1 md:pt-3">
+                            <Button size="default" variant="secondary" className="rounded-xl h-10 md:h-13 px-5 md:px-8 font-bold shadow-md shadow-secondary/10 text-xs md:text-base group" asChild>
                                 <Link href={programs[currentIndex].link}>
-                                    Learn More <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
+                                    Learn More <ArrowRight className="ml-1.5 h-3.5 w-3.5 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
                                 </Link>
                             </Button>
-                            <Button variant="outline" size="lg" className="rounded-xl h-12 md:h-14 px-6 md:px-8 font-bold border-2 hover:bg-muted/50 transition-all duration-300 text-sm md:text-base" asChild>
-                                <Link href="/donate">
-                                    Donate
-                                </Link>
+                            <Button variant="outline" size="default" className="rounded-xl h-10 md:h-13 px-5 md:px-8 font-bold border-2 hover:bg-muted/50 text-xs md:text-base" asChild>
+                                <Link href="/donate">Donate</Link>
                             </Button>
                         </div>
                     </div>
 
                     {/* Indicators */}
-                    <div className="flex items-center space-x-2.5 mt-6 md:mt-8">
+                    <div className="flex items-center space-x-2 mt-4 md:mt-8">
                         {programs.map((_, index) => (
                             <button
                                 key={index}
@@ -109,12 +107,9 @@ export const HeroCarousel = () => {
 
                 {/* Image Content */}
                 <div className="relative order-1 md:order-2 flex items-center justify-center">
-                    <div className="relative w-full aspect-square max-w-[500px] mx-auto">
-                        {/* Background blob */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-primary/5 rounded-full blur-3xl opacity-60 animate-pulse" />
-
+                    <div className="relative w-full aspect-4/3 md:aspect-square max-w-[500px] mx-auto">
                         <div key={`img-${currentIndex}`} className="relative w-full h-full animate-in fade-in zoom-in-95 duration-700">
-                            <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-2xl border-4 border-card transform hover:scale-[1.02] transition-transform duration-500">
+                            <div className="relative w-full h-full rounded-2xl md:rounded-3xl overflow-hidden shadow-xl md:shadow-2xl border-2 md:border-4 border-card">
                                 <Image
                                     src={programs[currentIndex].image}
                                     alt={programs[currentIndex].title}
@@ -122,27 +117,26 @@ export const HeroCarousel = () => {
                                     className="object-cover"
                                     priority
                                 />
-                                <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300" />
                             </div>
                         </div>
 
-                        {/* Navigation Buttons (Floating) */}
-                        <div className="absolute -bottom-4 right-0 md:-right-4 flex space-x-2">
+                        {/* Navigation Buttons */}
+                        <div className="absolute -bottom-3 right-2 md:-right-4 flex space-x-1.5">
                             <Button
                                 variant="secondary"
                                 size="icon"
                                 onClick={prevSlide}
-                                className="rounded-full shadow-lg hover:scale-110 transition-all duration-200"
+                                className="rounded-full shadow-md h-8 w-8 md:h-10 md:w-10"
                             >
-                                <ChevronLeft className="h-6 w-6" />
+                                <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
                             </Button>
                             <Button
                                 variant="secondary"
                                 size="icon"
                                 onClick={nextSlide}
-                                className="rounded-full shadow-lg hover:scale-110 transition-all duration-200"
+                                className="rounded-full shadow-md h-8 w-8 md:h-10 md:w-10"
                             >
-                                <ChevronRight className="h-6 w-6" />
+                                <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
                             </Button>
                         </div>
                     </div>

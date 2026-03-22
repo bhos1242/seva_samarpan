@@ -39,43 +39,43 @@ const images = [
 
 export function GallerySection() {
   return (
-    <section className="py-12 md:py-24 bg-background">
+    <section className="py-6 md:py-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <motion.h2 
+        <div className="text-center mb-5 md:mb-12">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-black tracking-tight mb-4"
+            className="text-2xl md:text-5xl font-black tracking-tight mb-2 md:mb-4"
           >
             Moments of <span className="text-primary italic">Joy & Care</span>
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-xs md:text-lg text-muted-foreground max-w-2xl mx-auto"
           >
-            A glimpse into the life at Seva Samarpan, where we care for our elders with dignity and provide students with the perfect environment to grow.
+            A glimpse into life at Seva Samarpan, where we care for our elders with dignity.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[250px]">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-5 auto-rows-[140px] md:auto-rows-[220px]">
           {images.map((image, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className={`relative overflow-hidden rounded-3xl group cursor-pointer ${image.span}`}
+              transition={{ delay: index * 0.08 }}
+              className={`relative overflow-hidden rounded-xl md:rounded-3xl group cursor-pointer ${image.span}`}
             >
               <Image
                 src={image.src}
                 alt={image.alt}
                 fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
             </motion.div>
           ))}

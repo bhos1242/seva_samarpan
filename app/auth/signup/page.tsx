@@ -108,13 +108,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50/50 p-4 dark:bg-gray-950">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50/50 px-4 py-6 dark:bg-gray-950">
       <Card className="w-full max-w-lg shadow-lg">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl font-bold tracking-tight text-center">
+        <CardHeader className="space-y-1 pb-4">
+          <CardTitle className="text-xl md:text-2xl font-bold tracking-tight text-center">
             Create an account
           </CardTitle>
-          <CardDescription className="text-center">
+          <CardDescription className="text-center text-xs md:text-sm">
             Enter your details below to create your account
           </CardDescription>
         </CardHeader>

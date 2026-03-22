@@ -79,10 +79,8 @@ export default function Home() {
       />
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-background">
-        <div className="absolute inset-0 bg-grid-white/[0.02] bg-size-[50px_50px]" />
-        {/* Decorative Blobs */}
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse" />
+        <div className="hidden md:block absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+          <div className="absolute top-[-10%] right-[-5%] w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30" />
           <div className="absolute bottom-[-10%] left-[-5%] w-96 h-96 bg-primary/20 rounded-full blur-3xl opacity-30" />
         </div>
         <HeroCarousel />

@@ -36,18 +36,18 @@ export function Gallery() {
   };
 
   return (
-    <section className="py-12 md:py-24 bg-muted/30">
+    <section className="py-6 md:py-16 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12 md:mb-16">
-          <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">
+        <div className="text-center mb-5 md:mb-12">
+          <h2 className="text-2xl md:text-5xl font-black tracking-tight mb-2 md:mb-4">
             Life at <span className="text-primary italic">Seva Samarpan</span>
           </h2>
-          <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Take a look at the dignified life and caring community we've built for our elders.
+          <p className="text-xs md:text-lg text-muted-foreground max-w-xl mx-auto">
+            The dignified life and caring community we've built for our elders.
           </p>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4">
+        <div className="columns-2 lg:columns-3 gap-2.5 md:gap-4 space-y-2.5 md:space-y-4">
           {images.map((image, index) => (
             <motion.div
               key={index}
@@ -56,7 +56,7 @@ export function Gallery() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.05 }}
               whileHover={{ scale: 1.02 }}
-              className="relative rounded-2xl overflow-hidden cursor-zoom-in group shadow-sm bg-background border"
+              className="relative rounded-xl md:rounded-2xl overflow-hidden cursor-zoom-in group shadow-sm bg-background border"
               onClick={() => setSelectedImage(index)}
             >
               <img

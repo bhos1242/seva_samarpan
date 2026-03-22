@@ -9,18 +9,18 @@ export default function RefundPolicy() {
   const lastUpdated = "February 24, 2026";
 
   return (
-    <div className="bg-background min-h-screen py-16 md:py-24">
+    <div className="bg-background min-h-screen py-6 md:py-16">
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="mb-12 md:mb-16 text-center">
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter mb-4 md:mb-6 uppercase leading-tight">
+        <div className="mb-5 md:mb-12 text-center">
+          <h1 className="text-2xl md:text-5xl font-black tracking-tighter mb-2 md:mb-4 uppercase leading-tight">
             Refund & <span className="text-primary italic">Cancellation</span>
           </h1>
           <p className="text-muted-foreground font-medium">Last Updated: {lastUpdated}</p>
         </div>
 
-        <div className="prose prose-zinc dark:prose-invert max-w-none space-y-10">
-          <section className="bg-white dark:bg-zinc-950 p-8 md:p-10 rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+        <div className="prose prose-zinc dark:prose-invert max-w-none space-y-4 md:space-y-8">
+          <section className="bg-white dark:bg-zinc-950 p-5 md:p-8 rounded-xl md:rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+            <h2 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 flex items-center gap-3">
               <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">01</span>
               Donation Refund Policy
             </h2>
@@ -32,8 +32,8 @@ export default function RefundPolicy() {
             </p>
           </section>
 
-          <section className="bg-white dark:bg-zinc-950 p-8 md:p-10 rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+          <section className="bg-white dark:bg-zinc-950 p-5 md:p-8 rounded-xl md:rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+            <h2 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 flex items-center gap-3">
               <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">02</span>
               Timeline for Refund
             </h2>
@@ -42,8 +42,8 @@ export default function RefundPolicy() {
             </p>
           </section>
 
-          <section className="bg-white dark:bg-zinc-950 p-8 md:p-10 rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+          <section className="bg-white dark:bg-zinc-950 p-5 md:p-8 rounded-xl md:rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+            <h2 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 flex items-center gap-3">
               <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">03</span>
               Cancellation Policy
             </h2>
@@ -52,8 +52,8 @@ export default function RefundPolicy() {
             </p>
           </section>
 
-          <section className="bg-white dark:bg-zinc-950 p-8 md:p-10 rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
-            <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
+          <section className="bg-white dark:bg-zinc-950 p-5 md:p-8 rounded-xl md:rounded-[2rem] border border-border/50 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+            <h2 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 flex items-center gap-3">
               <span className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center text-sm">04</span>
               How to Request a Refund
             </h2>
