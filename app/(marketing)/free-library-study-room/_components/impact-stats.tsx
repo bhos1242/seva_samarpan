@@ -10,8 +10,8 @@ export function ImpactStats() {
                         { label: 'Successes', value: '50+' }
                     ].map((stat, i) => (
                          <div key={i} className="text-center">
-                            <p className="text-xl md:text-4xl font-black text-primary">{stat.value}</p>
-                            <p className="text-[9px] md:text-xs font-bold uppercase tracking-wider text-muted-foreground mt-0.5 md:mt-2">{stat.label}</p>
+                            <p className="text-xl md:text-4xl font-bold text-primary">{stat.value}</p>
+                            <p className="text-[9px] md:text-xs font-medium text-muted-foreground mt-0.5 md:mt-2">{stat.label}</p>
                          </div>
                     ))}
                 </div>

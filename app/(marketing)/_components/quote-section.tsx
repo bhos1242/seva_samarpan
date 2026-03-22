@@ -10,7 +10,7 @@ export function QuoteSection() {
           <blockquote className="text-lg md:text-3xl lg:text-4xl font-medium leading-snug">
             &quot;Education is the most powerful weapon which you can use to change the world.&quot;
           </blockquote>
-          <p className="text-sm md:text-lg opacity-80 font-semibold tracking-wider">— SAMARPAN TEAM</p>
+          <p className="text-sm md:text-base opacity-80 font-medium">— Seva Samarpan team</p>
         </div>
       </div>
     </section>

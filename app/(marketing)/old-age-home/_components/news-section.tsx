@@ -7,8 +7,8 @@ export function NewsSection() {
             <div className="container mx-auto px-4">
                 <div className="text-center max-w-2xl mx-auto mb-5 md:mb-10">
                     <Badge variant="outline" className="mb-2 md:mb-4 border-primary/20 text-primary text-[10px] md:text-xs">Media Coverage</Badge>
-                    <h2 className="text-xl md:text-4xl font-black uppercase tracking-tighter">In the News</h2>
-                    <p className="text-muted-foreground mt-1.5 md:mt-3 text-xs md:text-base">Our efforts recognized by leading local publications.</p>
+                    <h2 className="text-xl md:text-4xl font-bold">In the news</h2>
+                    <p className="text-muted-foreground mt-1.5 md:mt-3 text-sm md:text-base">Coverage by local publications about our old age home.</p>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2.5 md:gap-6 max-w-5xl mx-auto">

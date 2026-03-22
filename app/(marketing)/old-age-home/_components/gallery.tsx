@@ -17,7 +17,7 @@ const images = [
   { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.17.03.jpeg", alt: "Relaxation time" },
   { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28 (1).jpeg", alt: "Meal time" },
   { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28 (2).jpeg", alt: "Social interactions" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28.jpeg", alt: "Holistic care" },
+  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28.jpeg", alt: "Daily care routine" },
 ];
 
 export function Gallery() {
@@ -39,11 +39,11 @@ export function Gallery() {
     <section className="py-6 md:py-16 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-5 md:mb-12">
-          <h2 className="text-2xl md:text-5xl font-black tracking-tight mb-2 md:mb-4">
-            Life at <span className="text-primary italic">Seva Samarpan</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
+            Life at <span className="text-primary">Seva Samarpan</span>
           </h2>
-          <p className="text-xs md:text-lg text-muted-foreground max-w-xl mx-auto">
-            The dignified life and caring community we've built for our elders.
+          <p className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto">
+            Photos from our old age home — everyday moments of care and community.
           </p>
         </div>
 

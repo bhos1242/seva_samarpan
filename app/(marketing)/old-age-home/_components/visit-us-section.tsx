@@ -12,8 +12,8 @@ export function VisitUsSection() {
                     <div className="grid md:grid-cols-2">
                         <div className="p-5 md:p-12 lg:p-16 space-y-4 md:space-y-6 flex flex-col justify-center">
                             <div className="space-y-1.5 md:space-y-3">
-                                <h2 className="text-xl md:text-4xl font-black uppercase tracking-tighter">Visit the Home</h2>
-                                <p className="text-zinc-400 text-xs md:text-base leading-snug">We welcome visitors who wish to spend time with our elders.</p>
+                                <h2 className="text-xl md:text-4xl font-bold">Come visit us</h2>
+                                <p className="text-zinc-400 text-sm md:text-base leading-snug">You're welcome to visit and spend time with the elders anytime.</p>
                             </div>
 
                             <div className="space-y-3 md:space-y-5">
@@ -22,7 +22,7 @@ export function VisitUsSection() {
                                         <MapPin className="h-4 w-4 md:h-5 md:w-5 text-white" />
                                     </div>
                                     <div className="space-y-0.5 md:space-y-1.5">
-                                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-[9px] md:text-xs">Our Address</p>
+                                        <p className="text-zinc-500 font-medium text-[9px] md:text-xs">Our Address</p>
                                         <p className="text-xs md:text-lg font-bold leading-tight">
                                             Plot No. 32, Near Om Sai Varad Vishwa, Maan-Hinjewadi Road, Pune - 411057
                                         </p>
@@ -34,7 +34,7 @@ export function VisitUsSection() {
                                         <Clock className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                                     </div>
                                     <div>
-                                        <p className="text-zinc-500 font-bold uppercase tracking-widest text-[9px] md:text-xs mb-0.5">Visiting Hours</p>
+                                        <p className="text-zinc-500 font-medium text-[9px] md:text-xs mb-0.5">Visiting Hours</p>
                                         <p className="font-bold text-xs md:text-base">10:00 AM - 6:00 PM Daily</p>
                                     </div>
                                 </div>

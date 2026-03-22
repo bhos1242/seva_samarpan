@@ -1,8 +1,8 @@
 import { Card } from '@/components/ui/card'
 
 const milestones = [
-    { year: '2025', event: 'Founded in Pune with the Seva Samarpan Free Library & Study Room, providing a quiet space for over 100 students.' },
-    { year: 'Jan 2026', event: 'Expanded our heart and mission with the Seva Samarpan Old Age Home, offering compassionate care for our elders.' },
+    { year: '2025', event: 'Started Seva Samarpan in Pune with a free library and study room, now used by 100+ students every month.' },
+    { year: 'Jan 2026', event: 'Opened the Seva Samarpan Old Age Home in Pune to provide a safe, comfortable home for senior citizens.' },
 ]
 
 export function Timeline() {
@@ -11,8 +11,8 @@ export function Timeline() {
             <div className="container mx-auto px-4">
                 <div className="max-w-3xl mx-auto">
                     <div className="mb-5 md:mb-10 text-center space-y-1.5">
-                        <h2 className="text-2xl md:text-4xl font-bold">Our Journey</h2>
-                        <p className="text-muted-foreground text-xs md:text-base">Milestones that shaped our path</p>
+                        <h2 className="text-2xl md:text-4xl font-bold">Our journey</h2>
+                        <p className="text-muted-foreground text-sm md:text-base">Key milestones since we started</p>
                     </div>
 
                     <div className="relative space-y-6 md:space-y-8">
@@ -23,7 +23,7 @@ export function Timeline() {
                                 <div className="flex-1 w-full">
                                     <Card className="border-none shadow-md hover:shadow-lg transition-shadow bg-card p-5 md:p-6 w-full relative z-10 border-border/50">
                                         <div className="text-primary font-bold text-lg md:text-xl mb-1.5">{milestone.year}</div>
-                                        <p className="text-muted-foreground font-medium text-sm md:text-base leading-snug">{milestone.event}</p>
+                                        <p className="text-muted-foreground text-sm md:text-base leading-snug">{milestone.event}</p>
                                     </Card>
                                 </div>
                                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-primary border-4 border-background z-20 hidden md:block shrink-0" />

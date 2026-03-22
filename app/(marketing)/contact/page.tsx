@@ -18,10 +18,10 @@ export default function ContactPage() {
     <div className="bg-background min-h-screen py-6 md:py-14">
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="mb-5 md:mb-10 text-center lg:text-left">
-          <h1 className="text-2xl md:text-6xl font-black tracking-tighter mb-2 md:mb-4 uppercase leading-tight">
-            Get in <span className="text-primary italic">Touch</span>
+          <h1 className="text-2xl md:text-5xl font-bold mb-2 md:mb-4 leading-tight">
+            Get in <span className="text-primary">touch</span>
           </h1>
-          <p className="text-muted-foreground text-xs md:text-base font-bold max-w-2xl">
+          <p className="text-muted-foreground text-sm md:text-base max-w-2xl">
             Have questions? Reach out through any of the channels below.
           </p>
         </div>
@@ -34,16 +34,16 @@ export default function ContactPage() {
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-2.5 md:mb-4">
                   <Phone className="h-4 w-4 md:h-5 md:w-5" />
                 </div>
-                <h3 className="text-sm md:text-lg font-black uppercase tracking-tight mb-0.5">Phone</h3>
-                <p className="text-xs md:text-sm text-muted-foreground font-bold">+91 94222 62499</p>
+                <h3 className="text-sm md:text-lg font-semibold mb-0.5">Phone</h3>
+                <p className="text-xs md:text-sm text-muted-foreground ">+91 94222 62499</p>
               </div>
 
               <div className="p-4 md:p-6 bg-white dark:bg-zinc-950 rounded-xl md:rounded-3xl border border-black/5 dark:border-white/5 shadow-sm">
                 <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-2.5 md:mb-4">
                   <Mail className="h-4 w-4 md:h-5 md:w-5" />
                 </div>
-                <h3 className="text-sm md:text-lg font-black uppercase tracking-tight mb-0.5">Email</h3>
-                <p className="text-[11px] md:text-sm text-muted-foreground font-bold break-all">sevasamarpanngo@gmail.com</p>
+                <h3 className="text-sm md:text-lg font-semibold mb-0.5">Email</h3>
+                <p className="text-[11px] md:text-sm text-muted-foreground break-all">sevasamarpanngo@gmail.com</p>
               </div>
             </div>
 
@@ -53,8 +53,8 @@ export default function ContactPage() {
                   <MapPin className="h-4 w-4 md:h-5 md:w-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm md:text-lg font-black uppercase tracking-tight mb-0.5">Location</h3>
-                  <p className="text-xs md:text-sm text-muted-foreground font-bold">Pune, Maharashtra, India</p>
+                  <h3 className="text-sm md:text-lg font-semibold mb-0.5">Location</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground ">Pune, Maharashtra, India</p>
                 </div>
               </div>
             </div>
@@ -65,8 +65,8 @@ export default function ContactPage() {
                     <Clock className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                  </div>
                  <div>
-                    <h3 className="text-sm md:text-lg font-black uppercase tracking-tight">Visiting Hours</h3>
-                    <p className="text-zinc-400 text-xs md:text-sm font-bold">Everyday: 9:00 AM - 6:00 PM</p>
+                    <h3 className="text-sm md:text-lg font-semibold">Visiting Hours</h3>
+                    <p className="text-zinc-400 text-xs md:text-sm">Every day, 9:00 AM – 6:00 PM</p>
                  </div>
                </div>
             </div>
@@ -75,16 +75,16 @@ export default function ContactPage() {
           {/* Action Section */}
           <div className="lg:col-span-2 p-5 md:p-8 bg-muted/30 rounded-xl md:rounded-3xl border border-black/5 dark:border-white/5 flex flex-col items-center justify-center text-center space-y-4 md:space-y-6">
              <div className="space-y-1.5">
-                <h2 className="text-lg md:text-2xl font-black uppercase tracking-tighter">Direct Message</h2>
-                <p className="text-[11px] md:text-sm text-muted-foreground font-bold">
+                <h2 className="text-lg md:text-2xl font-semibolder">Direct Message</h2>
+                <p className="text-[11px] md:text-sm text-muted-foreground">
                   The quickest way to reach us is via WhatsApp.
                 </p>
              </div>
              <div className="flex flex-col w-full gap-2.5">
-                <Button size="default" className="h-11 md:h-14 rounded-xl md:rounded-2xl font-black uppercase tracking-tight shadow-md text-xs md:text-base" asChild>
+                <Button size="default" className="h-11 md:h-14 rounded-xl md:rounded-2xl font-semibold shadow-md text-xs md:text-base" asChild>
                    <a href="https://wa.me/919422262499">WhatsApp Us</a>
                 </Button>
-                <Button size="default" variant="outline" className="h-11 md:h-14 rounded-xl md:rounded-2xl font-black uppercase tracking-tight border-2 text-xs md:text-base" asChild>
+                <Button size="default" variant="outline" className="h-11 md:h-14 rounded-xl md:rounded-2xl font-semibold border-2 text-xs md:text-base" asChild>
                    <a href="mailto:sevasamarpanngo@gmail.com">Email Us</a>
                 </Button>
              </div>

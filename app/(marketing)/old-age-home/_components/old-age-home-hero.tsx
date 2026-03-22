@@ -17,7 +17,7 @@ export function OldAgeHomeHero() {
                 <Badge className="bg-primary hover:bg-primary/90 text-white border-none px-2.5 py-0.5 md:px-4 md:py-1.5 text-[10px] md:text-sm rounded-full shadow-lg">
                     Our Main Project
                 </Badge>
-                <h1 className="text-2xl md:text-5xl lg:text-7xl font-black tracking-tighter uppercase">
+                <h1 className="text-2xl md:text-5xl lg:text-6xl font-bold">
                     Seva Samarpan <span className="text-primary">Old Age</span> Home
                 </h1>
                 <blockquote className="text-sm md:text-2xl font-medium italic opacity-90 max-w-2xl mx-auto leading-snug">

@@ -10,7 +10,7 @@ const programs = [
     {
         id: 7,
         title: 'Seva Samarpan Abhyasika',
-        description: 'Free Library and study room for tribal and underprivileged students, providing a quiet and resourceful environment for learning.',
+        description: 'A free library and study room with 1,500+ books for students in Pune. Open daily for focused learning in a quiet, well-equipped space.',
         image: '/programs/samarpan.png',
         link: '/programs/abhyasika',
         color: 'bg-primary',
@@ -18,15 +18,15 @@ const programs = [
     {
         id: 8,
         title: 'Seva Samarpan Old Age Home',
-        description: 'Dignified care and a loving community for elders in Pune, providing medical support, nutritious food, and a place to call home.',
+        description: 'A home for elders in Pune with daily meals, medical support, and a caring community. Because every elder deserves respect and comfort.',
         image: '/old-age/image.png',
         link: '/programs/old-age-home',
         color: 'bg-orange-600',
     },
     {
         id: 9,
-        title: 'Compassionate Care',
-        description: 'At Seva Samarpan, we believe in giving our elders the respect and quality of life they deserve through holistic support and community engagement.',
+        title: 'Elder Care & Support',
+        description: 'We look after our elders like family — from health check-ups and nutritious food to daily activities and companionship.',
         image: '/old-age/news-1.png',
         link: '/programs/old-age-home',
         color: 'bg-primary',
@@ -69,7 +69,7 @@ export const HeroCarousel = () => {
                             <span className="uppercase tracking-wider text-[9px] md:text-xs">Featured Program</span>
                         </div>
 
-                        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight">
+                        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
                             {programs[currentIndex].title}
                         </h1>
 

@@ -36,11 +36,11 @@ export function FAQSection() {
     <section className="py-8 md:py-16 bg-background relative overflow-hidden">
       <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-6 md:mb-12">
-          <h2 className="text-2xl md:text-5xl font-black tracking-tight mb-2 md:mb-4">
-            Common <span className="text-primary italic">Questions</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">
+            Frequently asked <span className="text-primary">questions</span>
           </h2>
-          <p className="text-xs md:text-lg text-muted-foreground">
-            Everything you need to know about our mission and how you can help.
+          <p className="text-sm md:text-base text-muted-foreground">
+            Common questions about Seva Samarpan, donations, and how to get involved.
           </p>
         </div>
 

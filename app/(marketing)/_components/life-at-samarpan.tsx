@@ -8,11 +8,11 @@ export function LifeAtSamarpan() {
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between gap-3 mb-5 md:mb-10">
           <div>
-            <h2 className="text-2xl md:text-5xl font-black tracking-tight mb-1.5 md:mb-4 leading-tight">
-              Life at <span className="text-primary italic">Seva Samarpan</span>
+            <h2 className="text-2xl md:text-4xl font-bold mb-1.5 md:mb-4 leading-tight">
+              Life at <span className="text-primary">Seva Samarpan</span>
             </h2>
-            <p className="text-xs md:text-lg text-muted-foreground">
-              Glimpses of daily life and community at our Old Age Home in Pune.
+            <p className="text-sm md:text-base text-muted-foreground">
+              A look at everyday moments at our old age home in Pune.
             </p>
           </div>
           <Link href="/about" className="text-primary font-bold flex items-center gap-1.5 hover:underline underline-offset-4 text-xs md:text-base shrink-0">
@@ -30,7 +30,7 @@ export function LifeAtSamarpan() {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
             <div className="absolute bottom-3 left-3 md:bottom-6 md:left-6 text-white">
-               <p className="text-[9px] md:text-sm font-bold uppercase tracking-widest opacity-80 mb-0.5">Our Sanctuary</p>
+               <p className="text-[9px] md:text-sm font-medium uppercase tracking-wider opacity-80 mb-0.5">Our Home</p>
                <h3 className="text-sm md:text-xl font-bold">Seva Samarpan Old Age Home</h3>
             </div>
           </div>
@@ -57,7 +57,7 @@ export function LifeAtSamarpan() {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-white">
-               <h4 className="text-xs md:text-sm font-bold">Holistic Care</h4>
+               <h4 className="text-xs md:text-sm font-bold">Daily Care</h4>
             </div>
           </div>
 
@@ -70,7 +70,7 @@ export function LifeAtSamarpan() {
             />
             <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 text-white">
-               <h4 className="text-xs md:text-sm font-bold">Safe & Dignified Environment</h4>
+               <h4 className="text-xs md:text-sm font-bold">A safe, comfortable space</h4>
             </div>
           </div>
         </div>

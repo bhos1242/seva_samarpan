@@ -46,18 +46,18 @@ export function GallerySection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-2xl md:text-5xl font-black tracking-tight mb-2 md:mb-4"
+            className="text-2xl md:text-4xl font-bold mb-2 md:mb-4"
           >
-            Moments of <span className="text-primary italic">Joy & Care</span>
+            Moments of <span className="text-primary">joy & care</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-xs md:text-lg text-muted-foreground max-w-2xl mx-auto"
+            className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto"
           >
-            A glimpse into life at Seva Samarpan, where we care for our elders with dignity.
+            Everyday scenes from our old age home — meals, activities, and time spent together.
           </motion.p>
         </div>
 

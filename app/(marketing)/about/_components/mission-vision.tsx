@@ -11,9 +11,9 @@ export function MissionVision() {
                             <Target className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                         </div>
                         <div className="space-y-1 md:space-y-2">
-                            <h3 className="text-base md:text-xl font-black uppercase tracking-tight">Mission</h3>
-                            <p className="text-xs md:text-base text-muted-foreground font-bold leading-snug">
-                                Empowering underprivileged children through education and providing compassionate care for elders in Pune.
+                            <h3 className="text-base md:text-xl font-bold">Mission</h3>
+                            <p className="text-xs md:text-base text-muted-foreground leading-snug">
+                                Give underprivileged students a proper place to study and ensure senior citizens in Pune receive the care they need.
                             </p>
                         </div>
                     </div>
@@ -23,9 +23,9 @@ export function MissionVision() {
                             <BookOpen className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                         </div>
                         <div className="space-y-1 md:space-y-2">
-                            <h3 className="text-base md:text-xl font-black uppercase tracking-tight">Vision</h3>
-                            <p className="text-xs md:text-base text-muted-foreground font-bold leading-snug">
-                                A community where every child excels and every elder lives with dignity and love.
+                            <h3 className="text-base md:text-xl font-bold">Vision</h3>
+                            <p className="text-xs md:text-base text-muted-foreground leading-snug">
+                                A Pune where every student has access to education and every elder has a safe, caring home.
                             </p>
                         </div>
                     </div>

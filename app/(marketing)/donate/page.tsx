@@ -24,15 +24,15 @@ export default function DonatePage() {
                 {/* Header Section */}
                 <div className="space-y-2 md:space-y-4 text-center mb-5 md:mb-8">
                     <Badge className="bg-primary/20 text-primary hover:bg-primary/30 border-none px-2.5 py-0.5 md:px-4 md:py-1.5 text-[10px] md:text-sm rounded-full inline-flex mx-auto">
-                         Make An Impact
+                         Donate
                     </Badge>
 
-                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-black tracking-tighter uppercase relative z-20">
-                        Support Our <span className="text-primary inline-flex items-center gap-1.5 md:gap-2">Mission <Heart className="h-5 w-5 md:h-8 md:w-8 fill-current" /></span>
+                    <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold relative z-20">
+                        Support our <span className="text-primary inline-flex items-center gap-1.5 md:gap-2">work <Heart className="h-5 w-5 md:h-7 md:w-7 fill-current" /></span>
                     </h1>
 
-                    <p className="text-muted-foreground text-xs md:text-base leading-snug font-medium max-w-xl mx-auto">
-                        100% of your donation goes directly to education and elder care.
+                    <p className="text-muted-foreground text-sm md:text-base leading-snug max-w-xl mx-auto">
+                        Your donation goes directly to our library and old age home in Pune.
                     </p>
                 </div>
 

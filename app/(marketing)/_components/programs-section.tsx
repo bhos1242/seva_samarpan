@@ -1,23 +1,18 @@
-"use client";
-
-import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { BookOpen, HomeIcon, Heart, ArrowRight } from "lucide-react";
+import { BookOpen, HomeIcon, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import useEmblaCarousel from "embla-carousel-react";
-import Autoplay from "embla-carousel-autoplay";
 
 const programs = [
   {
     title: 'Free Library & Study Room',
-    description: 'A dedicated library and study space for tribal and underprivileged students, equipped with over 1,500 books and modern learning resources.',
+    description: 'A free library and study space for students, equipped with over 1,500 books and a quiet learning environment.',
     icon: BookOpen,
     link: '/free-library-study-room',
     color: 'primary',
   },
   {
     title: 'Seva Samarpan Old Age Home',
-    description: 'A sanctuary in Pune providing dignified living, holistic care, and a supportive community for our elders.',
+    description: 'A caring home in Pune for senior citizens with daily meals, medical support, and a warm community.',
     icon: HomeIcon,
     link: '/old-age-home',
     color: 'secondary',
@@ -25,33 +20,15 @@ const programs = [
 ];
 
 export function ProgramsSection() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 4000 })]);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return;
-    setSelectedIndex(emblaApi.selectedScrollSnap());
-  }, [emblaApi]);
-
-  useEffect(() => {
-    if (!emblaApi) return;
-    setScrollSnaps(emblaApi.scrollSnapList());
-    emblaApi.on("select", onSelect);
-    emblaApi.on("reInit", onSelect);
-  }, [emblaApi, onSelect]);
-
-  const scrollTo = useCallback((index: number) => emblaApi && emblaApi.scrollTo(index), [emblaApi]);
-
   return (
     <section className="pt-4 pb-6 md:pt-8 md:pb-14 bg-background relative overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-5 md:mb-10">
-          <h2 className="text-2xl md:text-5xl font-black tracking-tight mb-2 md:mb-4 leading-tight">
-            Our Core <span className="text-primary italic">Programs</span>
+          <h2 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4 leading-tight">
+            What we <span className="text-primary">do</span>
           </h2>
-          <p className="text-xs md:text-lg text-muted-foreground leading-relaxed px-2">
-            Transforming lives through education, compassionate care, and community development.
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed px-2">
+            We run two programs in Pune — a free library for students and a home for senior citizens.
           </p>
         </div>
 
@@ -121,8 +98,8 @@ function ProgramCard({ program }: { program: typeof programs[0] }) {
             <p className="text-sm text-muted-foreground leading-relaxed mb-6 font-medium">
               {program.description}
             </p>
-            <div className={`flex items-center text-sm font-extrabold tracking-tight transition-all duration-300 group-hover:translate-x-2 ${iconText}`}>
-              EXPLORE MORE <ArrowRight className="ml-2 h-4 w-4 stroke-[3px]" />
+            <div className={`flex items-center text-sm font-semibold transition-all duration-300 group-hover:translate-x-2 ${iconText}`}>
+              Learn more <ArrowRight className="ml-2 h-4 w-4 stroke-[2.5px]" />
             </div>
           </div>
 

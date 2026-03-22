@@ -10,7 +10,7 @@ export function VisitSupportSection() {
                 <Card className="max-w-5xl mx-auto rounded-xl md:rounded-[3rem] overflow-hidden bg-zinc-950 text-white border-none shadow-xl md:shadow-2xl relative">
                     <div className="grid md:grid-cols-2">
                          <div className="p-5 md:p-12 lg:p-16 space-y-3 md:space-y-6">
-                            <h2 className="text-xl md:text-4xl font-black uppercase tracking-tighter">Support the Library</h2>
+                            <h2 className="text-xl md:text-4xl font-bold">Support the library</h2>
                             <p className="text-zinc-400 text-xs md:text-base leading-snug">
                                 Your donation helps buy new books and maintain the facility for students.
                             </p>
@@ -31,8 +31,8 @@ export function VisitSupportSection() {
                                 </div>
                              </div>
                              <div className="pt-4 md:pt-6 border-t border-zinc-800">
-                                 <p className="text-zinc-500 font-bold uppercase tracking-widest text-[9px] md:text-xs mb-0.5 md:mb-2">Contact for Admission</p>
-                                 <p className="text-lg md:text-2xl font-black">+91 94222 62499</p>
+                                 <p className="text-zinc-500 font-medium text-[9px] md:text-xs mb-0.5 md:mb-2">Call us</p>
+                                 <p className="text-lg md:text-2xl font-bold">+91 94222 62499</p>
                              </div>
                          </div>
                     </div>

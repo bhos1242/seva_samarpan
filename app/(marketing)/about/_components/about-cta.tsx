@@ -5,9 +5,9 @@ export function AboutCTA() {
     return (
         <section className="py-8 md:py-14 bg-primary text-primary-foreground">
             <div className="container mx-auto px-4 text-center space-y-3 md:space-y-6">
-                <h2 className="text-xl md:text-4xl font-black tracking-tight">Want to be part of our story?</h2>
-                <p className="text-xs md:text-base opacity-90 max-w-xl mx-auto font-medium">
-                    Your support can transform lives. Every contribution makes a lasting impact.
+                <h2 className="text-xl md:text-4xl font-bold">Want to support our work?</h2>
+                <p className="text-sm md:text-base opacity-90 max-w-xl mx-auto">
+                    Your donation helps us keep the library running and the elders cared for. You can also volunteer with us.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-2.5 md:gap-4 justify-center">
                     <Button size="default" variant="secondary" className="rounded-xl h-10 md:h-12 px-6 md:px-8 font-bold shadow-lg text-xs md:text-base" asChild>

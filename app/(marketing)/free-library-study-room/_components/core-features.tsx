@@ -6,9 +6,9 @@ export function CoreFeatures() {
         <section className="py-6 md:py-16 bg-background">
             <div className="container mx-auto px-4">
                 <div className="text-center max-w-3xl mx-auto mb-5 md:mb-12 space-y-2 md:space-y-3">
-                    <h2 className="text-xl md:text-4xl font-black uppercase tracking-tighter">Everything a Student Needs</h2>
-                    <p className="text-xs md:text-base text-muted-foreground leading-snug font-medium">
-                        Resources previously out of reach, now accessible for rural students.
+                    <h2 className="text-xl md:text-4xl font-bold">What our library offers</h2>
+                    <p className="text-sm md:text-base text-muted-foreground leading-snug">
+                        Everything students need to study and prepare — all for free.
                     </p>
                 </div>
 
@@ -21,7 +21,7 @@ export function CoreFeatures() {
                         },
                         {
                             icon: Sparkles,
-                            title: 'Quiet Sanctuary',
+                            title: 'Quiet Study Space',
                             desc: 'A peaceful environment designed specifically for focused learning.'
                         },
                         {

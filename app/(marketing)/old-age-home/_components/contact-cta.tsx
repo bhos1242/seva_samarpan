@@ -10,9 +10,9 @@ export function ContactCTA() {
                     <Phone className="h-6 w-6 md:h-8 md:w-8 text-white" />
                  </div>
                  <div className="space-y-1.5 md:space-y-3">
-                    <h2 className="text-xl md:text-4xl font-black uppercase tracking-tighter">Get in Touch</h2>
-                    <p className="text-xs md:text-base text-muted-foreground leading-snug font-medium max-w-md mx-auto">
-                        For admissions, donations, or visits, reach out to us. Your support keeps this haven alive.
+                    <h2 className="text-xl md:text-4xl font-bold">Get in touch</h2>
+                    <p className="text-sm md:text-base text-muted-foreground leading-snug max-w-md mx-auto">
+                        For admissions, donations, or visits — call us or donate online.
                     </p>
                  </div>
                  <div className="flex flex-col sm:flex-row gap-2.5 md:gap-4 justify-center items-center">
