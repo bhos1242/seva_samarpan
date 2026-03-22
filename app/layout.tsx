@@ -15,34 +15,34 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://sevasamarpan.org"),
   title: {
-    default: "Seva Samarpan | NGO in Pune",
+    default: "Seva Samarpan – Free Library & Old Age Home in Pune",
     template: "%s | Seva Samarpan",
   },
-  description: "Seva Samarpan is a leading NGO in Pune dedicated to empowering students through free libraries and providing dignified care for elders in our old age home.",
-  keywords: ["NGO in Pune", "best NGO near me", "free library Pune", "old age home Pune", "charity for students Pune", "Seva Samarpan NGO", "Pune social work", "NGO for elderly Pune"],
+  description: "Seva Samarpan runs a free library and study room for students and an old age home for elders in Pune, Maharashtra. Donate or volunteer to support our work.",
+  keywords: ["Seva Samarpan", "NGO Pune", "free library Pune", "old age home Pune", "donate to NGO Pune", "volunteer Pune", "student education support Pune", "elder care Pune"],
   authors: [{ name: "Seva Samarpan" }],
   creator: "Seva Samarpan",
   openGraph: {
     type: "website",
     locale: "en_IN",
     url: "/",
-    title: "Seva Samarpan | NGO in Pune",
-    description: "Empowering lives through education and care in Pune.",
+    title: "Seva Samarpan – Free Library & Old Age Home in Pune",
+    description: "We run a free study room for students and a home for elders in Pune. See how you can help.",
     siteName: "Seva Samarpan",
     images: [
       {
-        url: `/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Pune.")}`,
+        url: `/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Free library for students & old age home in Pune.")}`,
         width: 1200,
         height: 630,
-        alt: "Seva Samarpan NGO"
+        alt: "Seva Samarpan – NGO in Pune"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Seva Samarpan | NGO in Pune",
-    description: "Empowering lives through education and care in Pune.",
-    images: [`/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Empowering lives through education and care in Pune.")}`],
+    title: "Seva Samarpan – Free Library & Old Age Home in Pune",
+    description: "We run a free study room for students and a home for elders in Pune. See how you can help.",
+    images: [`/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Free library for students & old age home in Pune.")}`],
   },
   verification: {
     google: "BwI_9JRy2KhlYRbLuy3laTHKkfMfq_bSRsFlNv0WDSo",
@@ -81,7 +81,7 @@ export default function RootLayout({
               "name": "Seva Samarpan",
               "url": "https://sevasamarpan.org",
               "logo": "https://sevasamarpan.org/logo/logo_high.png",
-              "description": "Seva Samarpan is a leading NGO in Pune, Maharashtra, providing a free library and study room for students and a compassionate old age home for elders.",
+              "description": "Seva Samarpan is a registered NGO in Pune, Maharashtra, running a free library and study room for students and an old age home for elders.",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Pune district",

@@ -3,8 +3,14 @@ import { Mail, MapPin, Phone, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Seva Samarpan",
-  description: "Get in touch with Seva Samarpan for inquiries, donations, or visits.",
+  title: "Contact Us – Phone, Email & Visiting Hours",
+  description: "Reach Seva Samarpan by phone (+91 94222 62499), email, or WhatsApp. Visit our facilities in Pune daily from 9 AM to 6 PM.",
+  keywords: ["contact Seva Samarpan", "Seva Samarpan phone number", "Seva Samarpan address", "visit NGO Pune"],
+  openGraph: {
+    title: "Contact Seva Samarpan – Phone, Email & Visit",
+    description: "Call, email, or visit us in Pune. We're open every day from 9 AM to 6 PM.",
+    url: "/contact",
+  }
 };
 
 export default function ContactPage() {

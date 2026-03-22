@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms and Conditions | Seva Samarpan",
-  description: "Read the terms and conditions for using the Seva Samarpan platform.",
+  title: "Terms & Conditions – Website Usage & Donations",
+  description: "Terms governing your use of the Seva Samarpan website, donations, and related services under Indian law.",
 };
 
 export default function TermsAndConditions() {

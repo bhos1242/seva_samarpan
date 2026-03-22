@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Shipping and Delivery Policy | Seva Samarpan",
-  description: "Our policy regarding the delivery of services and donor receipts.",
+  title: "Delivery Policy – Receipts & 80G Certificates",
+  description: "How Seva Samarpan delivers donation receipts and 80G tax-exemption certificates. Includes timelines and contact info.",
 };
 
 export default function ShippingPolicy() {

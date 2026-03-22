@@ -6,12 +6,12 @@ import { Timeline } from './_components/timeline'
 import { AboutCTA } from './_components/about-cta'
 
 export const metadata: Metadata = {
-    title: 'About Seva Samarpan | Best NGO in Pune for Social Impact',
-    description: 'Learn how Seva Samarpan, a top NGO in Pune, is helping old people and students through dedicated care and education programs in Pune.',
-    keywords: ["best NGO in Pune", "NGO helping old people", "NGO helping students Pune", "Seva Samarpan mission", "Pune NGO"],
+    title: 'About Us – Our Story, Mission & Programs',
+    description: 'Seva Samarpan started with a free library for students in Pune and grew to include an old age home. Learn about our journey, team, and what drives our work.',
+    keywords: ["about Seva Samarpan", "Seva Samarpan story", "NGO Pune mission", "education NGO Pune", "elder care NGO Pune"],
     openGraph: {
-        title: 'About Seva Samarpan | Empowering Lives in Pune',
-        description: 'Learn about our mission to provide quality education and dignified care in Pune.',
+        title: 'About Seva Samarpan – Our Story & Mission',
+        description: 'From a free library to an old age home – learn about our journey in Pune.',
         url: '/about',
     }
 }

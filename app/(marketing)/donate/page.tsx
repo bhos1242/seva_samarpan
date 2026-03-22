@@ -5,11 +5,12 @@ import { Badge } from '@/components/ui/badge'
 import { Heart } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: 'Donate | Seva Samarpan NGO',
-    description: 'Support Seva Samarpan NGO with a secure donation. Your contribution helps empower underprivileged students and provide dignified care to elders in Pune.',
+    title: 'Donate – Support Education & Elder Care in Pune',
+    description: 'Make a secure online donation to Seva Samarpan. Your contribution funds our free library for students and old age home for elders in Pune.',
+    keywords: ["donate Seva Samarpan", "donate NGO Pune", "support education Pune", "donate elder care Pune", "online donation NGO"],
     openGraph: {
-        title: 'Donate | Seva Samarpan',
-        description: 'Your contribution empowers underprivileged students and provides dignified care to elders.',
+        title: 'Donate to Seva Samarpan',
+        description: 'Fund our free library and old age home in Pune. Every contribution directly supports students and elders.',
         url: '/donate',
     }
 }

@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Seva Samarpan",
-  description: "Learn how Seva Samarpan collects, uses, and protects your personal information.",
+  title: "Privacy Policy – How We Handle Your Data",
+  description: "How Seva Samarpan collects, uses, and protects your personal information when you donate or use our website.",
 };
 
 export default function PrivacyPolicy() {

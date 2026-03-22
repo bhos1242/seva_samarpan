@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Refund and Cancellation Policy | Seva Samarpan",
-  description: "Our policy regarding refund and cancellation of donations.",
+  title: "Refund & Cancellation Policy – Donation Refunds",
+  description: "How to request a refund for donations made to Seva Samarpan. Includes timelines, process, and conditions for cancellation.",
 };
 
 export default function RefundPolicy() {

@@ -10,18 +10,18 @@ import { FinalCta } from "./_components/final-cta";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Seva Samarpan | Top-Rated NGO in Pune | Education & Elder Care",
-  description: "Seva Samarpan is a leading NGO in Pune, Maharashtra. We provide free study rooms for students and compassionate care in our old age home. Support Pune's best NGO today.",
-  keywords: ["best NGO in Pune", "NGO near me Pune", "free library Pune", "old age home Pune", "Seva Samarpan", "Pune social services", "NGO Maharashtra"],
+  title: "Seva Samarpan – Free Library & Old Age Home NGO in Pune",
+  description: "Seva Samarpan provides a free study room with 1,500+ books for students and runs an old age home for elders in Pune. Donate, volunteer, or visit us.",
+  keywords: ["Seva Samarpan", "NGO Pune", "free library Pune", "free study room Pune", "old age home Pune", "donate NGO Pune", "education NGO Maharashtra", "elder care Pune"],
   openGraph: {
-    title: "Seva Samarpan | Top-Rated NGO in Pune",
-    description: "Empowering tribal students with free study rooms and caring for elders. Support the best NGO near me today.",
+    title: "Seva Samarpan – Free Library & Old Age Home in Pune",
+    description: "A free study room for students and a caring home for elders in Pune. Learn how you can support us.",
     url: "/",
-    images: [{ 
-      url: `/api/og?title=${encodeURIComponent("Seva Samarpan | Top-Rated NGO")}&description=${encodeURIComponent("Empowering tribal students and caring for elders in Pune.")}`, 
-      width: 1200, 
-      height: 630, 
-      alt: "Seva Samarpan NGO" 
+    images: [{
+      url: `/api/og?title=${encodeURIComponent("Seva Samarpan")}&description=${encodeURIComponent("Free library for students & old age home in Pune.")}`,
+      width: 1200,
+      height: 630,
+      alt: "Seva Samarpan – NGO in Pune"
     }],
   }
 };
@@ -33,7 +33,7 @@ export default function Home() {
     '@id': 'https://sevasamarpan.org/#organization',
     name: 'Seva Samarpan',
     url: 'https://sevasamarpan.org',
-    description: 'Empowering lives through education and care in Pune.',
+    description: 'Seva Samarpan runs a free library for students and an old age home for elders in Pune, Maharashtra.',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Pune',
@@ -47,19 +47,19 @@ export default function Home() {
         {
           "@type": "Service",
           "name": "Free Library & Study Room",
-          "description": "A dedicated library space for tribal students with 1,500+ books.",
+          "description": "A free library and study space with 1,500+ books for underprivileged students in Pune.",
           "provider": { "@id": "https://sevasamarpan.org/#organization" }
         },
         {
           "@type": "Service",
           "name": "Seva Samarpan Old Age Home",
-          "description": "A dignified sanctuary for elders provide holistic care and community.",
+          "description": "A home for elders in Pune providing daily care, medical support, and community.",
           "provider": { "@id": "https://sevasamarpan.org/#organization" }
         },
         {
           "@type": "Service",
           "name": "Student Sponsorship Program",
-          "description": "Financial and academic support for underprivileged tribal students.",
+          "description": "Sponsor the education of underprivileged students in Pune through direct financial support.",
           "provider": { "@id": "https://sevasamarpan.org/#organization" }
         }
       ]
