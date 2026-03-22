@@ -33,7 +33,7 @@ const loginSchema = z.object({
 });
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma_db),
+  adapter: PrismaAdapter(prisma_db) as any,
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,

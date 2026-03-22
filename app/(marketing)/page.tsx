@@ -1,7 +1,6 @@
 import { HeroCarousel } from "./_components/hero-carousel";
 import { ImpactStats } from "./_components/impact-stats";
 import { ProgramsSection } from "./_components/programs-section";
-import { FeaturedStudents } from "./_components/featured-students";
 import { LifeAtSamarpan } from "./_components/life-at-samarpan";
 import { GallerySection } from "./_components/gallery-section";
 import { QuoteSection } from "./_components/quote-section";
@@ -89,7 +88,6 @@ export default function Home() {
       {/* Extracted Sections */}
       <ImpactStats />
       <ProgramsSection />
-      {/* <FeaturedStudents /> */}
       <LifeAtSamarpan />
       <GallerySection />
       <QuoteSection />

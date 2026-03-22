@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { DonateForm } from './_components/donate-form'
 import { DonationAnimation } from './_components/donation-animation'
 import { Badge } from '@/components/ui/badge'
-import { Heart } from 'lucide-react'
+import { Heart, BookOpen, Home, Utensils } from 'lucide-react'
 
 export const metadata: Metadata = {
     title: 'Donate – Support Education & Elder Care in Pune',
@@ -40,7 +40,7 @@ export default function DonatePage() {
                 <div className="flex flex-col lg:flex-row gap-4 md:gap-8 lg:gap-12 items-center justify-center">
                     {/* Animation Side - hidden on small mobile */}
                     <div className="hidden sm:flex w-full lg:w-1/2 justify-center items-center">
-                        <div className="w-full max-w-[220px] lg:max-w-sm xl:max-w-md">
+                        <div className="w-full max-w-55 lg:max-w-sm xl:max-w-md">
                             <DonationAnimation />
                         </div>
                     </div>
@@ -48,6 +48,25 @@ export default function DonatePage() {
                     {/* Form Side */}
                     <div className="w-full lg:w-1/2 max-w-xl">
                         <DonateForm />
+                    </div>
+                </div>
+                {/* Where your money goes */}
+                <div className="mt-10 md:mt-16 max-w-3xl mx-auto">
+                    <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8">Where your donation goes</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-5">
+                        {[
+                            { icon: BookOpen, amount: '₹500', desc: 'Books and study materials for one student for a month' },
+                            { icon: Utensils, amount: '₹2,000', desc: 'Nutritious meals for one elder for a month' },
+                            { icon: Home, amount: '₹5,000', desc: 'One month of shelter, care, and medical support for an elder' },
+                        ].map((item, i) => (
+                            <div key={i} className="flex flex-col items-center text-center p-5 md:p-6 rounded-2xl bg-white dark:bg-zinc-950 border border-black/5 dark:border-white/5 shadow-sm">
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                                    <item.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+                                </div>
+                                <p className="text-lg md:text-xl font-bold text-primary mb-1">{item.amount}</p>
+                                <p className="text-xs md:text-sm text-muted-foreground leading-snug">{item.desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
