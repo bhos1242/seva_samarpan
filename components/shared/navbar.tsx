@@ -125,13 +125,13 @@ export function Navbar() {
                         {isAdmin ? (
                           <>
                             <DropdownMenuItem asChild className="cursor-pointer py-3">
-                              <Link href="/admin" className="flex items-center">
+                              <Link href="/dashboard" className="flex items-center">
                                 <LayoutDashboard className="mr-3 h-4 w-4 text-primary" />
                                 <span className="font-semibold">Admin Dashboard</span>
                               </Link>
                             </DropdownMenuItem>
                             <DropdownMenuItem asChild className="cursor-pointer py-3">
-                              <Link href="/admin/settings" className="flex items-center">
+                              <Link href="/dashboard/settings" className="flex items-center">
                                 <Settings className="mr-3 h-4 w-4 text-primary" />
                                 <span className="font-semibold">Settings</span>
                               </Link>
@@ -139,7 +139,7 @@ export function Navbar() {
                           </>
                         ) : (
                           <DropdownMenuItem asChild className="cursor-pointer py-3">
-                            <Link href="/profile" className="flex items-center">
+                            <Link href="/dashboard" className="flex items-center">
                               <Heart className="mr-3 h-4 w-4 text-primary" />
                               <span className="font-semibold">My Donations</span>
                             </Link>
@@ -268,7 +268,7 @@ export function Navbar() {
                             {isAdmin ? (
                                <>
                                 <Link 
-                                  href="/admin" 
+                                  href="/dashboard" 
                                   className="flex items-center gap-2 px-3 py-2 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                   onClick={() => setIsOpen(false)}
                                 >
@@ -276,7 +276,7 @@ export function Navbar() {
                                   Admin Panel
                                 </Link>
                                 <Link 
-                                  href="/admin/settings" 
+                                  href="/dashboard/settings" 
                                   className="flex items-center gap-2 px-3 py-2 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                   onClick={() => setIsOpen(false)}
                                 >
@@ -286,7 +286,7 @@ export function Navbar() {
                                </>
                             ) : (
                                 <Link 
-                                  href="/profile" 
+                                  href="/dashboard" 
                                   className="flex items-center gap-2 px-3 py-2 text-sm font-bold text-muted-foreground hover:text-primary hover:bg-primary/5 rounded-lg transition-all"
                                   onClick={() => setIsOpen(false)}
                                 >

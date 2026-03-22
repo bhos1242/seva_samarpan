@@ -48,9 +48,9 @@ export function ProgramsSection() {
 
         {/* Section-wide CTA */}
         <div className="mt-6 md:mt-10 text-center">
-          <Link href="/programs">
+          <Link href="/about">
             <Button size="default" variant="secondary" className="h-10 md:h-13 px-6 md:px-10 rounded-xl md:rounded-2xl text-xs md:text-base font-bold shadow-md shadow-secondary/10 group">
-              Explore All Programs
+              Learn more about us
               <ArrowRight className="ml-1.5 h-3.5 w-3.5 md:h-5 md:w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>

@@ -12,7 +12,7 @@ const programs = [
         title: 'Seva Samarpan Abhyasika',
         description: 'A free library and study room with 1,500+ books for students in Pune. Open daily for focused learning in a quiet, well-equipped space.',
         image: '/programs/samarpan.png',
-        link: '/programs/abhyasika',
+        link: '/free-library-study-room',
         color: 'bg-primary',
     },
     {
@@ -20,7 +20,7 @@ const programs = [
         title: 'Seva Samarpan Old Age Home',
         description: 'A home for elders in Pune with daily meals, medical support, and a caring community. Because every elder deserves respect and comfort.',
         image: '/old-age/image.png',
-        link: '/programs/old-age-home',
+        link: '/old-age-home',
         color: 'bg-orange-600',
     },
     {
@@ -28,7 +28,7 @@ const programs = [
         title: 'Elder Care & Support',
         description: 'We look after our elders like family — from health check-ups and nutritious food to daily activities and companionship.',
         image: '/old-age/news-1.png',
-        link: '/programs/old-age-home',
+        link: '/old-age-home',
         color: 'bg-primary',
     },
 ]

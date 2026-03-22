@@ -66,23 +66,23 @@ export function BottomNavbar() {
         
         {isAdmin && (
            <Link
-            href="/admin"
+            href="/dashboard"
             className={cn(
               "flex flex-col items-center justify-center flex-1 h-full transition-all relative group",
-              pathname.startsWith("/admin") ? "text-primary scale-105" : "text-muted-foreground hover:text-primary"
+              pathname.startsWith("/dashboard") ? "text-primary scale-105" : "text-muted-foreground hover:text-primary"
             )}
           >
             <div className={cn(
               "p-2 rounded-2xl transition-all duration-300",
-              pathname.startsWith("/admin") 
+              pathname.startsWith("/dashboard") 
                 ? "bg-primary text-white shadow-lg shadow-primary/20" 
                 : "group-hover:bg-primary/10"
             )}>
-              <LayoutDashboard className={cn("h-5 w-5", pathname.startsWith("/admin") ? "stroke-[3px]" : "stroke-[2px]")} />
+              <LayoutDashboard className={cn("h-5 w-5", pathname.startsWith("/dashboard") ? "stroke-[3px]" : "stroke-[2px]")} />
             </div>
             <span className={cn(
               "text-[9px] font-bold uppercase tracking-tighter mt-1 transition-colors",
-              pathname.startsWith("/admin") ? "text-primary font-black scale-110" : "text-muted-foreground"
+              pathname.startsWith("/dashboard") ? "text-primary font-black scale-110" : "text-muted-foreground"
             )}>
               Admin
             </span>

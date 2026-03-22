@@ -46,7 +46,7 @@ export function VisitUsSection() {
                                 </Link>
                             </Button>
                         </div>
-                        <div className="relative h-48 md:h-auto min-h-[200px] md:min-h-[400px]">
+                        <div className="relative h-48 md:h-auto min-h-50 md:min-h-100">
                             <Image
                                 src="/old-age/news-3.png"
                                 alt="Facility View"
