@@ -1,23 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const images = [
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.21.jpeg", alt: "Daily activities at old age home" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.22 (1).jpeg", alt: "Community bonding" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.22 (2).jpeg", alt: "Care and support" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.22 (3).jpeg", alt: "Peaceful living" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.22.jpeg", alt: "Elderly care" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.09.30.jpeg", alt: "Medical checkup" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.09.43.jpeg", alt: "Group activities" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.11.07.jpeg", alt: "Smiling faces" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.17.03.jpeg", alt: "Relaxation time" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28 (1).jpeg", alt: "Meal time" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28 (2).jpeg", alt: "Social interactions" },
-  { src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28.jpeg", alt: "Daily care routine" },
+  { src: "/olg-age-home-images/old-age-01.jpeg", alt: "Daily activities at old age home" },
+  { src: "/olg-age-home-images/old-age-02.jpeg", alt: "Community bonding" },
+  { src: "/olg-age-home-images/old-age-03.jpeg", alt: "Care and support" },
+  { src: "/olg-age-home-images/old-age-04.jpeg", alt: "Peaceful living" },
+  { src: "/olg-age-home-images/old-age-05.jpeg", alt: "Elderly care" },
+  { src: "/olg-age-home-images/old-age-06.jpeg", alt: "Medical checkup" },
+  { src: "/olg-age-home-images/old-age-07.jpeg", alt: "Group activities" },
+  { src: "/olg-age-home-images/old-age-08.jpeg", alt: "Smiling faces" },
+  { src: "/olg-age-home-images/old-age-09.jpeg", alt: "Relaxation time" },
+  { src: "/olg-age-home-images/old-age-10.jpeg", alt: "Meal time" },
+  { src: "/olg-age-home-images/old-age-11.jpeg", alt: "Social interactions" },
+  { src: "/olg-age-home-images/old-age-12.jpeg", alt: "Daily care routine" },
 ];
 
 export function Gallery() {

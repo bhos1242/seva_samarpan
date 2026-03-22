@@ -5,32 +5,32 @@ import { motion } from "framer-motion";
 
 const images = [
   {
-    src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28.jpeg",
+    src: "/olg-age-home-images/old-age-12.jpeg",
     alt: "Elders enjoying a meal",
     span: "md:col-span-2 md:row-span-2",
   },
   {
-    src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.22 (1).jpeg",
+    src: "/olg-age-home-images/old-age-02.jpeg",
     alt: "Community gathering",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.09.30.jpeg",
+    src: "/olg-age-home-images/old-age-06.jpeg",
     alt: "Medical care session",
     span: "md:col-span-1 md:row-span-2",
   },
   {
-    src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.17.03.jpeg",
+    src: "/olg-age-home-images/old-age-09.jpeg",
     alt: "Recreational activities",
     span: "md:col-span-1 md:row-span-1",
   },
   {
-    src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 09.49.22 (3).jpeg",
+    src: "/olg-age-home-images/old-age-04.jpeg",
     alt: "Peaceful environment",
     span: "md:col-span-2 md:row-span-1",
   },
   {
-    src: "/olg-age-home-images/WhatsApp Image 2026-03-06 at 10.20.28 (1).jpeg",
+    src: "/olg-age-home-images/old-age-10.jpeg",
     alt: "Happy moments together",
     span: "md:col-span-2 md:row-span-1",
   },

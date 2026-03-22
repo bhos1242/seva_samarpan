@@ -26,6 +26,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import { RazorpayOptions, RazorpaySuccessResponse, RazorpayErrorResponse } from "@/types/razorpay";
+import { analytics } from "@/lib/analytics";
 
 interface Donation {
   id: string;
@@ -94,6 +95,7 @@ export default function StudentDetailsPage({
         if (!res.ok) throw new Error("Student not found");
         const data = await res.json();
         setStudent(data);
+        analytics.studentProfileView(data.id, data.fullName);
       } catch {
         toast.error("Failed to load student details");
         router.push("/sponsor-students");
@@ -128,6 +130,7 @@ export default function StudentDetailsPage({
 
     if (!student) return;
 
+    analytics.donateClick(finalAmount, student.fullName);
     setIsSubmitting(true);
     try {
       // 1. Create Razorpay Order
@@ -171,6 +174,7 @@ export default function StudentDetailsPage({
 
             if (!verifyRes.ok) throw new Error("Verification failed");
 
+            analytics.donateSuccess(finalAmount, student.fullName);
             toast.success("Donation successful! Thank you.");
 
             // Optimistically update the UI
@@ -374,7 +378,7 @@ export default function StudentDetailsPage({
               )}
               {student.donations && student.donations.length > 0 && (
                 <TabsContent value="supporters" className="mt-6">
-                  <div className="space-y-3 max-h-[400px] overflow-y-auto pr-2 supports-scrollbars:pr-2">
+                  <div className="space-y-3 max-h-100 overflow-y-auto pr-2 supports-scrollbars:pr-2">
                     {[...student.donations]
                       .sort(
                         (a: Donation, b: Donation) =>
